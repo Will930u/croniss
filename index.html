@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title-tag">Soporte Técnico PC | Servicios Informáticos Profesionales</title>
+    <title id="page-title-tag">Cargando...</title>
     <link rel="icon" type="image/png" href="tu-logo-pc.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
@@ -248,23 +248,17 @@
         <div class="main-dashboard">
             <div class="info-panel-column">
                 <div class="buttons-column">
+                    
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-servicios', this)">💻 SERVICIOS PC</button>
+                        <button class="dropbtn" id="btn-cat1-title" onclick="toggleMenu('menu-servicios', this)">💻 SERVICIOS</button>
                         <div id="menu-servicios" class="dropdown-content">
-                            <a href="#" id="link-hdw" target="_blank" class="service-link">• Mantenimiento de Hardware</a>
-                            <a href="#" id="link-so" target="_blank" class="service-link">• Sistemas Operativos</a>
-                            <a href="#" id="link-vir" target="_blank" class="service-link">• Eliminación de Malware</a>
-                            <a href="#" id="link-diag" target="_blank" class="service-link">• Diagnóstico y Upgrades</a>
-                        </div>
+                            </div>
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-instala', this)">🌐 REDES Y SISTEMAS</button>
+                        <button class="dropbtn" id="btn-cat2-title" onclick="toggleMenu('menu-instala', this)">🌐 INFRAESTRUCTURA</button>
                         <div id="menu-instala" class="dropdown-content">
-                            <a href="#" id="link-mik" target="_blank" class="service-link">• Configuración MikroTik / Cisco</a>
-                            <a href="#" id="link-red" target="_blank" class="service-link">• Infraestructura de Redes</a>
-                            <a href="#" id="link-soft" target="_blank" class="service-link">• Automatización y Scripts</a>
-                        </div>
+                            </div>
                     </div>
 
                     <div class="dropdown">
@@ -327,7 +321,7 @@
     <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
 
     <div class="admin-panel" id="panel-admin">
-        <h3>🛡️ Panel de Control Global - SOPORTE PC</h3>
+        <h3>🛡️ Panel de Control Universal</h3>
         
         <div id="admin-auth-box">
             <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
@@ -347,14 +341,17 @@
             </div>
 
             <h4 style="color: #f59e0b; border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">⚙️ Variables Globales de la Página</h4>
-            <p style="font-size:0.75rem; color:#9ca3af; margin:0 0 8px 0;">Modifica los datos principales de toda la web al instante:</p>
-            <input type="text" id="cfg-page-title" placeholder="Nuevo título de la pestaña de navegación">
-            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584243497259)">
+            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña de navegación">
+            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584129830982)">
             <input type="text" id="cfg-facebook" placeholder="Enlace de perfil de Facebook">
             <input type="text" id="cfg-instagram" placeholder="Enlace de perfil de Instagram">
-            <button type="button" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Datos Globales</button>
+            
+            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón 1 (Ej: 💻 SERVICIOS PC)">
+            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón 2 (Ej: 🌐 REDES Y SISTEMAS)">
+            
+            <button type="button" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
 
-            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Nuevas Fotografías</h4>
+            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Fotografías al Carrusel</h4>
             <input type="file" id="upload-file-input" accept="image/*" multiple>
             <select id="upload-destination">
                 <option value="trabajos">Destino: Carrusel de Trabajos Realizados</option>
@@ -372,16 +369,16 @@
                 <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
             </div>
 
-            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Agregar Nuevo Servicio al Menú</h4>
-            <input type="text" id="new-service-name" placeholder="Ej: • Instalación de Antenas Starlink">
-            <input type="text" id="new-service-msg" placeholder="Mensaje de WhatsApp automático al hacer clic">
+            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Añadir Ítem a un Desplegable</h4>
+            <input type="text" id="new-service-name" placeholder="Nombre del servicio (Ej: • Mantenimiento General)">
+            <input type="text" id="new-service-msg" placeholder="Mensaje predeterminado que te llegará al WhatsApp">
             <select id="new-service-cat">
-                <option value="servicios">Sección: 💻 SERVICIOS PC</option>
-                <option value="instalacion">Sección: 🌐 REDES Y SISTEMAS</option>
+                <option value="servicios">Asignar a: Botón Desplegable 1</option>
+                <option value="instalacion">Asignar a: Botón Desplegable 2</option>
             </select>
-            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Agregar Servicio al Menú</button>
+            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem de Menú</button>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Servicios del Menú:</p>
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Administrar/Eliminar Ítems del Menú:</p>
             <div class="manager-container" id="lista-borrar-servicios">
                 <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
             </div>
@@ -389,7 +386,7 @@
     </div>
 
     <script>
-        // REEMPLAZA ESTE BLOQUE CON LOS DATOS DE TU NUEVO PROYECTO DE FIREBASE
+        // PEGA AQUÍ TUS CREDENCIALES NUEVAS DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyASlKzy47oah2keUn-WB8aFJ1q5y7qYB08",
             authDomain: "friotecx-web.firebaseapp.com",
@@ -407,7 +404,7 @@
 
         let indexTrabajos = 0;
         let indexCapturas = 0;
-        let telefonoGlobal = "584243497259"; // Teléfono base por defecto
+        let telefonoGlobal = "584129830982";
 
         function rotarTrabajos() {
             const list = document.querySelectorAll('#contenedor-trabajos .carousel-slide');
@@ -476,7 +473,6 @@
                     document.getElementById('admin-auth-box').style.display = 'none';
                     document.getElementById('admin-actions-box').style.display = 'block';
                     cargarMetricasAdmin();
-                    // Auto-rellenar inputs del panel con lo que hay en Firebase
                     db.collection("configuracion").doc("globales").get().then(doc => {
                         if(doc.exists){
                             const d = doc.data();
@@ -484,54 +480,49 @@
                             document.getElementById('cfg-phone').value = d.telefono || "";
                             document.getElementById('cfg-facebook').value = d.facebook || "";
                             document.getElementById('cfg-instagram').value = d.instagram || "";
+                            document.getElementById('cfg-btn1-name').value = d.btn1Name || "";
+                            document.getElementById('cfg-btn2-name').value = d.btn2Name || "";
                         }
                     });
                 })
                 .catch(err => alert("Acceso denegado."));
         }
 
-        // 🆕 GUARDAR VARIABLES GLOBALES EN FIREBASE
         async function guardarVariablesGlobales() {
             const tit = document.getElementById('cfg-page-title').value.trim();
             const tel = document.getElementById('cfg-phone').value.trim();
             const fb = document.getElementById('cfg-facebook').value.trim();
             const ig = document.getElementById('cfg-instagram').value.trim();
+            const b1 = document.getElementById('cfg-btn1-name').value.trim();
+            const b2 = document.getElementById('cfg-btn2-name').value.trim();
 
-            if(!tit || !tel) return alert("El título y el teléfono son obligatorios.");
+            if(!tit || !tel) return alert("El título y el teléfono son requeridos.");
 
             try {
                 await db.collection("configuracion").doc("globales").set({
                     titulo: tit,
                     telefono: tel,
                     facebook: fb,
-                    instagram: ig
+                    instagram: ig,
+                    btn1Name: b1 || "💻 SERVICIOS",
+                    btn2Name: b2 || "🌐 INFRAESTRUCTURA"
                 }, { merge: true });
-                alert("¡Datos del sistema actualizados globalmente con éxito!");
-            } catch(e) {
-                alert("Error al guardar: " + e.message);
-            }
+                alert("Configuración global sincronizada correctamente.");
+            } catch(e) { alert("Error: " + e.message); }
         }
 
-        // 🆕 ESCUCHAR CONFIGURACIÓN GLOBAL EN TIEMPO REAL
         function escucharConfiguracionGlobal() {
             db.collection("configuracion").doc("globales").onSnapshot(doc => {
                 if(doc.exists) {
                     const d = doc.data();
                     if(d.titulo) document.getElementById('page-title-tag').innerText = d.titulo;
+                    if(d.btn1Name) document.getElementById('btn-cat1-title').innerText = d.btn1Name;
+                    if(d.btn2Name) document.getElementById('btn-cat2-title').innerText = d.btn2Name;
+                    
                     if(d.telefono) {
                         telefonoGlobal = d.telefono;
-                        // Actualizar botones principales e inmediatos
                         document.getElementById('main-wa-btn').href = `https://wa.me/${telefonoGlobal}`;
                         document.getElementById('main-tg-btn').href = `https://t.me/+${telefonoGlobal}`;
-                        
-                        // Actualizar submenús fijos por defecto usando el nuevo número
-                        document.getElementById('link-hdw').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20¿en%20cuánto%20sale%20el%20mantenimiento%20preventivo%20de%20una%20PC/Laptop?`;
-                        document.getElementById('link-so').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20necesito%20instalar%20u%20optimizar%20un%20sistema%20operativo%20Windows/Linux`;
-                        document.getElementById('link-vir').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20tengo%20un%20problema%20con%20virus/pantalla%20azul%20en%20mi%20computadora`;
-                        document.getElementById('link-diag').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20quisiera%20asesoría%20para%20armar%20o%20actualizar%20los%20componentes%20de%20mi%20PC`;
-                        document.getElementById('link-mik').href = `https://wa.me/${telefonoGlobal}?text=Hola,%20quisiera%20información%20sobre%20configuración%20de%20routers%20MikroTik/Cisco`;
-                        document.getElementById('link-red').href = `https://wa.me/${telefonoGlobal}?text=Hola,%20necesito%20soporte%20o%20instalación%20para%20una%20red%20cableada/inalámbrica`;
-                        document.getElementById('link-soft').href = `https://wa.me/${telefonoGlobal}?text=Hola,%20necesito%20un%20desarrollo%20de%20software%20o%20automatización%20a%20medida`;
                     }
                     if(d.facebook) document.getElementById('main-fb-link').href = d.facebook;
                     if(d.instagram) document.getElementById('main-ig-link').href = d.instagram;
@@ -544,133 +535,76 @@
             const destino = document.getElementById('upload-destination').value;
             const boton = document.getElementById('btn-publicar-auto');
 
-            if (fileInput.files.length === 0) return alert("Por favor, selecciona al menos una foto.");
-
+            if (fileInput.files.length === 0) return alert("Por favor, selecciona fotos.");
             const archivos = fileInput.files;
-            const totalArchivos = archivos.length;
             boton.disabled = true;
 
-            for (let i = 0; i < totalArchivos; i++) {
-                const file = archivos[i];
-                boton.innerText = `Subiendo ${i + 1} de ${totalArchivos}...`;
-
+            for (let i = 0; i < archivos.length; i++) {
+                boton.innerText = `Subiendo ${i + 1} de ${archivos.length}...`;
                 const formData = new FormData();
-                formData.append("image", file);
+                formData.append("image", archivos[i]);
 
                 try {
                     const respuesta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
                     const resultadoJson = await respuesta.json();
-
                     if (resultadoJson.success) {
-                        const urlLimpia = resultadoJson.data.url;
-
                         await db.collection(destino).add({
-                            url: urlLimpia,
+                            url: resultadoJson.data.url,
                             timestamp: firebase.firestore.FieldValue.serverTimestamp()
                         });
                     }
                 } catch (error) { console.error(error); }
             }
-
-            alert(`¡Proceso completado! Se publicaron ${totalArchivos} fotos con éxito.`);
+            alert("¡Carrusel actualizado!");
             fileInput.value = '';
             boton.innerText = "Subir y Publicar al Instante";
             boton.disabled = false;
         }
 
         function agregarServicioFirebase() {
-            const name = document.getElementById('new-service-name').value;
-            const msg = document.getElementById('new-service-msg').value;
+            const name = document.getElementById('new-service-name').value.trim();
+            const msg = document.getElementById('new-service-msg').value.trim();
             const cat = document.getElementById('new-service-cat').value;
-            if(!name || !msg) return alert("Rellena todos los campos.");
+            if(!name || !msg) return alert("Completa los datos del servicio.");
 
             db.collection("menus").add({ name: name, msg: encodeURIComponent(msg), category: cat })
             .then(() => { 
-                alert("Menú actualizado con el nuevo servicio."); 
+                alert("Servicio publicado exitosamente."); 
                 document.getElementById('new-service-name').value = '';
                 document.getElementById('new-service-msg').value = '';
             });
         }
 
         function borrarElementoFirebase(coleccion, idDoc) {
-            if(confirm(`¿Estás seguro de que deseas borrar este elemento de forma permanente?`)) {
-                db.collection(coleccion).doc(idDoc).delete()
-                .then(() => alert("Eliminado correctamente."))
-                .catch(err => alert("Error: " + err.message));
+            if(confirm(`¿Deseas eliminar este ítem de forma permanente?`)) {
+                db.collection(coleccion).doc(idDoc).delete().then(() => alert("Eliminado."));
             }
         }
 
         function gestionarContadorVisitas() {
             const ahora = new Date();
-            const ano = ahora.getFullYear();
-            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-            const dia = String(ahora.getDate()).padStart(2, '0');
+            const idDia = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}-${String(ahora.getDate()).padStart(2, '0')}`;
             
-            const idDia = `${ano}-${mes}-${dia}`;
-            const idMes = `${ano}-${mes}`;
-            const idAno = `${ano}`;
-
-            const inicioAno = new Date(ano, 0, 1);
-            const diasPasados = Math.floor((ahora - inicioAno) / (24 * 60 * 60 * 1000));
-            const idSemana = `${ano}-W${Math.ceil((diasPasados + inicioAno.getDay() + 1) / 7)}`;
-
             db.collection("metricas").doc("global").onSnapshot(doc => {
-                if (doc.exists) {
-                    document.getElementById("visitas-display").innerText = doc.data().total || 0;
-                } else {
-                    document.getElementById("visitas-display").innerText = "0";
-                }
-            }, err => console.log("Error al leer visitas:", err));
+                document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
 
-            const marcaVisita = localStorage.getItem("pctec_visited_date");
-
+            const marcaVisita = localStorage.getItem("pctec_universal_visit");
             if (marcaVisita !== idDia) {
-                localStorage.setItem("pctec_visited_date", idDia);
+                localStorage.setItem("pctec_universal_visit", idDia);
                 const batch = db.batch();
-                
-                const refGlobal = db.collection("metricas").doc("global");
-                const refDia = db.collection("metricas_diarias").doc(idDia);
-                const refSemana = db.collection("metricas_semanales").doc(idSemana);
-                const refMes = db.collection("metricas_mensuales").doc(idMes);
-                const refAno = db.collection("metricas_anuales").doc(idAno);
-
                 const inc = firebase.firestore.FieldValue.increment(1);
-
-                batch.set(refGlobal, { total: inc }, { merge: true });
-                batch.set(refDia, { total: inc }, { merge: true });
-                batch.set(refSemana, { total: inc }, { merge: true });
-                batch.set(refMes, { total: inc }, { merge: true });
-                batch.set(refAno, { total: inc }, { merge: true });
-
-                batch.commit().catch(err => console.log("Error incrementando métricas: ", err));
+                batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
+                batch.set(db.collection("metricas_diarias").doc(idDia), { total: inc }, { merge: true });
+                batch.commit().catch(e => console.log(e));
             }
         }
 
         function cargarMetricasAdmin() {
             const ahora = new Date();
-            const ano = ahora.getFullYear();
-            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-            const dia = String(ahora.getDate()).padStart(2, '0');
-            
-            const idDia = `${ano}-${mes}-${dia}`;
-            const idMes = `${ano}-${mes}`;
-            const idAno = `${ano}`;
-            
-            const inicioAno = new Date(ano, 0, 1);
-            const diasPasados = Math.floor((ahora - inicioAno) / (24 * 60 * 60 * 1000));
-            const idSemana = `${ano}-W${Math.ceil((diasPasados + inicioAno.getDay() + 1) / 7)}`;
-
+            const idDia = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}-${String(ahora.getDate()).padStart(2, '0')}`;
             db.collection("metricas_diarias").doc(idDia).onSnapshot(doc => {
                 document.getElementById("stat-hoy").innerText = doc.exists ? (doc.data().total || 0) : 0;
-            });
-            db.collection("metricas_semanales").doc(idSemana).onSnapshot(doc => {
-                document.getElementById("stat-semana").innerText = doc.exists ? (doc.data().total || 0) : 0;
-            });
-            db.collection("metricas_mensuales").doc(idMes).onSnapshot(doc => {
-                document.getElementById("stat-mes").innerText = doc.exists ? (doc.data().total || 0) : 0;
-            });
-            db.collection("metricas_anuales").doc(idAno).onSnapshot(doc => {
-                document.getElementById("stat-ano").innerText = doc.exists ? (doc.data().total || 0) : 0;
             });
         }
 
@@ -678,80 +612,66 @@
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
                 const contenedor = document.getElementById('contenedor-trabajos');
                 const listaBorrar = document.getElementById('lista-borrar-trabajos');
-                contenedor.innerHTML = '';
-                listaBorrar.innerHTML = '';
-
+                contenedor.innerHTML = ''; listaBorrar.innerHTML = '';
                 if (!snap.empty) {
-                    let index = 0;
-                    snap.forEach((doc) => {
-                        const d = doc.data();
-                        contenedor.innerHTML += `<div class="carousel-slide ${index === 0 ? 'active' : ''}"><img src="${d.url}"></div>`;
-                        listaBorrar.innerHTML += `
-                            <div class="manager-item">
-                                <img src="${d.url}">
-                                <span>Trabajo #${snap.size - index}</span>
-                                <button class="btn-delete-small" onclick="borrarElementoFirebase('trabajos', '${doc.id}')">Eliminar</button>
-                            </div>`;
-                        index++;
+                    let idx = 0;
+                    snap.forEach(doc => {
+                        contenedor.innerHTML += `<div class="carousel-slide ${idx === 0 ? 'active' : ''}"><img src="${doc.data().url}"></div>`;
+                        listaBorrar.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Foto #${snap.size - idx}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('trabajos', '${doc.id}')">Eliminar</button></div>`;
+                        idx++;
                     });
-                } else {
-                    contenedor.innerHTML = '<div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">No hay fotos de equipos.</p></div>';
-                    listaBorrar.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">Vacio.</p>';
-                }
+                } else { contenedor.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin fotos.</p></div>'; }
             });
 
             db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
                 const contenedor = document.getElementById('contenedor-capturas');
                 const listaBorrar = document.getElementById('lista-borrar-capturas');
-                contenedor.innerHTML = '';
-                listaBorrar.innerHTML = '';
-
+                contenedor.innerHTML = ''; listaBorrar.innerHTML = '';
                 if (!snap.empty) {
-                    let index = 0;
-                    snap.forEach((doc) => {
-                        const d = doc.data();
-                        contenedor.innerHTML += `<div class="review-slide ${index === 0 ? 'active' : ''}"><img src="${d.url}"></div>`;
-                        listaBorrar.innerHTML += `
-                            <div class="manager-item">
-                                <img src="${d.url}">
-                                <span>Captura #${snap.size - index}</span>
-                                <button class="btn-delete-small" onclick="borrarElementoFirebase('capturas', '${doc.id}')">Eliminar</button>
-                            </div>`;
-                        index++;
+                    let idx = 0;
+                    snap.forEach(doc => {
+                        contenedor.innerHTML += `<div class="review-slide ${idx === 0 ? 'active' : ''}"><img src="${doc.data().url}"></div>`;
+                        listaBorrar.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Captura #${snap.size - idx}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas', '${doc.id}')">Eliminar</button></div>`;
+                        idx++;
                     });
-                } else {
-                    contenedor.innerHTML = '<div class="review-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">No hay testimonios.</p></div>';
-                    listaBorrar.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">Vacio.</p>';
-                }
+                } else { contenedor.innerHTML = '<div class="review-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin capturas.</p></div>'; }
             });
 
+            // 🆕 CONTROLADOR DE MENÚS TOTALMENTE EN VIVO (Muestra, crea y borra todo)
             db.collection("menus").onSnapshot(snap => {
                 const menuServ = document.getElementById('menu-servicios');
                 const menuInst = document.getElementById('menu-instala');
                 const listaBorrarServ = document.getElementById('lista-borrar-servicios');
                 
-                document.querySelectorAll('.dynamic-service').forEach(el => el.remove());
+                menuServ.innerHTML = '';
+                menuInst.innerHTML = '';
                 listaBorrarServ.innerHTML = '';
 
                 if(!snap.empty) {
                     snap.forEach(doc => {
                         const d = doc.data();
                         const nLink = document.createElement('a');
-                        // Usa dinámicamente el teléfono global activo
                         nLink.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
                         nLink.target = "_blank";
-                        nLink.className = "service-link dynamic-service";
+                        nLink.className = "service-link";
                         nLink.innerText = d.name;
                         
-                        if(d.category === 'servicios') menuServ.appendChild(nLink);
-                        else menuInst.appendChild(nLink);
+                        if(d.category === 'servicios') {
+                            menuServ.appendChild(nLink);
+                        } else {
+                            menuInst.appendChild(nLink);
+                        }
 
                         listaBorrarServ.innerHTML += `
                             <div class="manager-item">
-                                <span>${d.name}</span>
+                                <span>[${d.category === 'servicios' ? 'Btn 1' : 'Btn 2'}] ${d.name}</span>
                                 <button class="btn-delete-small" onclick="borrarElementoFirebase('menus', '${doc.id}')">Eliminar</button>
                             </div>`;
                     });
+                } else {
+                    menuServ.innerHTML = '<p style="color:#64748b; font-size:0.8rem; padding:10px; margin:0;">Usa el panel para agregar servicios</p>';
+                    menuInst.innerHTML = '<p style="color:#64748b; font-size:0.8rem; padding:10px; margin:0;">Usa el panel para agregar servicios</p>';
+                    listaBorrarServ.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay servicios creados aún.</p>';
                 }
             });
         }
