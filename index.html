@@ -29,13 +29,15 @@
         }
 
         #fx-container {
-            position: fixed; top: 0; left: 0;
+            position: fixed;
+            top: 0; left: 0;
             width: 100%; height: 100%;
             pointer-events: none; z-index: 1000;
         }
 
         .snowflake {
-            position: absolute; background-color: var(--neon-blue); border-radius: 50%;
+            position: absolute;
+            background-color: var(--neon-blue); border-radius: 50%;
             opacity: 0.6; box-shadow: 0 0 6px 1px var(--neon-blue);
             animation: fall linear forwards;
         }
@@ -63,25 +65,13 @@
         .logo-central { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
         .main-dashboard {
-            display: grid;
-            grid-template-columns: 280px 1fr 1fr;
-            gap: 20px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 20px; 
-            border: 1px solid var(--border-metal); border-radius: 20px;
+            display: grid; grid-template-columns: 280px 1fr 1fr; gap: 20px;
+            background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 20px; border: 1px solid var(--border-metal); border-radius: 20px;
         }
 
-        .info-panel-column {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            align-items: center;
-        }
-
+        .info-panel-column { display: flex; flex-direction: column; gap: 15px; align-items: center; }
         .buttons-column { display: flex; flex-direction: column; gap: 10px; position: relative; align-items: center; width: 100%; }
-        
         .dropdown { position: relative; width: 100%; display: flex; justify-content: center; }
 
         .dropbtn {
@@ -89,120 +79,60 @@
             background: linear-gradient(180deg, #1f2937, #111827);
             border: 1px solid #374151; padding: 11px 15px; font-size: 0.85rem; 
             width: 100%; color: #fff; font-weight: bold; cursor: pointer;
-            border-radius: 8px; text-align: center;
-            text-transform: uppercase; letter-spacing: 2px;
+            border-radius: 8px; text-align: center; text-transform: uppercase; letter-spacing: 2px;
             transition: all 0.3s ease; outline: none;
         }
 
-        .dropbtn.active { 
-            background: var(--neon-blue); 
-            color: #fff; 
-            box-shadow: 0 0 20px var(--neon-blue); 
-        }
+        .dropbtn.active { background: var(--neon-blue); color: #fff; box-shadow: 0 0 20px var(--neon-blue); }
 
         .dropdown-content {
-            display: none; position: absolute; background-color: #0b1329;
-            min-width: 260px; z-index: 2000;
-            border: 2px solid var(--neon-blue); 
-            border-radius: 8px; padding: 10px; 
-            left: 50%; transform: translateX(-50%);
-            top: 105%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-            text-align: left;
+            display: none; position: absolute; background-color: #0b1329; min-width: 260px; z-index: 2000;
+            border: 2px solid var(--neon-blue); border-radius: 8px; padding: 10px; 
+            left: 50%; transform: translateX(-50%); top: 105%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9); text-align: left;
         }
 
         .service-link {
-            display: block; color: #ccc; text-decoration: none;
-            padding: 8px 10px; font-size: 0.85rem;
+            display: block; color: #ccc; text-decoration: none; padding: 8px 10px; font-size: 0.85rem;
             border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;
         }
         .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-blue); padding-left: 15px; }
 
-        .social-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px; text-decoration: none; color: white;
-            font-size: 0.9rem; font-weight: 600; transition: 0.3s;
-        }
+        .social-item { display: flex; align-items: center; gap: 12px; padding: 10px; text-decoration: none; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .social-item img { width: 22px !important; height: 22px !important; object-fit: contain; flex-shrink: 0; }
         .social-item:hover { background: rgba(255,255,255,0.1); border-radius: 8px; }
 
         .contact-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin: 10px 0 5px 0; font-size: 0.85rem; font-weight: bold; }
-
         .contact-links-container { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
-
-        .contact-link {
-            text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            transition: 0.3s; display: inline-flex; align-items: center;
-            justify-content: center; gap: 10px; padding: 10px; border-radius: 8px; width: 85%;
-        }
+        .contact-link { text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 10px; border-radius: 8px; width: 85%; }
         .contact-link img { width: 20px; height: 20px; }
 
         .whatsapp-link { color: #25d366; border: 1px solid rgba(37, 211, 102, 0.3); }
         .whatsapp-link:hover { background: rgba(37, 211, 102, 0.1); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
-
         .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 119, 255, 0.3); }
         .telegram-link:hover { background: rgba(0, 119, 255, 0.1); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
 
-        .tasa-box, .visitas-box { 
-            padding: 10px; background: rgba(255,255,255,0.03); 
-            border: 1px dashed var(--neon-blue); border-radius: 10px; width: 90%; text-align: center;
-            box-sizing: border-box;
-        }
+        .tasa-box, .visitas-box { padding: 10px; background: rgba(255,255,255,0.03); border: 1px dashed var(--neon-blue); border-radius: 10px; width: 90%; text-align: center; box-sizing: border-box; }
         .visitas-box { border: 1px dashed #22c55e; }
-
-        .tasa-display, .visitas-display { 
-            font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: bold; 
-            color: #fff; display: block; margin-top: 3px; 
-        }
+        .tasa-display, .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: bold; color: #fff; display: block; margin-top: 3px; }
         .visitas-display { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
 
-        .dashboard-section {
-            display: flex; flex-direction: column;
-            border: 1px solid rgba(255,255,255,0.05);
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 12px; padding: 12px; box-sizing: border-box;
-        }
+        .dashboard-section { display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.05); background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 12px; box-sizing: border-box; }
+        .section-internal-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; color: var(--neon-blue); letter-spacing: 1.5px; margin-bottom: 12px; text-transform: uppercase; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        .section-internal-title { 
-            font-family: 'Rajdhani', sans-serif; font-size: 1rem; 
-            color: var(--neon-blue); letter-spacing: 1.5px; 
-            margin-bottom: 12px; text-transform: uppercase; text-align: center;
-            font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-
-        .carousel-container, .reviews-container { 
-            width: 100%; height: 380px; background: #000; 
-            border: 2px solid var(--border-metal); border-radius: 10px; 
-            position: relative; overflow: hidden; margin: auto 0;
-        }
-
+        .carousel-container, .reviews-container { width: 100%; height: 380px; background: #000; border: 2px solid var(--border-metal); border-radius: 10px; position: relative; overflow: hidden; margin: auto 0; }
         .reviews-container { border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.1); }
-
-        .carousel-slide, .review-slide {
-            position: absolute; width: 100%; height: 100%;
-            opacity: 0; transition: opacity 1s ease-in-out;
-            display: flex; justify-content: center; align-items: center;
-        }
-
+        .carousel-slide, .review-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; justify-content: center; align-items: center; }
         .carousel-slide.active, .review-slide.active { opacity: 1; }
         .carousel-slide img, .review-slide img { width: 100%; height: 100%; object-fit: contain; }
         .review-slide img { padding: 5px; box-sizing: border-box; }
 
-        .admin-trigger { 
-            margin-top: 50px; font-size: 0.75rem; 
-            color: rgba(255,255,255,0.15); cursor: pointer; 
-            text-decoration: underline; padding-bottom: 20px;
-            position: relative; z-index: 5000; display: inline-block; 
-        }
-
+        .admin-trigger { margin-top: 50px; font-size: 0.75rem; color: rgba(255,255,255,0.15); cursor: pointer; text-decoration: underline; padding-bottom: 20px; position: relative; z-index: 5000; display: inline-block; }
+        
         .admin-panel { 
-            display: none; width: 90%; max-width: 550px; 
-            background: #111827; border: 2px solid #ef4444; 
-            border-radius: 12px; padding: 20px; margin-top: 20px; 
-            box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; 
-            position: relative; z-index: 5001; 
+            display: none; width: 90%; max-width: 550px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px;
+            box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; position: relative; z-index: 5001;
         }
-
         .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #374151; padding-bottom: 10px; }
         
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
@@ -248,17 +178,14 @@
         <div class="main-dashboard">
             <div class="info-panel-column">
                 <div class="buttons-column">
-                    
                     <div class="dropdown">
                         <button class="dropbtn" id="btn-cat1-title" onclick="toggleMenu('menu-servicios', this)">💻 SERVICIOS</button>
-                        <div id="menu-servicios" class="dropdown-content">
-                            </div>
+                        <div id="menu-servicios" class="dropdown-content"></div>
                     </div>
 
                     <div class="dropdown">
                         <button class="dropbtn" id="btn-cat2-title" onclick="toggleMenu('menu-instala', this)">🌐 INFRAESTRUCTURA</button>
-                        <div id="menu-instala" class="dropdown-content">
-                            </div>
+                        <div id="menu-instala" class="dropdown-content"></div>
                     </div>
 
                     <div class="dropdown">
@@ -269,7 +196,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">🌐 CONTACTAR</button>
+                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">📩 CONTACTAR</button>
                         <div id="menu-redes" class="dropdown-content">
                             <a href="#" id="main-fb-link" target="_blank" class="social-item">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"> Facebook
@@ -310,7 +237,7 @@
             </div>
 
             <div class="dashboard-section">
-                <div class="section-internal-title">💬 Casos de Éxito / Clientes</div>
+                <div class="section-internal-title">✨ Casos de Éxito / Clientes</div>
                 <div class="reviews-container" id="contenedor-capturas">
                     <div class="review-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando opiniones...</p></div>
                 </div>
@@ -321,7 +248,7 @@
     <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
 
     <div class="admin-panel" id="panel-admin">
-        <h3>🛡️ Panel de Control Universal</h3>
+        <h3>🚨 Panel de Control Universal</h3>
         
         <div id="admin-auth-box">
             <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
@@ -330,7 +257,7 @@
         </div>
 
         <div id="admin-actions-box" style="display: none;">
-            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✓ Conexión establecida</p>
+            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✅ Conexión establecida</p>
             
             <h4 style="color: #22c55e; margin-bottom: 5px;">📊 Estadísticas de Tráfico Real</h4>
             <div class="stats-grid">
@@ -386,16 +313,17 @@
     </div>
 
     <script>
-       // PEGA AQUÍ TUS CREDENCIALES NUEVAS DE FIREBASE
-       constante Configuración de Firebase = {
-            clave API: "AIzaSyDgDCPM8VW2fZ8SaKOnzHtYE5We4_jyJ0k",
-            dominio de autenticación: "croniss-web.firebaseapp.com",
-            ID del proyecto: "croniss-web",
-            Cubo de almacenamiento: "croniss-web.firebasestorage.app",
-            ID del remitente de mensajes: "491031905042",
-            ID de la aplicación: "1:491031905042:web:3b0c814dd66101b47b29cb"
-        };;
+        // Configuración unificada de Croniss-Web
+        const firebaseConfig = {
+            apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnzHtYE5We4_jyJ0k",
+            authDomain: "croniss-web.firebaseapp.com",
+            projectId: "croniss-web",
+            storageBucket: "croniss-web.firebasestorage.app",
+            messagingSenderId: "491031905042",
+            appId: "1:491031905042:web:3b0c814dd66101b47b29cb"
+        };
         
+        // Inicialización correcta de servicios de Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
@@ -463,7 +391,9 @@
         }
         setInterval(crearCopo, 400);
 
-        function toggleAdminPanel() { document.getElementById('panel-admin').classList.toggle('show'); }
+        function toggleAdminPanel() { 
+            document.getElementById('panel-admin').classList.toggle('show'); 
+        }
 
         function loginAdministrador() {
             const email = document.getElementById('admin-email').value;
@@ -473,6 +403,7 @@
                     document.getElementById('admin-auth-box').style.display = 'none';
                     document.getElementById('admin-actions-box').style.display = 'block';
                     cargarMetricasAdmin();
+             
                     db.collection("configuracion").doc("globales").get().then(doc => {
                         if(doc.exists){
                             const d = doc.data();
@@ -485,7 +416,7 @@
                         }
                     });
                 })
-                .catch(err => alert("Acceso denegado."));
+                .catch(err => alert("Acceso denegado: " + err.message));
         }
 
         async function guardarVariablesGlobales() {
@@ -497,7 +428,6 @@
             const b2 = document.getElementById('cfg-btn2-name').value.trim();
 
             if(!tit || !tel) return alert("El título y el teléfono son requeridos.");
-
             try {
                 await db.collection("configuracion").doc("globales").set({
                     titulo: tit,
@@ -524,6 +454,7 @@
                         document.getElementById('main-wa-btn').href = `https://wa.me/${telefonoGlobal}`;
                         document.getElementById('main-tg-btn').href = `https://t.me/+${telefonoGlobal}`;
                     }
+                    
                     if(d.facebook) document.getElementById('main-fb-link').href = d.facebook;
                     if(d.instagram) document.getElementById('main-ig-link').href = d.instagram;
                 }
@@ -566,7 +497,6 @@
             const msg = document.getElementById('new-service-msg').value.trim();
             const cat = document.getElementById('new-service-cat').value;
             if(!name || !msg) return alert("Completa los datos del servicio.");
-
             db.collection("menus").add({ name: name, msg: encodeURIComponent(msg), category: cat })
             .then(() => { 
                 alert("Servicio publicado exitosamente."); 
@@ -589,9 +519,15 @@
                 document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
             });
 
-            const marcaVisita = localStorage.getItem("pctec_universal_visit");
+            // Verificar URL para forzar panel de administración secreto
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === 'true') {
+                toggleAdminPanel();
+            }
+
+            const marcaVisita = localStorage.getItem("croniss_universal_visit");
             if (marcaVisita !== idDia) {
-                localStorage.setItem("pctec_universal_visit", idDia);
+                localStorage.setItem("croniss_universal_visit", idDia);
                 const batch = db.batch();
                 const inc = firebase.firestore.FieldValue.increment(1);
                 batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
@@ -613,6 +549,7 @@
                 const contenedor = document.getElementById('contenedor-trabajos');
                 const listaBorrar = document.getElementById('lista-borrar-trabajos');
                 contenedor.innerHTML = ''; listaBorrar.innerHTML = '';
+                
                 if (!snap.empty) {
                     let idx = 0;
                     snap.forEach(doc => {
@@ -627,6 +564,7 @@
                 const contenedor = document.getElementById('contenedor-capturas');
                 const listaBorrar = document.getElementById('lista-borrar-capturas');
                 contenedor.innerHTML = ''; listaBorrar.innerHTML = '';
+           
                 if (!snap.empty) {
                     let idx = 0;
                     snap.forEach(doc => {
@@ -637,7 +575,6 @@
                 } else { contenedor.innerHTML = '<div class="review-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin capturas.</p></div>'; }
             });
 
-            // 🆕 CONTROLADOR DE MENÚS TOTALMENTE EN VIVO (Muestra, crea y borra todo)
             db.collection("menus").onSnapshot(snap => {
                 const menuServ = document.getElementById('menu-servicios');
                 const menuInst = document.getElementById('menu-instala');
