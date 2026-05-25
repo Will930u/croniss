@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title-tag">Cargando...</title>
-    <link rel="icon" type="image/png" href="tu-logo-croniss.png">
+    <link id="page-favicon-tag" rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
     
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
 
@@ -172,7 +172,7 @@
 
     <div class="main-frame">
         <div class="top-banner">
-            <img src="tu-logo-croniss.png" alt="SOPORTE TÉCNICO" class="logo-central">
+            <img id="main-logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="SOPORTE TÉCNICO" class="logo-central">
         </div>
 
         <div class="main-dashboard">
@@ -275,8 +275,11 @@
             
             <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón 1 (Ej: 💻 SERVICIOS PC)">
             <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón 2 (Ej: 🌐 REDES Y SISTEMAS)">
+
+            <p style="font-size:0.75rem; color:#f59e0b; margin:5px 0 0 0; font-weight: bold;">🖼️ Actualizar Logo Oficial (Banner y Pestaña):</p>
+            <input type="file" id="upload-logo-input" accept="image/*">
             
-            <button type="button" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
+            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
 
             <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Fotografías al Carrusel</h4>
             <input type="file" id="upload-file-input" accept="image/*" multiple>
@@ -307,13 +310,12 @@
 
             <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Administrar/Eliminar Ítems del Menú:</p>
             <div class="manager-container" id="lista-borrar-servicios">
-                <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
+                <p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay servicios creados aún.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // Configuración unificada de Croniss-Web
         const firebaseConfig = {
             apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnzHtYE5We4_jyJ0k",
             authDomain: "croniss-web.firebaseapp.com",
@@ -323,16 +325,16 @@
             appId: "1:491031905042:web:3b0c814dd66101b47b29cb"
         };
         
-        // Inicialización correcta de servicios de Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        const IMGBB_API_KEY = "a826aee17530592cdeec526c1eabc4df";
+        const IMGBB_API_KEY = "0a5e7954b4b9fed188e15e4e5532e57b";
 
         let indexTrabajos = 0;
         let indexCapturas = 0;
         let telefonoGlobal = "584129830982";
+        let urlLogoActual = ""; 
 
         function rotarTrabajos() {
             const list = document.querySelectorAll('#contenedor-trabajos .carousel-slide');
@@ -413,6 +415,7 @@
                             document.getElementById('cfg-instagram').value = d.instagram || "";
                             document.getElementById('cfg-btn1-name').value = d.btn1Name || "";
                             document.getElementById('cfg-btn2-name').value = d.btn2Name || "";
+                            urlLogoActual = d.logoUrl || "";
                         }
                     });
                 })
@@ -426,8 +429,32 @@
             const ig = document.getElementById('cfg-instagram').value.trim();
             const b1 = document.getElementById('cfg-btn1-name').value.trim();
             const b2 = document.getElementById('cfg-btn2-name').value.trim();
+            const logoInput = document.getElementById('upload-logo-input');
+            const btnGuardar = document.getElementById('btn-guardar-globales');
 
             if(!tit || !tel) return alert("El título y el teléfono son requeridos.");
+            
+            btnGuardar.disabled = true;
+            btnGuardar.innerText = "Sincronizando Sistema...";
+
+            // Lógica para procesar el nuevo logo si se seleccionó un archivo
+            if(logoInput.files.length > 0) {
+                btnGuardar.innerText = "Subiendo nuevo Logo...";
+                const formData = new FormData();
+                formData.append("image", logoInput.files[0]);
+
+                try {
+                    const respuesta = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
+                    const resultadoJson = await respuesta.json();
+                    if (resultadoJson.success) {
+                        urlLogoActual = resultadoJson.data.url;
+                    }
+                } catch (error) { 
+                    console.error("Error subiendo logo:", error); 
+                    alert("No se pudo subir el logo a ImgBB, se guardarán los demás cambios.");
+                }
+            }
+
             try {
                 await db.collection("configuracion").doc("globales").set({
                     titulo: tit,
@@ -435,10 +462,15 @@
                     facebook: fb,
                     instagram: ig,
                     btn1Name: b1 || "💻 SERVICIOS",
-                    btn2Name: b2 || "🌐 INFRAESTRUCTURA"
+                    btn2Name: b2 || "🌐 INFRAESTRUCTURA",
+                    logoUrl: urlLogoActual
                 }, { merge: true });
-                alert("Configuración global sincronizada correctamente.");
+                alert("¡Configuración global y Logo sincronizados exitosamente!");
+                logoInput.value = '';
             } catch(e) { alert("Error: " + e.message); }
+            
+            btnGuardar.disabled = false;
+            btnGuardar.innerText = "Actualizar Todo el Sistema";
         }
 
         function escucharConfiguracionGlobal() {
@@ -457,6 +489,12 @@
                     
                     if(d.facebook) document.getElementById('main-fb-link').href = d.facebook;
                     if(d.instagram) document.getElementById('main-ig-link').href = d.instagram;
+                    
+                    // Renderizado dinámico del Logo en el Banner y en la Pestaña (Favicon)
+                    if(d.logoUrl && d.logoUrl !== "") {
+                        document.getElementById('main-logo-img').src = d.logoUrl;
+                        document.getElementById('page-favicon-tag').href = d.logoUrl;
+                    }
                 }
             });
         }
@@ -519,7 +557,6 @@
                 document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
             });
 
-            // Verificar URL para forzar panel de administración secreto
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('admin') === 'true') {
                 toggleAdminPanel();
