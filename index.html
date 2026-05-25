@@ -316,22 +316,24 @@
     </div>
 
     <script>
-        // Mapeo seguro de credenciales protegidas
-        const _0x01 = ["AIzaSyDgDCPM8VW2fZ8SaKOnztYE5We4_jyJ0k", "croniss-web.firebaseapp.com", "croniss-web", "croniss-web.firebasestorage.app", "491031905042", "1:491031905042:web:3b0c814dd66101b47b29cb", "0a5e7954b4b9fed188e15e4e5532e57b"];
-        
+        // Caja secreta exclusiva para la API de ImgBB
+        const _0x01 = ["0a5e7954b4b9fed188e15e4e5532e57b"];
+        const IMGBB_API_KEY = _0x01[0];
+
+        // Configuración oficial estructurada limpia de Firebase
         const firebaseConfig = {
-            apiKey: _0x01[0],
-            authDomain: _0x01[1],
-            projectId: _0x01[2],
-            storageBucket: _0x01[3],
-            messagingSenderId: _0x01[4],
-            appId: _0x01[5]
+            apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnztYE5We4_jyJ0k",
+            authDomain: "croniss-web.firebaseapp.com",
+            projectId: "croniss-web",
+            storageBucket: "croniss-web.firebasestorage.app",
+            messagingSenderId: "491031905042",
+            appId: "1:491031905042:web:3b0c814dd66101b47b29cb"
         };
 
+        // Inicialización del ecosistema
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
-        const IMGBB_API_KEY = _0x01[6];
 
         let indexTrabajos = 0;
         let indexCapturas = 0;
