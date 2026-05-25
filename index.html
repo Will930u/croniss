@@ -1,21 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FRIOTECX | Refrigeración Profesional</title>
-    <link rel="icon" type="image/png" href="tu-logo-friotecx.png">
+    <title id="page-title-tag">Soporte Técnico PC | Servicios Informáticos Profesionales</title>
+    <link rel="icon" type="image/png" href="tu-logo-pc.png">
     
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --neon-blue: #00d4ff;
-            --frozen-white: #e0f7ff;
-            --dark-bg: #050a0f;
-            --panel-gradient: linear-gradient(180deg, #0f172a 0%, #020617 100%);
-            --border-metal: rgba(122, 138, 153, 0.4);
-            --glass: rgba(15, 23, 42, 0.7);
+            --neon-blue: #0077ff; 
+            --frozen-white: #e2f0ff;
+            --dark-bg: #030712; 
+            --panel-gradient: linear-gradient(180deg, #111827 0%, #030712 100%);
+            --border-metal: rgba(99, 140, 255, 0.3);
+            --glass: rgba(17, 24, 39, 0.7);
         }
 
         body {
@@ -35,24 +35,25 @@
         }
 
         .snowflake {
-            position: absolute; background-color: white; border-radius: 50%;
-            opacity: 0.9; box-shadow: 0 0 8px 2px var(--frozen-white);
+            position: absolute; background-color: var(--neon-blue); border-radius: 50%;
+            opacity: 0.6; box-shadow: 0 0 6px 1px var(--neon-blue);
             animation: fall linear forwards;
         }
 
-        @keyframes fall { to { transform: translateY(105vh) rotate(360deg); } }
+        @keyframes fall { to { transform: translateY(105vh); } }
 
         .main-frame {
-            width: 95%; max-width: 1100px;
+            width: 95%; max-width: 1200px;
             background: var(--panel-gradient);
             border: 4px solid var(--border-metal);
             border-radius: 15px; padding: 15px;
             box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 10px 40px rgba(0,0,0,0.6);
             position: relative; z-index: 10;
+            box-sizing: border-box;
         }
 
         .top-banner {
-            width: 100%; height: 300px;
+            width: 100%; height: 220px;
             border: 2px solid var(--neon-blue);
             border-radius: 10px; position: relative; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
@@ -61,24 +62,33 @@
 
         .logo-central { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
-        .dashboard-content {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+        .main-dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr 1fr;
+            gap: 20px;
             background: var(--glass);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            padding: 25px; 
+            padding: 20px; 
             border: 1px solid var(--border-metal); border-radius: 20px;
         }
 
-        .buttons-column { display: flex; flex-direction: column; gap: 12px; position: relative; align-items: center; }
+        .info-panel-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .buttons-column { display: flex; flex-direction: column; gap: 10px; position: relative; align-items: center; width: 100%; }
         
         .dropdown { position: relative; width: 100%; display: flex; justify-content: center; }
 
         .dropbtn {
             font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(180deg, #1e293b, #0f172a);
-            border: 1px solid #334155; padding: 12px 15px; font-size: 0.95rem; 
-            width: 90%; color: #fff; font-weight: bold; cursor: pointer;
+            background: linear-gradient(180deg, #1f2937, #111827);
+            border: 1px solid #374151; padding: 11px 15px; font-size: 0.85rem; 
+            width: 100%; color: #fff; font-weight: bold; cursor: pointer;
             border-radius: 8px; text-align: center;
             text-transform: uppercase; letter-spacing: 2px;
             transition: all 0.3s ease; outline: none;
@@ -86,13 +96,13 @@
 
         .dropbtn.active { 
             background: var(--neon-blue); 
-            color: #000; 
+            color: #fff; 
             box-shadow: 0 0 20px var(--neon-blue); 
         }
 
         .dropdown-content {
-            display: none; position: absolute; background-color: #0b1a2a;
-            min-width: 280px; z-index: 2000;
+            display: none; position: absolute; background-color: #0b1329;
+            min-width: 260px; z-index: 2000;
             border: 2px solid var(--neon-blue); 
             border-radius: 8px; padding: 10px; 
             left: 50%; transform: translateX(-50%);
@@ -102,80 +112,71 @@
         }
 
         .service-link {
-            display: block;
-            color: #ccc;
-            text-decoration: none;
-            padding: 8px 10px;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: 0.2s;
+            display: block; color: #ccc; text-decoration: none;
+            padding: 8px 10px; font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;
         }
-
-        .service-link:hover { background: rgba(0, 212, 255, 0.1); color: var(--neon-blue); padding-left: 15px; }
+        .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-blue); padding-left: 15px; }
 
         .social-item {
             display: flex; align-items: center; gap: 12px;
             padding: 10px; text-decoration: none; color: white;
             font-size: 0.9rem; font-weight: 600; transition: 0.3s;
         }
-
-        .social-item img { width: 22px; height: 22px; }
+        .social-item img { width: 22px !important; height: 22px !important; object-fit: contain; flex-shrink: 0; }
         .social-item:hover { background: rgba(255,255,255,0.1); border-radius: 8px; }
 
-        .info-column { 
-            display: flex; flex-direction: column; justify-content: center; 
-            align-items: center; text-align: center; border-left: 1px solid rgba(255,255,255,0.1); 
-        }
+        .contact-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin: 10px 0 5px 0; font-size: 0.85rem; font-weight: bold; }
 
-        h4 { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin-bottom: 20px; font-size: 1rem; }
-
-        .contact-links-container { display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center; }
+        .contact-links-container { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
 
         .contact-link {
-            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            text-decoration: none; font-weight: 600; font-size: 0.85rem;
             transition: 0.3s; display: inline-flex; align-items: center;
-            gap: 12px; padding: 10px 20px; border-radius: 8px; width: 180px;
+            justify-content: center; gap: 10px; padding: 10px; border-radius: 8px; width: 85%;
         }
-
-        .contact-link img { width: 24px; height: 24px; }
+        .contact-link img { width: 20px; height: 20px; }
 
         .whatsapp-link { color: #25d366; border: 1px solid rgba(37, 211, 102, 0.3); }
         .whatsapp-link:hover { background: rgba(37, 211, 102, 0.1); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
 
-        .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 212, 255, 0.3); }
-        .telegram-link:hover { background: rgba(0, 212, 255, 0.1); box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); }
+        .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 119, 255, 0.3); }
+        .telegram-link:hover { background: rgba(0, 119, 255, 0.1); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
 
-        .tasa-box { 
-            margin-top: 25px; padding: 15px; 
-            background: rgba(255,255,255,0.03); 
-            border: 1px dashed var(--neon-blue); 
-            border-radius: 10px; width: 80%; 
+        .tasa-box, .visitas-box { 
+            padding: 10px; background: rgba(255,255,255,0.03); 
+            border: 1px dashed var(--neon-blue); border-radius: 10px; width: 90%; text-align: center;
+            box-sizing: border-box;
+        }
+        .visitas-box { border: 1px dashed #22c55e; }
+
+        .tasa-display, .visitas-display { 
+            font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: bold; 
+            color: #fff; display: block; margin-top: 3px; 
+        }
+        .visitas-display { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
+
+        .dashboard-section {
+            display: flex; flex-direction: column;
+            border: 1px solid rgba(255,255,255,0.05);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px; padding: 12px; box-sizing: border-box;
         }
 
-        .tasa-display { 
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem; font-weight: bold; 
-            color: #fff; display: block; margin-top: 5px; 
+        .section-internal-title { 
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem; 
+            color: var(--neon-blue); letter-spacing: 1.5px; 
+            margin-bottom: 12px; text-transform: uppercase; text-align: center;
+            font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
 
-        .section-title { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; color: var(--neon-blue); letter-spacing: 2px; margin-top: 40px; text-transform: uppercase; text-align: center; }
-
-        /* CARRUSEL 1: TRABAJOS DINÁMICO */
-        .carousel-container { 
-            width: 95%; max-width: 1100px; 
-            background: #000; border: 4px solid var(--border-metal); 
-            border-radius: 15px; margin-top: 15px; height: 450px; 
-            position: relative; z-index: 1; overflow: hidden;
+        .carousel-container, .reviews-container { 
+            width: 100%; height: 380px; background: #000; 
+            border: 2px solid var(--border-metal); border-radius: 10px; 
+            position: relative; overflow: hidden; margin: auto 0;
         }
 
-        /* CARRUSEL 2: CAPTURAS */
-        .reviews-container { 
-            width: 95%; max-width: 420px; 
-            background: #0b111e; border: 3px solid var(--neon-blue); 
-            border-radius: 15px; margin-top: 15px; height: 560px; 
-            position: relative; z-index: 1; overflow: hidden;
-            box-shadow: 0 0 25px rgba(0, 212, 255, 0.15);
-        }
+        .reviews-container { border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.1); }
 
         .carousel-slide, .review-slide {
             position: absolute; width: 100%; height: 100%;
@@ -185,11 +186,10 @@
 
         .carousel-slide.active, .review-slide.active { opacity: 1; }
         .carousel-slide img, .review-slide img { width: 100%; height: 100%; object-fit: contain; }
-        .review-slide img { padding: 10px; box-sizing: border-box; }
+        .review-slide img { padding: 5px; box-sizing: border-box; }
 
-        /* PANEL ADMINISTRADOR */
         .admin-trigger { 
-            margin-top: 70px; font-size: 0.75rem; 
+            margin-top: 50px; font-size: 0.75rem; 
             color: rgba(255,255,255,0.15); cursor: pointer; 
             text-decoration: underline; padding-bottom: 20px;
             position: relative; z-index: 5000; display: inline-block; 
@@ -197,46 +197,38 @@
 
         .admin-panel { 
             display: none; width: 90%; max-width: 550px; 
-            background: #0f172a; border: 2px solid #ef4444; 
+            background: #111827; border: 2px solid #ef4444; 
             border-radius: 12px; padding: 20px; margin-top: 20px; 
             box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; 
             position: relative; z-index: 5001; 
         }
 
-        .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .admin-panel input, .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 8px 0; border-radius: 6px; border: 1px solid #334155; background: #020617; color: white; box-sizing: border-box; font-size: 0.9rem; }
+        .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #374151; padding-bottom: 10px; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .stat-card { background: #030712; border: 1px solid #374151; border-radius: 8px; padding: 10px; text-align: center; }
+        .stat-card span { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; }
+        .stat-card strong { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; color: var(--neon-blue); }
+
+        .admin-panel input, .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 8px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
         .admin-panel button { background: #ef4444; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
         .admin-panel button:hover { background: #dc2626; }
-        
-        .admin-panel input[type="file"] { background: #1e293b; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 15px; }
+        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 15px; }
 
-        /* LISTAS DE GESTIÓN INTERNA */
-        .manager-container {
-            margin-top: 15px; max-height: 140px; overflow-y: auto;
-            background: #020617; border: 1px solid #334155;
-            border-radius: 6px; padding: 8px;
-        }
-
-        .manager-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: 0.8rem; color: #cbd5e1;
-        }
-
+        .manager-container { margin-top: 15px; max-height: 140px; overflow-y: auto; background: #030712; border: 1px solid #374151; border-radius: 6px; padding: 8px; }
+        .manager-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #d1d5db; }
         .manager-item img { width: 45px; height: 35px; object-fit: cover; border-radius: 4px; }
-        
-        .btn-delete-small {
-            background: #dc2626 !important; width: auto !important;
-            padding: 4px 8px !important; margin: 0 !important;
-            font-size: 0.75rem !important; border-radius: 4px !important;
-        }
+        .btn-delete-small { background: #dc2626 !important; width: auto !important; padding: 4px 8px !important; margin: 0 !important; font-size: 0.75rem !important; border-radius: 4px !important; }
         .btn-delete-small:hover { background: #b91c1c !important; }
 
         .show { display: block !important; }
 
-        @media (max-width: 768px) { 
-            .dashboard-content { grid-template-columns: 1fr; } 
-            .info-column { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; } 
+        @media (max-width: 992px) { 
+            .main-dashboard { grid-template-columns: 1fr; padding: 15px; } 
+            .dashboard-section { margin-top: 15px; }
+            .carousel-container, .reviews-container { height: 420px; }
+            .contact-link { width: 180px; }
+            .tasa-box, .visitas-box { width: 80%; }
         }
     </style>
 
@@ -250,86 +242,92 @@
 
     <div class="main-frame">
         <div class="top-banner">
-            <img src="tu-logo-friotecx.png" alt="FRIOTECX" class="logo-central">
+            <img src="tu-logo-pc.png" alt="SOPORTE TÉCNICO" class="logo-central">
         </div>
 
-        <div class="dashboard-content">
-            <div class="buttons-column">
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleMenu('menu-servicios', this)">☰ SERVICIOS</button>
-                    <div id="menu-servicios" class="dropdown-content">
-                        <a href="https://wa.me/584243497259?text=Buen%20día,%20¿en%20cuánto%20sale%20el%20mantenimiento%20preventivo?" target="_blank" class="service-link">• Mantenimiento preventivo</a>
-                        <a href="https://wa.me/584243497259?text=Buen%20día,%20necesito%20información%20sobre%20la%20recarga%20de%20gas" target="_blank" class="service-link">• Recarga de gas</a>
-                        <a href="https://wa.me/584243497259?text=Buen%20día,%20mi%20equipo%20tiene%20una%20fuga" target="_blank" class="service-link">• Detección de fugas</a>
-                        <a href="https://wa.me/584243497259?text=Buen%20día,%20presupuesto%20para%20cambio%20de%20compresor" target="_blank" class="service-link">• Cambio de compresores</a>
-                        <a href="https://wa.me/584243497259?text=Buen%20día,%20falla%20en%20tarjeta%20electrónica" target="_blank" class="service-link">• Reparación de tarjetas</a>
-                        <a href="https://wa.me/584243497259?text=Buen%20día,%20revisión%20de%20lavadora/secadora" target="_blank" class="service-link">• Lavadoras y Secadoras</a>
+        <div class="main-dashboard">
+            <div class="info-panel-column">
+                <div class="buttons-column">
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleMenu('menu-servicios', this)">💻 SERVICIOS PC</button>
+                        <div id="menu-servicios" class="dropdown-content">
+                            <a href="#" id="link-hdw" target="_blank" class="service-link">• Mantenimiento de Hardware</a>
+                            <a href="#" id="link-so" target="_blank" class="service-link">• Sistemas Operativos</a>
+                            <a href="#" id="link-vir" target="_blank" class="service-link">• Eliminación de Malware</a>
+                            <a href="#" id="link-diag" target="_blank" class="service-link">• Diagnóstico y Upgrades</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleMenu('menu-instala', this)">🌐 REDES Y SISTEMAS</button>
+                        <div id="menu-instala" class="dropdown-content">
+                            <a href="#" id="link-mik" target="_blank" class="service-link">• Configuración MikroTik / Cisco</a>
+                            <a href="#" id="link-red" target="_blank" class="service-link">• Infraestructura de Redes</a>
+                            <a href="#" id="link-soft" target="_blank" class="service-link">• Automatización y Scripts</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleMenu('menu-ubica', this)">📍 ATENCIÓN</button>
+                        <div id="menu-ubica" class="dropdown-content">
+                            <p style="padding: 10px; margin:0; font-size: 0.85rem;">Maracay, Edo. Aragua.<br>Soporte a domicilio y remoto.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">🌐 CONTACTAR</button>
+                        <div id="menu-redes" class="dropdown-content">
+                            <a href="#" id="main-fb-link" target="_blank" class="social-item">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"> Facebook
+                            </a>
+                            <a href="#" id="main-ig-link" target="_blank" class="social-item">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"> Instagram
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleMenu('menu-instala', this)">🛠 INSTALACIÓN</button>
-                    <div id="menu-instala" class="dropdown-content">
-                        <a href="https://wa.me/584243497259?text=Hola,%20quisiera%20instalar%20un%20Split" target="_blank" class="service-link">• Aires tipo Split</a>
-                        <a href="https://wa.me/584243497259?text=Hola,%20quisiera%20instalar%20un%20aire%20de%20ventana" target="_blank" class="service-link">• Aires de Ventana</a>
-                        <a href="https://wa.me/584243497259?text=Hola,%20instalación%20equipo%20central" target="_blank" class="service-link">• Unidades Centrales</a>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleMenu('menu-ubica', this)">📍 UBICACIÓN</button>
-                    <div id="menu-ubica" class="dropdown-content">
-                        <p style="padding: 10px; margin:0; font-size: 0.85rem;">Maracay, Edo. Aragua.<br>Servicio a domicilio.</p>
-                    </div>
-                </div>
-
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">🌐 REDES SOCIALES</button>
-                    <div id="menu-redes" class="dropdown-content">
-                        <a href="https://www.instagram.com/friotecx" target="_blank" class="social-item">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG">
-                            Instagram
-                        </a>
-                        <a href="https://www.facebook.com/friotecx" target="_blank" class="social-item">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB">
-                            Facebook
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-column">
-                <h4>CONTACTO RÁPIDO</h4>
+                <span class="contact-title">SOPORTE INMEDIATO</span>
                 <div class="contact-links-container">
-                    <a href="https://wa.me/584243497259" target="_blank" class="contact-link whatsapp-link">
+                    <a href="#" id="main-wa-btn" target="_blank" class="contact-link whatsapp-link">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"> WhatsApp
                     </a>
-                    <a href="https://t.me/+584243497259" target="_blank" class="contact-link telegram-link">
+                    <a href="#" id="main-tg-btn" target="_blank" class="contact-link telegram-link">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> Telegram
                     </a>
                 </div>
+                
                 <div class="tasa-box">
-                    <span style="font-size: 0.7rem; letter-spacing: 1px; color: var(--neon-blue);">TASA OFICIAL BCV</span>
+                    <span style="font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-blue); font-weight: bold;">TASA OFICIAL BCV</span>
                     <span id="tasa-display" class="tasa-display">--- BS</span>
+                </div>
+
+                <div class="visitas-box">
+                    <span style="font-size: 0.65rem; letter-spacing: 1px; color: #22c55e; font-weight: bold;">VISITAS TOTALES</span>
+                    <span id="visitas-display" class="visitas-display">0</span>
+                </div>
+            </div>
+
+            <div class="dashboard-section">
+                <div class="section-internal-title">🛠️ Diagnósticos y Reparaciones</div>
+                <div class="carousel-container" id="contenedor-trabajos">
+                    <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando historial...</p></div>
+                </div>
+            </div>
+
+            <div class="dashboard-section">
+                <div class="section-internal-title">💬 Casos de Éxito / Clientes</div>
+                <div class="reviews-container" id="contenedor-capturas">
+                    <div class="review-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando opiniones...</p></div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="section-title">🛠️ NUESTROS TRABAJOS REALIZADOS</div>
-    <div class="carousel-container" id="contenedor-trabajos">
-        <div class="carousel-slide active"><p style="color: #64748b; font-size:0.9rem; padding:20px; text-align:center;">Cargando fotos de trabajos realizados...</p></div>
-    </div>
-
-    <div class="section-title">💬 LO QUE DICEN NUESTROS CLIENTES</div>
-    <div class="reviews-container" id="contenedor-capturas">
-        <div class="review-slide active"><p style="color: #64748b; font-size:0.9rem; padding:20px; text-align:center;">Cargando opiniones de WhatsApp...</p></div>
     </div>
 
     <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
 
     <div class="admin-panel" id="panel-admin">
-        <h3>🛡️ Panel de Control Global - FRIOTECX</h3>
+        <h3>🛡️ Panel de Control Global - SOPORTE PC</h3>
         
         <div id="admin-auth-box">
             <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
@@ -340,16 +338,29 @@
         <div id="admin-actions-box" style="display: none;">
             <p style="color: #22c55e; font-weight: bold; margin-top:0;">✓ Conexión establecida</p>
             
+            <h4 style="color: #22c55e; margin-bottom: 5px;">📊 Estadísticas de Tráfico Real</h4>
+            <div class="stats-grid">
+                <div class="stat-card"><span>Hoy</span><strong id="stat-hoy">0</strong></div>
+                <div class="stat-card"><span>Esta Semana</span><strong id="stat-semana">0</strong></div>
+                <div class="stat-card"><span>Este Mes</span><strong id="stat-mes">0</strong></div>
+                <div class="stat-card"><span>Este Año</span><strong id="stat-ano">0</strong></div>
+            </div>
+
+            <h4 style="color: #f59e0b; border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">⚙️ Variables Globales de la Página</h4>
+            <p style="font-size:0.75rem; color:#9ca3af; margin:0 0 8px 0;">Modifica los datos principales de toda la web al instante:</p>
+            <input type="text" id="cfg-page-title" placeholder="Nuevo título de la pestaña de navegación">
+            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584243497259)">
+            <input type="text" id="cfg-facebook" placeholder="Enlace de perfil de Facebook">
+            <input type="text" id="cfg-instagram" placeholder="Enlace de perfil de Instagram">
+            <button type="button" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Datos Globales</button>
+
             <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Nuevas Fotografías</h4>
-            <p style="font-size:0.75rem; color:#94a3b8; margin:0 0 8px 0;">Selecciona una o varias fotos y define su destino:</p>
-            
             <input type="file" id="upload-file-input" accept="image/*" multiple>
-            
             <select id="upload-destination">
                 <option value="trabajos">Destino: Carrusel de Trabajos Realizados</option>
-                <option value="capturas">Destino: Carrusel de Opiniones (WhatsApp)</option>
+                <option value="capturas">Destino: Carrusel de Opiniones</option>
             </select>
-            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: black;" onclick="subirImagenesMultiples()">Subir y Publicar al Instante</button>
+            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir y Publicar al Instante</button>
 
             <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
             <div class="manager-container" id="lista-borrar-trabajos">
@@ -362,11 +373,11 @@
             </div>
 
             <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Agregar Nuevo Servicio al Menú</h4>
-            <input type="text" id="new-service-name" placeholder="Ej: • Servicio Técnico Industrial">
+            <input type="text" id="new-service-name" placeholder="Ej: • Instalación de Antenas Starlink">
             <input type="text" id="new-service-msg" placeholder="Mensaje de WhatsApp automático al hacer clic">
             <select id="new-service-cat">
-                <option value="servicios">Sección: ☰ SERVICIOS</option>
-                <option value="instalacion">Sección: 🛠 INSTALACIÓN</option>
+                <option value="servicios">Sección: 💻 SERVICIOS PC</option>
+                <option value="instalacion">Sección: 🌐 REDES Y SISTEMAS</option>
             </select>
             <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Agregar Servicio al Menú</button>
 
@@ -378,7 +389,7 @@
     </div>
 
     <script>
-        // CONFIGURACIÓN OFICIAL FIREBASE
+        // REEMPLAZA ESTE BLOQUE CON LOS DATOS DE TU NUEVO PROYECTO DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyASlKzy47oah2keUn-WB8aFJ1q5y7qYB08",
             authDomain: "friotecx-web.firebaseapp.com",
@@ -392,12 +403,11 @@
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        // 💥 CLAVE DE IMGBB TOTALMENTE CONFIGURADA Y REUBICADA
         const IMGBB_API_KEY = "0a5e7954b4b9fed188e15e4e5532e57b";
 
-        // Variables de Control para los tiempos de los carruseles
         let indexTrabajos = 0;
         let indexCapturas = 0;
+        let telefonoGlobal = "584243497259"; // Teléfono base por defecto
 
         function rotarTrabajos() {
             const list = document.querySelectorAll('#contenedor-trabajos .carousel-slide');
@@ -419,7 +429,6 @@
             setTimeout(rotarCapturas, 5500);
         }
 
-        // Desplegables
         function toggleMenu(menuId, btn) {
             document.querySelectorAll('.dropdown-content').forEach(m => { if(m.id !== menuId) m.classList.remove('show'); });
             document.querySelectorAll('.dropbtn').forEach(b => { if(b !== btn) b.classList.remove('active'); });
@@ -434,7 +443,6 @@
             }
         }
 
-        // Tasa Oficial BCV
         async function actualizarTasa() {
             try {
                 const res = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
@@ -444,7 +452,6 @@
         }
         actualizarTasa();
 
-        // Nieve Estilizada
         const fxContainer = document.getElementById('fx-container');
         function crearCopo() {
             const copo = document.createElement('div');
@@ -452,14 +459,13 @@
             const tam = Math.random() * 3 + 2;
             copo.style.width = tam + 'px'; copo.style.height = tam + 'px';
             copo.style.left = Math.random() * 100 + 'vw';
-            const dur = Math.random() * 5 + 5;
+            const dur = Math.random() * 4 + 4;
             copo.style.animationDuration = dur + 's';
             fxContainer.appendChild(copo);
             setTimeout(() => copo.remove(), dur * 1000);
         }
-        setInterval(crearCopo, 500);
+        setInterval(crearCopo, 400);
 
-        // LOGIN Y SISTEMA DE ADMINISTRACIÓN
         function toggleAdminPanel() { document.getElementById('panel-admin').classList.toggle('show'); }
 
         function loginAdministrador() {
@@ -469,21 +475,76 @@
                 .then(() => {
                     document.getElementById('admin-auth-box').style.display = 'none';
                     document.getElementById('admin-actions-box').style.display = 'block';
+                    cargarMetricasAdmin();
+                    // Auto-rellenar inputs del panel con lo que hay en Firebase
+                    db.collection("configuracion").doc("globales").get().then(doc => {
+                        if(doc.exists){
+                            const d = doc.data();
+                            document.getElementById('cfg-page-title').value = d.titulo || "";
+                            document.getElementById('cfg-phone').value = d.telefono || "";
+                            document.getElementById('cfg-facebook').value = d.facebook || "";
+                            document.getElementById('cfg-instagram').value = d.instagram || "";
+                        }
+                    });
                 })
                 .catch(err => alert("Acceso denegado."));
         }
 
-        // NUEVA FUNCIÓN OPTIMIZADA PARA PROCESAR MÚLTIPLES IMÁGENES
+        // 🆕 GUARDAR VARIABLES GLOBALES EN FIREBASE
+        async function guardarVariablesGlobales() {
+            const tit = document.getElementById('cfg-page-title').value.trim();
+            const tel = document.getElementById('cfg-phone').value.trim();
+            const fb = document.getElementById('cfg-facebook').value.trim();
+            const ig = document.getElementById('cfg-instagram').value.trim();
+
+            if(!tit || !tel) return alert("El título y el teléfono son obligatorios.");
+
+            try {
+                await db.collection("configuracion").doc("globales").set({
+                    titulo: tit,
+                    telefono: tel,
+                    facebook: fb,
+                    instagram: ig
+                }, { merge: true });
+                alert("¡Datos del sistema actualizados globalmente con éxito!");
+            } catch(e) {
+                alert("Error al guardar: " + e.message);
+            }
+        }
+
+        // 🆕 ESCUCHAR CONFIGURACIÓN GLOBAL EN TIEMPO REAL
+        function escucharConfiguracionGlobal() {
+            db.collection("configuracion").doc("globales").onSnapshot(doc => {
+                if(doc.exists) {
+                    const d = doc.data();
+                    if(d.titulo) document.getElementById('page-title-tag').innerText = d.titulo;
+                    if(d.telefono) {
+                        telefonoGlobal = d.telefono;
+                        // Actualizar botones principales e inmediatos
+                        document.getElementById('main-wa-btn').href = `https://wa.me/${telefonoGlobal}`;
+                        document.getElementById('main-tg-btn').href = `https://t.me/+${telefonoGlobal}`;
+                        
+                        // Actualizar submenús fijos por defecto usando el nuevo número
+                        document.getElementById('link-hdw').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20¿en%20cuánto%20sale%20el%20mantenimiento%20preventivo%20de%20una%20PC/Laptop?`;
+                        document.getElementById('link-so').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20necesito%20instalar%20u%20optimizar%20un%20sistema%20operativo%20Windows/Linux`;
+                        document.getElementById('link-vir').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20tengo%20un%20problema%20con%20virus/pantalla%20azul%20en%20mi%20computadora`;
+                        document.getElementById('link-diag').href = `https://wa.me/${telefonoGlobal}?text=Buen%20día,%20quisiera%20asesoría%20para%20armar%20o%20actualizar%20los%20componentes%20de%20mi%20PC`;
+                        document.getElementById('link-mik').href = `https://wa.me/${telefonoGlobal}?text=Hola,%20quisiera%20información%20sobre%20configuración%20de%20routers%20MikroTik/Cisco`;
+                        document.getElementById('link-red').href = `https://wa.me/${telefonoGlobal}?text=Hola,%20necesito%20soporte%20o%20instalación%20para%20una%20red%20cableada/inalámbrica`;
+                        document.getElementById('link-soft').href = `https://wa.me/${telefonoGlobal}?text=Hola,%20necesito%20un%20desarrollo%20de%20software%20o%20automatización%20a%20medida`;
+                    }
+                    if(d.facebook) document.getElementById('main-fb-link').href = d.facebook;
+                    if(d.instagram) document.getElementById('main-ig-link').href = d.instagram;
+                }
+            });
+        }
+
         async function subirImagenesMultiples() {
             const fileInput = document.getElementById('upload-file-input');
             const destino = document.getElementById('upload-destination').value;
             const boton = document.getElementById('btn-publicar-auto');
 
             if (fileInput.files.length === 0) return alert("Por favor, selecciona al menos una foto.");
-            
-            if (!IMGBB_API_KEY) {
-                return alert("Falta configurar la API Key de ImgBB.");
-            }
 
             const archivos = fileInput.files;
             const totalArchivos = archivos.length;
@@ -507,12 +568,8 @@
                             url: urlLimpia,
                             timestamp: firebase.firestore.FieldValue.serverTimestamp()
                         });
-                    } else {
-                        alert(`No se pudo subir el archivo: ${file.name}`);
                     }
-                } catch (error) {
-                    alert(`Error en el archivo ${file.name}: ${error.message}`);
-                }
+                } catch (error) { console.error(error); }
             }
 
             alert(`¡Proceso completado! Se publicaron ${totalArchivos} fotos con éxito.`);
@@ -543,9 +600,81 @@
             }
         }
 
-        // ESCUCHADORES MAESTROS EN TIEMPO REAL
+        function gestionarContadorVisitas() {
+            const ahora = new Date();
+            const ano = ahora.getFullYear();
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            
+            const idDia = `${ano}-${mes}-${dia}`;
+            const idMes = `${ano}-${mes}`;
+            const idAno = `${ano}`;
+
+            const inicioAno = new Date(ano, 0, 1);
+            const diasPasados = Math.floor((ahora - inicioAno) / (24 * 60 * 60 * 1000));
+            const idSemana = `${ano}-W${Math.ceil((diasPasados + inicioAno.getDay() + 1) / 7)}`;
+
+            db.collection("metricas").doc("global").onSnapshot(doc => {
+                if (doc.exists) {
+                    document.getElementById("visitas-display").innerText = doc.data().total || 0;
+                } else {
+                    document.getElementById("visitas-display").innerText = "0";
+                }
+            }, err => console.log("Error al leer visitas:", err));
+
+            const marcaVisita = localStorage.getItem("pctec_visited_date");
+
+            if (marcaVisita !== idDia) {
+                localStorage.setItem("pctec_visited_date", idDia);
+                const batch = db.batch();
+                
+                const refGlobal = db.collection("metricas").doc("global");
+                const refDia = db.collection("metricas_diarias").doc(idDia);
+                const refSemana = db.collection("metricas_semanales").doc(idSemana);
+                const refMes = db.collection("metricas_mensuales").doc(idMes);
+                const refAno = db.collection("metricas_anuales").doc(idAno);
+
+                const inc = firebase.firestore.FieldValue.increment(1);
+
+                batch.set(refGlobal, { total: inc }, { merge: true });
+                batch.set(refDia, { total: inc }, { merge: true });
+                batch.set(refSemana, { total: inc }, { merge: true });
+                batch.set(refMes, { total: inc }, { merge: true });
+                batch.set(refAno, { total: inc }, { merge: true });
+
+                batch.commit().catch(err => console.log("Error incrementando métricas: ", err));
+            }
+        }
+
+        function cargarMetricasAdmin() {
+            const ahora = new Date();
+            const ano = ahora.getFullYear();
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            
+            const idDia = `${ano}-${mes}-${dia}`;
+            const idMes = `${ano}-${mes}`;
+            const idAno = `${ano}`;
+            
+            const inicioAno = new Date(ano, 0, 1);
+            const diasPasados = Math.floor((ahora - inicioAno) / (24 * 60 * 60 * 1000));
+            const idSemana = `${ano}-W${Math.ceil((diasPasados + inicioAno.getDay() + 1) / 7)}`;
+
+            db.collection("metricas_diarias").doc(idDia).onSnapshot(doc => {
+                document.getElementById("stat-hoy").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
+            db.collection("metricas_semanales").doc(idSemana).onSnapshot(doc => {
+                document.getElementById("stat-semana").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
+            db.collection("metricas_mensuales").doc(idMes).onSnapshot(doc => {
+                document.getElementById("stat-mes").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
+            db.collection("metricas_anuales").doc(idAno).onSnapshot(doc => {
+                document.getElementById("stat-ano").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
+        }
+
         function sincronizarBaseDeDatos() {
-            // 1. Escuchar Carrusel de Trabajos Realizados
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
                 const contenedor = document.getElementById('contenedor-trabajos');
                 const listaBorrar = document.getElementById('lista-borrar-trabajos');
@@ -556,7 +685,7 @@
                     let index = 0;
                     snap.forEach((doc) => {
                         const d = doc.data();
-                        contenedor.innerHTML += `<div class="carousel-slide ${index === 0 ? 'active' : ''}"><img src="${d.url}" style="width:100%; height:100%; object-fit:contain;"></div>`;
+                        contenedor.innerHTML += `<div class="carousel-slide ${index === 0 ? 'active' : ''}"><img src="${d.url}"></div>`;
                         listaBorrar.innerHTML += `
                             <div class="manager-item">
                                 <img src="${d.url}">
@@ -566,12 +695,11 @@
                         index++;
                     });
                 } else {
-                    contenedor.innerHTML = '<div class="carousel-slide active"><p style="color: #64748b; font-size:0.9rem; padding:20px; text-align:center;">No hay fotos cargadas. Sube tus trabajos desde el panel.</p></div>';
-                    listaBorrar.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay trabajos registrados.</p>';
+                    contenedor.innerHTML = '<div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">No hay fotos de equipos.</p></div>';
+                    listaBorrar.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">Vacio.</p>';
                 }
             });
 
-            // 2. Escuchar Carrusel de Capturas de Clientes
             db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
                 const contenedor = document.getElementById('contenedor-capturas');
                 const listaBorrar = document.getElementById('lista-borrar-capturas');
@@ -582,7 +710,7 @@
                     let index = 0;
                     snap.forEach((doc) => {
                         const d = doc.data();
-                        contenedor.innerHTML += `<div class="review-slide ${index === 0 ? 'active' : ''}"><img src="${d.url}" style="width:100%; height:100%; object-fit:contain; display:block;"></div>`;
+                        contenedor.innerHTML += `<div class="review-slide ${index === 0 ? 'active' : ''}"><img src="${d.url}"></div>`;
                         listaBorrar.innerHTML += `
                             <div class="manager-item">
                                 <img src="${d.url}">
@@ -592,12 +720,11 @@
                         index++;
                     });
                 } else {
-                    contenedor.innerHTML = '<div class="review-slide active"><p style="color: #64748b; font-size:0.9rem; padding:20px; text-align:center;">No hay opiniones disponibles.</p></div>';
-                    listaBorrar.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay capturas registradas.</p>';
+                    contenedor.innerHTML = '<div class="review-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">No hay testimonios.</p></div>';
+                    listaBorrar.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">Vacio.</p>';
                 }
             });
 
-            // 3. Escuchar Menús y Enlaces Dinámicos
             db.collection("menus").onSnapshot(snap => {
                 const menuServ = document.getElementById('menu-servicios');
                 const menuInst = document.getElementById('menu-instala');
@@ -609,9 +736,9 @@
                 if(!snap.empty) {
                     snap.forEach(doc => {
                         const d = doc.data();
-                        
                         const nLink = document.createElement('a');
-                        nLink.href = `https://wa.me/584243497259?text=${d.msg}`;
+                        // Usa dinámicamente el teléfono global activo
+                        nLink.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
                         nLink.target = "_blank";
                         nLink.className = "service-link dynamic-service";
                         nLink.innerText = d.name;
@@ -621,18 +748,17 @@
 
                         listaBorrarServ.innerHTML += `
                             <div class="manager-item">
-                                <span>${d.name} (${d.category === 'servicios' ? 'Serv.' : 'Inst.'})</span>
+                                <span>${d.name}</span>
                                 <button class="btn-delete-small" onclick="borrarElementoFirebase('menus', '${doc.id}')">Eliminar</button>
                             </div>`;
                     });
-                } else {
-                    listaBorrarServ.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay servicios dinámicos.</p>';
                 }
             });
         }
         
-        // Inicializar Procesos
+        escucharConfiguracionGlobal();
         sincronizarBaseDeDatos();
+        gestionarContadorVisitas();
         setTimeout(rotarTrabajos, 2000);
         setTimeout(rotarCapturas, 2500);
     </script>
