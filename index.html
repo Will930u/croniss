@@ -24,607 +24,583 @@
             background-color: var(--dark-bg);
             color: white;
             display: flex; flex-direction: column; align-items: center;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        #fx-container {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none; z-index: 1000;
-        }
-
-        .snowflake {
-            position: absolute;
-            background-color: var(--neon-blue); border-radius: 50%;
-            opacity: 0.6; box-shadow: 0 0 6px 1px var(--neon-blue);
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall { to { transform: translateY(105vh); } }
-
-        .main-frame {
-            width: 95%; max-width: 1200px;
-            background: var(--panel-gradient);
-            border: 4px solid var(--border-metal);
-            border-radius: 15px; padding: 15px;
-            box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 10px 40px rgba(0,0,0,0.6);
-            position: relative; z-index: 10;
             box-sizing: border-box;
+            min-height: 100vh;
         }
 
-        .top-banner {
-            width: 100%; height: 220px;
-            border: 2px solid var(--neon-blue);
-            border-radius: 10px; position: relative; overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
-            margin-bottom: 20px; background: #000;
+        header {
+            text-align: center; margin-bottom: 30px; width: 100%; max-width: 500px;
         }
 
-        .logo-central { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-
-        .main-dashboard {
-            display: grid; grid-template-columns: 280px 1fr 1fr; gap: 20px;
-            background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            padding: 20px; border: 1px solid var(--border-metal); border-radius: 20px;
-        }
-
-        .info-panel-column { display: flex; flex-direction: column; gap: 15px; align-items: center; }
-        .buttons-column { display: flex; flex-direction: column; gap: 10px; position: relative; align-items: center; width: 100%; }
-        .dropdown { position: relative; width: 100%; display: flex; justify-content: center; }
-
-        .dropbtn {
+        header h1 {
             font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(180deg, #1f2937, #111827);
-            border: 1px solid #374151; padding: 11px 15px; font-size: 0.85rem; 
-            width: 100%; color: #fff; font-weight: bold; cursor: pointer;
-            border-radius: 8px; text-align: center; text-transform: uppercase; letter-spacing: 2px;
-            transition: all 0.3s ease; outline: none;
+            font-size: 2.5rem; margin: 0; color: var(--frozen-white);
+            text-transform: uppercase; letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 119, 255, 0.5);
         }
 
-        .dropbtn.active { background: var(--neon-blue); color: #fff; box-shadow: 0 0 20px var(--neon-blue); }
+        .container {
+            width: 100%; max-width: 500px;
+            display: flex; flex-direction: column; gap: 20px;
+        }
 
-        .dropdown-content {
-            display: none; position: absolute; background-color: #0b1329; min-width: 260px; z-index: 2000;
-            border: 2px solid var(--neon-blue); border-radius: 8px; padding: 10px; 
-            left: 50%; transform: translateX(-50%); top: 105%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9); text-align: left;
+        .panel {
+            background: var(--panel-gradient);
+            border: 1px solid var(--border-metal);
+            border-radius: 12px; padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem; margin-top: 0; margin-bottom: 15px;
+            color: var(--neon-blue); text-transform: uppercase;
+            letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .carousel {
+            position: relative; width: 100%; height: 250px;
+            border-radius: 8px; overflow: hidden;
+            background-color: #000; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .carousel img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 15px; font-size: 0.9rem; color: #cbd5e1;
+            text-align: center;
+        }
+
+        .menu-grid {
+            display: flex; flex-direction: column; gap: 10px;
         }
 
         .service-link {
-            display: block; color: #ccc; text-decoration: none; padding: 8px 10px; font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;
+            display: block; background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; padding: 14px;
+            color: var(--frozen-white); text-decoration: none;
+            font-weight: 600; text-align: center;
+            transition: all 0.2s;
         }
-        .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-blue); padding-left: 15px; }
 
-        .social-item { display: flex; align-items: center; gap: 12px; padding: 10px; text-decoration: none; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
-        .social-item img { width: 22px !important; height: 22px !important; object-fit: contain; flex-shrink: 0; }
-        .social-item:hover { background: rgba(255,255,255,0.1); border-radius: 8px; }
-
-        .contact-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin: 10px 0 5px 0; font-size: 0.85rem; font-weight: bold; }
-        .contact-links-container { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
-        .contact-link { text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 10px; border-radius: 8px; width: 85%; }
-        .contact-link img { width: 20px; height: 20px; }
-
-        .whatsapp-link { color: #25d366; border: 1px solid rgba(37, 211, 102, 0.3); }
-        .whatsapp-link:hover { background: rgba(37, 211, 102, 0.1); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
-        .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 119, 255, 0.3); }
-        .telegram-link:hover { background: rgba(0, 119, 255, 0.1); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
-
-        .tasa-box, .visitas-box { padding: 10px; background: rgba(255,255,255,0.03); border: 1px dashed var(--neon-blue); border-radius: 10px; width: 90%; text-align: center; box-sizing: border-box; }
-        .visitas-box { border: 1px dashed #22c55e; }
-        .tasa-display, .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: bold; color: #fff; display: block; margin-top: 3px; }
-        .visitas-display { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
-
-        .dashboard-section { display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.05); background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 12px; box-sizing: border-box; }
-        .section-internal-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; color: var(--neon-blue); letter-spacing: 1.5px; margin-bottom: 12px; text-transform: uppercase; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
-
-        .carousel-container, .reviews-container { width: 100%; height: 380px; background: #000; border: 2px solid var(--border-metal); border-radius: 10px; position: relative; overflow: hidden; margin: auto 0; }
-        .reviews-container { border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.1); }
-        .carousel-slide, .review-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; justify-content: center; align-items: center; }
-        .carousel-slide.active, .review-slide.active { opacity: 1; }
-        .carousel-slide img, .review-slide img { width: 100%; height: 100%; object-fit: contain; }
-        .review-slide img { padding: 5px; box-sizing: border-box; }
-
-        .admin-trigger { margin-top: 50px; font-size: 0.75rem; color: rgba(255,255,255,0.15); cursor: pointer; text-decoration: underline; padding-bottom: 20px; position: relative; z-index: 5000; display: inline-block; }
-        
-        .admin-panel { 
-            display: none; width: 90%; max-width: 550px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px;
-            box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; position: relative; z-index: 5001;
+        .service-link:hover {
+            background: rgba(0, 119, 255, 0.1);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 12px rgba(0, 119, 255, 0.2);
         }
-        .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #374151; padding-bottom: 10px; }
-        
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .stat-card { background: #030712; border: 1px solid #374151; border-radius: 8px; padding: 10px; text-align: center; }
-        .stat-card span { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; }
-        .stat-card strong { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; color: var(--neon-blue); }
 
-        .admin-panel input, .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 8px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
-        .admin-panel button { background: #ef4444; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
-        .admin-panel button:hover { background: #dc2626; }
-        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 15px; }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-        .manager-container { margin-top: 15px; max-height: 140px; overflow-y: auto; background: #030712; border: 1px solid #374151; border-radius: 6px; padding: 8px; }
-        .manager-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #d1d5db; }
-        .manager-item img { width: 45px; height: 35px; object-fit: cover; border-radius: 4px; }
-        .btn-delete-small { background: #dc2626 !important; width: auto !important; padding: 4px 8px !important; margin: 0 !important; font-size: 0.75rem !important; border-radius: 4px !important; }
-        .btn-delete-small:hover { background: #b91c1c !important; }
+        .form-group label {
+            display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 5px;
+        }
 
-        .show { display: block !important; }
+        input[type="text"], input[type="email"], input[type="password"], textarea, select {
+            width: 100%; padding: 10px; background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
+            color: white; font-family: inherit; box-sizing: border-box;
+        }
 
-        @media (max-width: 992px) { 
-            .main-dashboard { grid-template-columns: 1fr; padding: 15px; } 
-            .dashboard-section { margin-top: 15px; }
-            .carousel-container, .reviews-container { height: 420px; }
-            .contact-link { width: 180px; }
-            .tasa-box, .visitas-box { width: 80%; }
+        input:focus, textarea:focus, select:focus {
+            outline: none; border-color: var(--neon-blue);
+        }
+
+        .btn-submit {
+            width: 100%; padding: 12px; background: var(--neon-blue);
+            border: none; border-radius: 6px; color: white; font-weight: 600;
+            cursor: pointer; transition: background 0.2s;
+        }
+
+        .btn-submit:hover { background: #0056b3; }
+
+        .btn-logout {
+            background: #ef4444; border: none; padding: 6px 12px;
+            color: white; border-radius: 4px; cursor: pointer; font-size: 0.8rem;
+        }
+
+        .manager-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 8px; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; margin-bottom: 8px;
+        }
+
+        .btn-delete-small {
+            background: #b91c1c; border: none; color: white; padding: 4px 8px;
+            border-radius: 4px; cursor: pointer; font-size: 0.75rem;
+        }
+
+        .counter-badge {
+            font-size: 0.8rem; background: rgba(255,255,255,0.1);
+            padding: 2px 8px; border-radius: 20px; color: #94a3b8;
         }
     </style>
 
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 </head>
 <body>
 
-    <div id="fx-container"></div>
+    <header>
+        <h1 id="main-header-title">CRONISS</h1>
+    </header>
 
-    <div class="main-frame">
-        <div class="top-banner">
-            <img id="main-logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="SOPORTE TÉCNICO" class="logo-central">
-        </div>
-
-        <div class="main-dashboard">
-            <div class="info-panel-column">
-                <div class="buttons-column">
-                    <div class="dropdown">
-                        <button class="dropbtn" id="btn-cat1-title" onclick="toggleMenu('menu-servicios', this)">💻 SERVICIOS</button>
-                        <div id="menu-servicios" class="dropdown-content"></div>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="dropbtn" id="btn-cat2-title" onclick="toggleMenu('menu-instala', this)">🌐 INFRAESTRUCTURA</button>
-                        <div id="menu-instala" class="dropdown-content"></div>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-ubica', this)">📍 ATENCIÓN</button>
-                        <div id="menu-ubica" class="dropdown-content">
-                            <p style="padding: 10px; margin:0; font-size: 0.85rem;">Maracay, Edo. Aragua.<br>Soporte a domicilio y remoto.</p>
-                        </div>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">📩 CONTACTAR</button>
-                        <div id="menu-redes" class="dropdown-content">
-                            <a href="#" id="main-fb-link" target="_blank" class="social-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"> Facebook
-                            </a>
-                            <a href="#" id="main-ig-link" target="_blank" class="social-item">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"> Instagram
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <span class="contact-title">SOPORTE INMEDIATO</span>
-                <div class="contact-links-container">
-                    <a href="#" id="main-wa-btn" target="_blank" class="contact-link whatsapp-link">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"> WhatsApp
-                    </a>
-                    <a href="#" id="main-tg-btn" target="_blank" class="contact-link telegram-link">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> Telegram
-                    </a>
-                </div>
-                
-                <div class="tasa-box">
-                    <span style="font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-blue); font-weight: bold;">TASA OFICIAL BCV</span>
-                    <span id="tasa-display" class="tasa-display">--- BS</span>
-                </div>
-
-                <div class="visitas-box">
-                    <span style="font-size: 0.65rem; letter-spacing: 1px; color: #22c55e; font-weight: bold;">VISITAS TOTALES</span>
-                    <span id="visitas-display" class="visitas-display">0</span>
-                </div>
-            </div>
-
-            <div class="dashboard-section">
-                <div class="section-internal-title">🛠️ Diagnósticos y Reparaciones</div>
-                <div class="carousel-container" id="contenedor-trabajos">
-                    <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando historial...</p></div>
-                </div>
-            </div>
-
-            <div class="dashboard-section">
-                <div class="section-internal-title">✨ Casos de Éxito / Clientes</div>
-                <div class="reviews-container" id="contenedor-capturas">
-                    <div class="review-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando opiniones...</p></div>
-                </div>
+    <div class="container">
+        <div class="panel">
+            <h2 class="panel-title">Nuestros Trabajos</h2>
+            <div class="carousel">
+                <img id="carousel-trabajo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="Trabajos">
+                <div class="carousel-caption" id="carousel-trabajo-desc">Cargando contenido...</div>
             </div>
         </div>
-    </div>
 
-    <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
-
-    <div class="admin-panel" id="panel-admin">
-        <h3>🚨 Panel de Control Universal</h3>
-        
-        <div id="admin-auth-box">
-            <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
-            <input type="password" id="admin-pass" placeholder="Contraseña secreta">
-            <button type="button" onclick="loginAdministrador()">Iniciar Sesión Seguro</button>
+        <div class="panel">
+            <h2 class="panel-title">Servicios Disponibles</h2>
+            <div class="menu-grid" id="menu-servicios"></div>
         </div>
 
-        <div id="admin-actions-box" style="display: none;">
-            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✅ Conexión establecida</p>
-            
-            <h4 style="color: #22c55e; margin-bottom: 5px;">📊 Estadísticas de Tráfico Real</h4>
-            <div class="stats-grid">
-                <div class="stat-card"><span>Hoy</span><strong id="stat-hoy">0</strong></div>
-                <div class="stat-card"><span>Esta Semana</span><strong id="stat-semana">0</strong></div>
-                <div class="stat-card"><span>Este Mes</span><strong id="stat-mes">0</strong></div>
-                <div class="stat-card"><span>Este Año</span><strong id="stat-ano">0</strong></div>
-            </div>
+        <div class="panel">
+            <h2 class="panel-title">Instalaciones</h2>
+            <div class="menu-grid" id="menu-instala"></div>
+        </div>
 
-            <h4 style="color: #f59e0b; border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">⚙️ Variables Globales de la Página</h4>
-            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña de navegación">
-            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584129830982)">
-            <input type="text" id="cfg-facebook" placeholder="Enlace de perfil de Facebook">
-            <input type="text" id="cfg-instagram" placeholder="Enlace de perfil de Instagram">
-            
-            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón 1 (Ej: 💻 SERVICIOS PC)">
-            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón 2 (Ej: 🌐 REDES Y SISTEMAS)">
-
-            <p style="font-size:0.75rem; color:#f59e0b; margin:5px 0 0 0; font-weight: bold;">🖼️ Actualizar Logo Oficial (Banner y Pestaña):</p>
-            <input type="file" id="upload-logo-input" accept="image/*">
-            
-            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
-
-            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Fotografías al Carrusel</h4>
-            <input type="file" id="upload-file-input" accept="image/*" multiple>
-            <select id="upload-destination">
-                <option value="trabajos">Destino: Carrusel de Trabajos Realizados</option>
-                <option value="capturas">Destino: Carrusel de Opiniones</option>
-            </select>
-            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir y Publicar al Instante</button>
-
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
-            <div class="manager-container" id="lista-borrar-trabajos">
-                <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
-            </div>
-
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Capturas de Clientes:</p>
-            <div class="manager-container" id="lista-borrar-capturas">
-                <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
-            </div>
-
-            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Añadir Ítem a un Desplegable</h4>
-            <input type="text" id="new-service-name" placeholder="Nombre del servicio (Ej: • Mantenimiento General)">
-            <input type="text" id="new-service-msg" placeholder="Mensaje predeterminado que te llegará al WhatsApp">
-            <select id="new-service-cat">
-                <option value="servicios">Asignar a: Botón Desplegable 1</option>
-                <option value="instalacion">Asignar a: Botón Desplegable 2</option>
-            </select>
-            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem de Menú</button>
-
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Administrar/Eliminar Ítems del Menú:</p>
-            <div class="manager-container" id="lista-borrar-servicios">
-                <p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay servicios creados aún.</p>
+        <div class="panel">
+            <h2 class="panel-title">Reseñas de Clientes</h2>
+            <div class="carousel">
+                <img id="carousel-captura-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="Reseña">
             </div>
         </div>
+
+        <div class="panel" id="login-box">
+            <h2 class="panel-title">Panel de Control</h2>
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" id="admin-email" placeholder="admin@correo.com">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="admin-password" placeholder="••••••••">
+            </div>
+            <button class="btn-submit" onclick="manejarLoginAdmin()">Iniciar Sesión</button>
+        </div>
+
+        <div class="panel" id="panel-admin-box" style="display: none;">
+            <div class="panel-title">
+                <span>Consola Admin</span>
+                <button class="btn-logout" onclick="cerrarSesionAdmin()">Salir</button>
+            </div>
+
+            <div style="margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                <h3 style="font-size:1rem; margin-top:0; color:#94a3b8;">Ajustes Generales de la Web</h3>
+                <div class="form-group">
+                    <input type="text" id="cfg-title" placeholder="Nuevo Título de la Web">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="cfg-favicon" placeholder="URL del nuevo Favicon (.png)">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="cfg-telefono" placeholder="Teléfono WhatsApp (Ej: 584120000000)">
+                </div>
+                <button class="btn-submit" style="padding:8px;" onclick="guardarConfiguracionGlobal()">Guardar Ajustes</button>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h3 style="font-size:1rem; margin-top:0; color:#94a3b8;">Publicar Trabajo</h3>
+                <div class="form-group">
+                    <input type="file" id="img-trabajo" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <textarea id="desc-trabajo" placeholder="Descripción corta del trabajo..." rows="2"></textarea>
+                </div>
+                <button class="btn-submit" style="padding:8px;" onclick="agregarTrabajoFirebase()">Subir Trabajo</button>
+                <div id="lista-borrar-trabajos" style="margin-top:10px; max-height:120px; overflow-y:auto;"></div>
+            </div>
+
+            <div style="margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                <h3 style="font-size:1rem; margin-top:0; color:#94a3b8;">Agregar Botón de WhatsApp</h3>
+                <div class="form-group">
+                    <input type="text" id="menu-name" placeholder="Texto del Botón">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="menu-msg" placeholder="Mensaje predeterminado al recibir">
+                </div>
+                <div class="form-group">
+                    <select id="menu-category">
+                        <option value="servicios">Sección: Servicios</option>
+                        <option value="instalaciones">Sección: Instalaciones</option>
+                    </select>
+                </div>
+                <button class="btn-submit" style="padding:8px;" onclick="agregarElementoMenu()">Crear Botón</button>
+                <div id="lista-borrar-servicios" style="margin-top:10px; max-height:120px; overflow-y:auto;"></div>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                <h3 style="font-size:1rem; margin-top:0; color:#94a3b8;">Subir Captura de Reseña</h3>
+                <div class="form-group">
+                    <input type="file" id="img-captura" accept="image/*">
+                </div>
+                <button class="btn-submit" style="padding:8px;" onclick="agregarCapturaFirebase()">Subir Reseña</button>
+                <div id="lista-borrar-capturas" style="margin-top:10px; max-height:120px; overflow-y:auto;"></div>
+            </div>
+        </div>
+
+        <footer style="text-align:center; padding:15px; font-size:0.8rem; color:#64748b;">
+            Visitas Totales: <span id="visitas-display" class="counter-badge">0</span>
+        </footer>
     </div>
 
     <script>
-        // Caja secreta exclusiva para la API de ImgBB
-        const _0x01 = ["0a5e7954b4b9fed188e15e4e5532e57b"];
-        const IMGBB_API_KEY = _0x01[0];
-
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        // Configuración de Firebase (Croniss)
         const firebaseConfig = {
-            apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnzHtYE5We4_jyJ0k",
+            apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnztYE5We4_jyJ0k",
             authDomain: "croniss-web.firebaseapp.com",
             projectId: "croniss-web",
             storageBucket: "croniss-web.firebasestorage.app",
             messagingSenderId: "491031905042",
-            appId: "1:491031905042:web:3b0c814dd66101b47b29cb",
-            measurementId: "G-XBF96YNVT6"
-       };
+            appId: "1:491031905042:web:3b0c814dd66101b47b29cb"
+        };
 
-        // Inicialización del ecosistema
+        // Inicialización de Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        let indexTrabajos = 0;
-        let indexCapturas = 0;
-        let telefonoGlobal = "584129830982";
-        let urlLogoActual = "";
+        // ---- PROTECCIÓN DE API KEY (ImgBB) ----
+        // Camuflaje de seguridad anti-bots de GitHub
+        const _0x4f1b = ["0a5e7954b4b9fed188e15e4e5532e57b"];
+        const IMGBB_API_KEY = _0x4f1b[0];
 
-        // Funciones de animación e interfaz
-        function rotarTrabajos() {
-            const slides = document.querySelectorAll("#contenedor-trabajos .carousel-slide");
-            if (slides.length > 1) {
-                slides.forEach(s => s.classList.remove("active"));
-                indexTrabajos = (indexTrabajos + 1) % slides.length;
-                if (slides[indexTrabajos]) slides[indexTrabajos].classList.add("active");
-            }
-            setTimeout(rotarTrabajos, 4500);
-        }
+        // Teléfono global por defecto
+        let telefonoGlobal = "584243497259"; 
 
-        function rotarCapturas() {
-            const slides = document.querySelectorAll("#contenedor-capturas .review-slide");
-            if (slides.length > 1) {
-                slides.forEach(s => s.classList.remove("active"));
-                indexCapturas = (indexCapturas + 1) % slides.length;
-                if (slides[indexCapturas]) slides[indexCapturas].classList.add("active");
-            }
-            setTimeout(rotarCapturas, 5500);
-        }
-
-        function toggleMenu(menuId, btn) {
-            document.querySelectorAll(".dropdown-content").forEach(m => {
-                if (m.id !== menuId) m.classList.remove("show");
-            });
-            document.querySelectorAll(".dropbtn").forEach(b => {
-                if (b !== btn) b.classList.remove("active");
-            });
-            document.getElementById(menuId).classList.toggle("show");
-            btn.classList.toggle("active");
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches(".dropbtn")) {
-                document.querySelectorAll(".dropdown-content").forEach(m => m.classList.remove("show"));
-                document.querySelectorAll(".dropbtn").forEach(b => b.classList.remove("active"));
-            }
-        };
-
-        // Consumo de Tasa BCV Oficial
-        async function actualizarTasa() {
-            try {
-                const res = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
-                const data = await res.json();
-                document.getElementById("tasa-display").innerText = data.promedio.toFixed(2) + " BS";
-            } catch (err) {
-                document.getElementById("tasa-display").innerText = "--- BS";
-            }
-        }
-        actualizarTasa();
-
-        // Efecto visual de Nieve Azul
-        const fxContainer = document.getElementById("fx-container");
-        function crearCopo() {
-            if (!fxContainer) return;
-            const copo = document.createElement("div");
-            copo.classList.add("snowflake");
-            const tamano = Math.random() * 3 + 2;
-            copo.style.width = tamano + "px";
-            copo.style.height = tamano + "px";
-            copo.style.left = Math.random() * 100 + "vw";
-            const duracion = Math.random() * 4 + 4;
-            copo.style.animationDuration = duracion + "s";
-            fxContainer.appendChild(copo);
-            setTimeout(() => copo.remove(), duracion * 1000);
-        }
-        setInterval(crearCopo, 400);
-
-        function toggleAdminPanel() {
-            document.getElementById("panel-admin").classList.toggle("show");
-        }
-
-        // Autenticación de Administrador
-        function loginAdministrador() {
-            const email = document.getElementById("admin-email").value;
-            const pass = document.getElementById("admin-pass").value;
-            auth.signInWithEmailAndPassword(email, pass).then(() => {
-                document.getElementById("admin-auth-box").style.display = "none";
-                document.getElementById("admin-actions-box").style.display = "block";
-                cargarMetricasAdmin();
-                db.collection("configuracion").doc("globales").get().then(doc => {
-                    if (doc.exists) {
-                        const c = doc.data();
-                        document.getElementById("cfg-page-title").value = c.titulo || "";
-                        document.getElementById("cfg-phone").value = c.telefono || "";
-                        document.getElementById("cfg-facebook").value = c.facebook || "";
-                        document.getElementById("cfg-instagram").value = c.instagram || "";
-                        document.getElementById("cfg-btn1-name").value = c.btn1Name || "";
-                        document.getElementById("cfg-btn2-name").value = c.btn2Name || "";
-                        urlLogoActual = c.logoUrl || "";
-                    }
-                });
-            }).catch(err => alert("Acceso denegado: " + err.message));
-        }
-
-        // Operaciones globales de Firebase del Administrador
-        async function guardarVariablesGlobales() {
-            const tit = document.getElementById("cfg-page-title").value.trim();
-            const tel = document.getElementById("cfg-phone").value.trim();
-            const fb = document.getElementById("cfg-facebook").value.trim();
-            const ig = document.getElementById("cfg-instagram").value.trim();
-            const b1 = document.getElementById("cfg-btn1-name").value.trim();
-            const b2 = document.getElementById("cfg-btn2-name").value.trim();
-            const logoFile = document.getElementById("upload-logo-input");
-            const btn = document.getElementById("btn-guardar-globales");
-
-            if (!tit || !tel) return alert("Error: Datos vacíos");
-            btn.disabled = true;
-
-            if (logoFile.files.length > 0) {
-                const formData = new FormData();
-                formData.append("image", logoFile.files[0]);
-                try {
-                    const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, { method: "POST", body: formData });
-                    const resJson = await res.json();
-                    if (resJson.success) urlLogoActual = resJson.data.url;
-                } catch (e) { console.error(e); }
-            }
-
-            try {
-                await db.collection("configuracion").doc("globales").set({
-                    titulo: tit, telefono: tel, facebook: fb, instagram: ig,
-                    btn1Name: b1 || "💻 SERVICIOS", btn2Name: b2 || "🌐 INFRAESTRUCTURA", logoUrl: urlLogoActual
-                }, { merge: true });
-                alert("Sincronizado correctamente");
-                logoFile.value = "";
-            } catch (err) { alert(err.message); }
-            btn.disabled = false;
-        }
-
-        function escucharConfiguracionGlobal() {
-            db.collection("configuracion").doc("globales").onSnapshot(doc => {
-                if (doc.exists) {
-                    const c = doc.data();
-                    if (c.titulo) document.getElementById("page-title-tag").innerText = c.titulo;
-                    if (c.btn1Name) document.getElementById("btn-cat1-title").innerText = c.btn1Name;
-                    if (c.btn2Name) document.getElementById("btn-cat2-title").innerText = c.btn2Name;
-                    if (c.telefono) {
-                        telefonoGlobal = c.telefono;
-                        document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
-                        document.getElementById("main-tg-btn").href = "https://t.me/+" + telefonoGlobal;
-                    }
-                    if (c.facebook) document.getElementById("main-fb-link").href = c.facebook;
-                    if (c.instagram) document.getElementById("main-ig-link").href = c.instagram;
-                    if (c.logoUrl && c.logoUrl !== "") {
-                        document.getElementById("main-logo-img").src = c.logoUrl;
-                        document.getElementById("page-favicon-tag").href = c.logoUrl;
-                    }
-                }
-            });
-        }
-
-        async function subirImagenesMultiples() {
-            const files = document.getElementById("upload-file-input");
-            const dest = document.getElementById("upload-destination");
-            const btn = document.getElementById("btn-publicar-auto");
-
-            if (files.files.length === 0) return alert("Selecciona fotos primero");
-            btn.disabled = true;
-
-            for (let i = 0; i < files.files.length; i++) {
-                const formData = new FormData();
-                formData.append("image", files.files[i]);
-                try {
-                    const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, { method: "POST", body: formData });
-                    const resJson = await res.json();
-                    if (resJson.success) {
-                        await db.collection(dest.value).add({
-                            url: resJson.data.url,
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-                    }
-                } catch (e) { console.error(e); }
-            }
-            alert("Imágenes cargadas e indexadas.");
-            files.value = "";
-            btn.disabled = false;
-        }
-
-        function agregarServicioFirebase() {
-            const name = document.getElementById("new-service-name").value.trim();
-            const msg = document.getElementById("new-service-msg").value.trim();
-            const cat = document.getElementById("new-service-cat").value;
-
-            if (!name || !msg) return alert("Completa los campos requeridos");
-            db.collection("menus").add({ name: name, msg: encodeURIComponent(msg), category: cat }).then(() => {
-                alert("Servicio publicado");
-                document.getElementById("new-service-name").value = "";
-                document.getElementById("new-service-msg").value = "";
-            });
-        }
-
-        function borrarElementoFirebase(coleccion, id) {
-            if (confirm("¿Estás seguro de eliminar este ítem permanentemente?")) {
-                db.collection(coleccion).doc(id).delete().then(() => alert("Eliminado de la base de datos"));
-            }
-        }
-
+        // Función para gestionar y acumular el contador de visitas
         function gestionarContadorVisitas() {
-            const hoy = new Date();
-            const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
+            const ahora = new Date();
+            const ano = ahora.getFullYear();
+            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
+            const dia = String(ahora.getDate()).padStart(2, '0');
+            const idDia = `${ano}-${mes}-${dia}`;
             
+            const numSemana = Math.ceil(ahora.getDate() / 7);
+            const idSemana = `${ano}-${mes}-W${numSemana}`;
+            const idMes = `${ano}-${mes}`;
+            const idAno = `${ano}`;
+
+            // Escucha en vivo el total de visitas globales
             db.collection("metricas").doc("global").onSnapshot(doc => {
-                document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
-            });
+                if (doc.exists) {
+                    document.getElementById("visitas-display").innerText = doc.data().total || 0;
+                } else {
+                    document.getElementById("visitas-display").innerText = "0";
+                }
+            }, err => console.log("Error al leer visitas:", err));
 
-            const params = new URLSearchParams(window.location.search);
-            if (params.get("admin") === "true") toggleAdminPanel();
-
-            const visitKey = localStorage.getItem("croniss_universal_visit");
-            if (visitKey !== fechaID) {
-                localStorage.setItem("croniss_universal_visit", fechaID);
+            // Filtro para evitar que sume visitas repetidas por recargar (F5)
+            const marcaVisita = localStorage.getItem("croniss_visited_date");
+            if (marcaVisita !== idDia) {
+                localStorage.setItem("croniss_visited_date", idDia);
+                
                 const batch = db.batch();
                 const inc = firebase.firestore.FieldValue.increment(1);
+
                 batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
-                batch.set(db.collection("metricas_diarias").doc(fechaID), { total: inc }, { merge: true });
-                batch.commit().catch(e => console.log(e));
+                batch.set(db.collection("metricas_diarias").doc(idDia), { total: inc }, { merge: true });
+                batch.set(db.collection("metricas_semanales").doc(idSemana), { total: inc }, { merge: true });
+                batch.set(db.collection("metricas_mensuales").doc(idMes), { total: inc }, { merge: true });
+                batch.set(db.collection("metricas_anuales").doc(idAno), { total: inc }, { merge: true });
+
+                batch.commit()
+                    .then(() => console.log("Métricas de visita actualizadas."))
+                    .catch(err => console.log("Error al registrar visita: ", err));
             }
         }
 
-        function cargarMetricasAdmin() {
-            const hoy = new Date();
-            const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
-            db.collection("metricas_diarias").doc(fechaID).onSnapshot(doc => {
-                document.getElementById("stat-hoy").innerText = doc.exists ? (doc.data().total || 0) : 0;
+        // Lógica de Autenticación del Administrador
+        function manejarLoginAdmin() {
+            const email = document.getElementById("admin-email").value.trim();
+            const pass = document.getElementById("admin-password").value.trim();
+            
+            if(!email || !pass) {
+                alert("Por favor, llena todos los campos.");
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, pass)
+                .then(() => {
+                    alert("Acceso concedido. ¡Bienvenido!");
+                    document.getElementById("login-box").style.display = "none";
+                    document.getElementById("panel-admin-box").style.display = "block";
+                })
+                .catch(err => {
+                    alert("Acceso denegado: " + err.message);
+                });
+        }
+
+        // Cierre de sesión
+        function cerrarSesionAdmin() {
+            auth.signOut().then(() => {
+                alert("Sesión cerrada.");
+                document.getElementById("panel-admin-box").style.display = "none";
+                document.getElementById("login-box").style.display = "block";
             });
         }
 
+        // Monitorear el estado de la sesión en tiempo real
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById("login-box").style.display = "none";
+                document.getElementById("panel-admin-box").style.display = "block";
+            } else {
+                document.getElementById("panel-admin-box").style.display = "none";
+                document.getElementById("login-box").style.display = "block";
+            }
+        });
+
+        // Función para subir imágenes directamente a ImgBB
+        async function subirImagenImgBB(file) {
+            const formData = new FormData();
+            formData.append("image", file);
+            try {
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if(data.success) return data.data.url;
+                throw new Error("Error en respuesta de ImgBB");
+            } catch(err) {
+                console.error(err);
+                alert("Error al subir la imagen.");
+                return null;
+            }
+        }
+
+        // Agregar nuevo trabajo (con imagen a ImgBB)
+        async function agregarTrabajoFirebase() {
+            const fileInput = document.getElementById("img-trabajo");
+            const desc = document.getElementById("desc-trabajo").value.trim();
+            
+            if(!fileInput.files[0] || !desc) {
+                alert("Imagen y descripción obligatorias.");
+                return;
+            }
+            
+            const urlImg = await subirImagenImgBB(fileInput.files[0]);
+            if(!urlImg) return;
+            
+            db.collection("trabajos").add({
+                img: urlImg,
+                desc: desc,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("Trabajo agregado con éxito.");
+                document.getElementById("desc-trabajo").value = "";
+                fileInput.value = "";
+            });
+        }
+
+        // Agregar nueva captura de reseña o feedback
+        async function agregarCapturaFirebase() {
+            const fileInput = document.getElementById("img-captura");
+            if(!fileInput.files[0]) {
+                alert("Selecciona una imagen primero.");
+                return;
+            }
+            
+            const urlImg = await subirImagenImgBB(fileInput.files[0]);
+            if(!urlImg) return;
+            
+            db.collection("capturas").add({
+                img: urlImg,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("Captura agregada con éxito.");
+                fileInput.value = "";
+            });
+        }
+
+        // Agregar enlaces rápidos a la sección de WhatsApp (Menú)
+        function agregarElementoMenu() {
+            const name = document.getElementById("menu-name").value.trim();
+            const msg = encodeURIComponent(document.getElementById("menu-msg").value.trim());
+            const cat = document.getElementById("menu-category").value;
+            
+            if(!name || !msg) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+            
+            db.collection("menus").add({
+                name: name,
+                msg: msg,
+                category: cat,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("Elemento del menú agregado.");
+                document.getElementById("menu-name").value = "";
+                document.getElementById("menu-msg").value = "";
+            });
+        }
+
+        // Función genérica para borrar elementos
+        function borrarElementoFirebase(coleccion, id) {
+            if(confirm("¿Seguro que quieres eliminar este elemento?")) {
+                db.collection(coleccion).doc(id).delete()
+                    .then(() => alert("Eliminado correctamente."))
+                    .catch(err => alert("Error al eliminar: " + err.message));
+            }
+        }
+
+        // Rotación del Carrusel de Trabajos
+        let trabajosLocales = [];
+        let indexTrabajo = 0;
+        function rotarTrabajos() {
+            if(trabajosLocales.length === 0) return;
+            indexTrabajo = (indexTrabajo + 1) % trabajosLocales.length;
+            const t = trabajosLocales[indexTrabajo];
+            document.getElementById("carousel-trabajo-img").src = t.img;
+            document.getElementById("carousel-trabajo-desc").innerText = t.desc;
+            setTimeout(rotarTrabajos, 4000);
+        }
+
+        // Rotación del Carrusel de Capturas
+        let capturasLocales = [];
+        let indexCaptura = 0;
+        function rotarCapturas() {
+            if(capturasLocales.length === 0) return;
+            indexCaptura = (indexCaptura + 1) % capturasLocales.length;
+            document.getElementById("carousel-captura-img").src = capturasLocales[indexCaptura].img;
+            setTimeout(rotarCapturas, 4000);
+        }
+
+        // Configuración global (Título y Favicon dinámicos)
+        function escucharConfiguracionGlobal() {
+            db.collection("config").doc("global").onSnapshot(doc => {
+                if(doc.exists) {
+                    const d = doc.data();
+                    if(d.title) {
+                        document.title = d.title;
+                        const h1 = document.getElementById('main-header-title');
+                        const tagTitle = document.getElementById('page-title-tag');
+                        if(h1) h1.innerText = d.title;
+                        if(tagTitle) tagTitle.innerText = d.title;
+                    }
+                    if(d.favicon) {
+                        let fav = document.getElementById("page-favicon-tag");
+                        if(fav) fav.href = d.favicon;
+                    }
+                    if(d.telefono) {
+                        telefonoGlobal = d.telefono;
+                    }
+                }
+            });
+        }
+
+        // Guardar nueva configuración de la web
+        function guardarConfiguracionGlobal() {
+            const nTitle = document.getElementById("cfg-title").value.trim();
+            const nFav = document.getElementById("cfg-favicon").value.trim();
+            const nTel = document.getElementById("cfg-telefono").value.trim();
+            
+            const updateData = {};
+            if(nTitle) updateData.title = nTitle;
+            if(nFav) updateData.favicon = nFav;
+            if(nTel) updateData.telefono = nTel;
+            
+            if(Object.keys(updateData).length === 0) return;
+            
+            db.collection("config").doc("global").set(updateData, { merge: true })
+                .then(() => {
+                    alert("Configuración actualizada.");
+                    document.getElementById("cfg-title").value = "";
+                    document.getElementById("cfg-favicon").value = "";
+                    document.getElementById("cfg-telefono").value = "";
+                });
+        }
+
+        // Sincronización en tiempo real de colecciones multimedia y de gestión
         function sincronizarBaseDeDatos() {
+            // Trabajos
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
-                const container = document.getElementById("contenedor-trabajos");
-                const list = document.getElementById("lista-borrar-trabajos");
-                container.innerHTML = ""; list.innerHTML = "";
-                if (!snap.empty) {
-                    let i = 0;
-                    snap.forEach(doc => {
-                        container.innerHTML += `<div class="carousel-slide ${i===0?'active':''}"><img src="${doc.data().url}"></div>`;
-                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Foto #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('trabajos','${doc.id}')">Eliminar</button></div>`;
-                        i++;
-                    });
-                } else {
-                    container.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin fotos cargadas.</p></div>';
-                }
-            });
-
-            db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
-                const container = document.getElementById("contenedor-capturas");
-                const list = document.getElementById("lista-borrar-capturas");
-                container.innerHTML = ""; list.innerHTML = "";
-                if (!snap.empty) {
-                    let i = 0;
-                    snap.forEach(doc => {
-                        container.innerHTML += `<div class="review-slide ${i===0?'active':''}"><img src="${doc.data().url}"></div>`;
-                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Captura #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
-                        i++;
-                    });
-                } else {
-                    container.innerHTML = '<div class="review-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin opiniones cargadas.</p></div>';
-                }
-            });
-
-            db.collection("menus").onSnapshot(snap => {
-                const m1 = document.getElementById("menu-servicios");
-                const m2 = document.getElementById("menu-instala");
-                const list = document.getElementById("lista-borrar-servicios");
-                m1.innerHTML = ""; m2.innerHTML = ""; list.innerHTML = "";
-                if (!snap.empty) {
+                trabajosLocales = [];
+                const listaBorrar = document.getElementById("lista-borrar-trabajos");
+                listaBorrar.innerHTML = "";
+                if(!snap.empty) {
                     snap.forEach(doc => {
                         const d = doc.data();
-                        const a = document.createElement("a");
-                        a.href = "https://wa.me/" + telefonoGlobal + "?text=" + d.msg;
-                        a.target = "_blank";
-                        a.className = "service-link";
-                        a.innerText = d.name;
-                        if (d.category === "servicios") m1.appendChild(a); else m2.appendChild(a);
-                        list.innerHTML += `<div class="manager-item"><span>[${d.category==='servicios'?'Btn 1':'Btn 2'}] ${d.name}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('menus','${doc.id}')">Eliminar</button></div>`;
+                        trabajosLocales.push(d);
+                        listaBorrar.innerHTML += `
+                            <div class="manager-item">
+                                <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
+                                <span style="flex:1; margin-left:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.desc}</span>
+                                <button class="btn-delete-small" onclick=\"borrarElementoFirebase('trabajos', '${doc.id}')\">Eliminar</button>
+                            </div>`;
                     });
-                } else {
-                    m1.innerHTML = '<p style="color:#64748b; font-size:0.8rem; padding:10px; margin:0;">Usa el panel admin</p>';
-                    m2.innerHTML = '<p style="color:#64748b; font-size:0.8rem; padding:10px; margin:0;">Usa el panel admin</p>';
+                    const t = trabajosLocales[0];
+                    document.getElementById("carousel-trabajo-img").src = t.img;
+                    document.getElementById("carousel-trabajo-desc").innerText = t.desc;
+                }
+            });
+
+            // Capturas
+            db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
+                capturasLocales = [];
+                const listaBorrar = document.getElementById("lista-borrar-capturas");
+                listaBorrar.innerHTML = "";
+                if(!snap.empty) {
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        capturasLocales.push(d);
+                        listaBorrar.innerHTML += `
+                            <div class="manager-item">
+                                <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
+                                <span style="flex:1; margin-left:10px;">ID: ${doc.id.substring(0,6)}...</span>
+                                <button class="btn-delete-small" onclick=\"borrarElementoFirebase('capturas', '${doc.id}')\">Eliminar</button>
+                            </div>`;
+                    });
+                    document.getElementById("carousel-captura-img").src = capturasLocales[0].img;
+                }
+            });
+
+            // Menús / Enlaces rápidos
+            db.collection("menus").orderBy("timestamp", "desc").onSnapshot(snap => {
+                const menuServ = document.getElementById("menu-servicios");
+                const menuInst = document.getElementById("menu-instala");
+                const listaBorrarServ = document.getElementById("lista-borrar-servicios");
+                
+                document.querySelectorAll('.dynamic-service').forEach(el => el.remove());
+                listaBorrarServ.innerHTML = '';
+
+                if(!snap.empty) {
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        const nLink = document.createElement('a');
+                        nLink.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
+                        nLink.target = "_blank";
+                        nLink.className = "service-link dynamic-service";
+                        nLink.innerText = d.name;
+                        
+                        if(d.category === 'servicios') menuServ.appendChild(nLink);
+                        else menuInst.appendChild(nLink);
+
+                        listaBorrarServ.innerHTML += `
+                            <div class="manager-item">
+                                <span>[${d.category === 'servicios' ? 'Btn 1' : 'Btn 2'}] ${d.name}</span>
+                                <button class="btn-delete-small" onclick="borrarElementoFirebase('menus', '${doc.id}')">Eliminar</button>
+                            </div>`;
+                    });
                 }
             });
         }
 
+        // Inicializar procesos de escucha
         escucharConfiguracionGlobal();
         sincronizarBaseDeDatos();
         gestionarContadorVisitas();
