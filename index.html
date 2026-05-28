@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title-tag">Plataforma de Servicios</title>
+    <title id="page-title-tag">Cargando...</title>
     <link id="page-favicon-tag" rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght=600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Variables dinámicas controladas desde el Panel de Administración */
         :root {
             --neon-blue: #0077ff;
-            --neon-cyan: #00f3ff;
-            --dark-bg-start: #0b0f19;
-            --dark-bg-end: #030712;
-            --panel-bg-start: #111827;
-            --panel-bg-end: #070a12;
-            --border-metal: rgba(0, 243, 255, 0.2);
-            --text-frozen: #e2f0ff;
+            --frozen-white: #e2f0ff;
+            --dark-bg: #030712; 
+            --panel-gradient: linear-gradient(180deg, #111827 0%, #030712 100%);
+            --border-metal: rgba(99, 140, 255, 0.3);
+            --glass: rgba(17, 24, 39, 0.7);
         }
 
         body {
-            margin: 0; padding: 20px;
+            margin: 0;
+            padding: 20px;
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg-start);
-            background-image: linear-gradient(180deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
+            background-color: var(--dark-bg);
             color: white;
             display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh; box-sizing: border-box;
             overflow-x: hidden;
-            transition: background 0.5s ease;
+            position: relative;
         }
 
         #fx-container {
@@ -49,140 +45,148 @@
 
         @keyframes fall { to { transform: translateY(105vh); } }
 
-        header {
-            width: 100%; max-width: 1200px; display: flex; justify-content: space-between;
-            align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 15px; z-index: 10;
-        }
-
-        header h1 {
-            font-family: 'Orbitron', sans-serif; font-size: 2rem; margin: 0;
-            color: var(--text-frozen); text-shadow: 0 0 15px var(--border-metal);
-            letter-spacing: 2px;
+        .main-frame {
+            width: 95%;
+            max-width: 1200px;
+            background: var(--panel-gradient);
+            border: 4px solid var(--border-metal);
+            border-radius: 15px; padding: 15px;
+            box-shadow: inset 0 0 25px rgba(0,0,0,0.9), 0 10px 40px rgba(0,0,0,0.6);
+            position: relative; z-index: 10;
+            box-sizing: border-box;
         }
 
         .top-banner {
-            width: 100%; max-width: 1200px; height: 220px;
-            border: 2px solid var(--neon-blue); border-radius: 15px;
-            position: relative; overflow: hidden;
+            width: 100%;
+            height: 220px;
+            border: 2px solid var(--neon-blue);
+            border-radius: 10px; position: relative; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
-            margin-bottom: 25px; background: #000;
-            box-shadow: 0 0 25px rgba(0, 119, 255, 0.15);
+            margin-bottom: 20px;
+            background: #000;
         }
 
         .logo-central { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
-        .dashboard-grid {
-            width: 100%; max-width: 1200px;
-            display: grid; grid-template-columns: 280px 1fr 1fr; gap: 25px;
-            z-index: 10;
+        .main-dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr 1fr; gap: 20px;
+            background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 20px; border: 1px solid var(--border-metal); border-radius: 20px;
         }
 
-        @media (max-width: 992px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-        }
-
-        .info-panel-column { display: flex; flex-direction: column; gap: 20px; align-items: center; }
-
-        .panel {
-            background: linear-gradient(135deg, var(--panel-bg-start) 0%, var(--panel-bg-end) 100%);
-            border: 1px solid var(--border-metal); border-radius: 16px; padding: 22px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.05),
-                        0 0 20px rgba(0, 243, 255, 0.02);
-            position: relative; overflow: hidden; box-sizing: border-box;
-            width: 100%;
-            transition: all 0.5s ease;
-        }
-
-        .panel-title {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; margin-top: 0; margin-bottom: 20px;
-            color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 1.5px;
-            border-left: 4px solid var(--neon-blue); padding-left: 10px; font-weight: bold;
-        }
-
-        .bcv-card {
-            background: linear-gradient(135deg, var(--panel-bg-end) 0%, var(--panel-bg-start) 100%);
-            border: 1px dashed var(--neon-blue); border-radius: 12px; padding: 15px;
-            width: 100%; text-align: center; box-sizing: border-box;
-            box-shadow: 0 0 15px rgba(0, 119, 255, 0.1);
-        }
-        .bcv-title { font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-blue); font-weight: bold; display: block; margin-bottom: 5px;}
-        .bcv-amount {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: #fff;
-            font-weight: 700; text-shadow: 0 0 10px var(--border-metal);
-        }
-
-        .visitas-box {
-            background: rgba(255,255,255,0.02); border: 1px dashed var(--neon-cyan); border-radius: 12px;
-            padding: 15px; width: 100%; text-align: center; box-sizing: border-box;
-        }
-        .visitas-title { font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-cyan); font-weight: bold; display: block; margin-bottom: 5px; }
-        .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: bold; color: var(--neon-cyan); text-shadow: 0 0 10px var(--border-metal); }
-
-        .buttons-column { display: flex; flex-direction: column; gap: 12px; width: 100%; }
-        .dropdown { position: relative; width: 100%; }
+        .info-panel-column { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .buttons-column { display: flex; flex-direction: column; gap: 10px; position: relative; align-items: center; width: 100%; }
+        .dropdown { position: relative; width: 100%; display: flex; justify-content: center; }
 
         .dropbtn {
             font-family: 'Rajdhani', sans-serif;
             background: linear-gradient(180deg, #1f2937, #111827);
-            border: 1px solid #374151; padding: 12px 15px; font-size: 0.85rem; 
-            width: 100%; color: #fff; font-weight: bold; cursor: pointer;
+            border: 1px solid #374151; padding: 11px 15px; font-size: 0.85rem; 
+            width: 100%; color: #fff; font-weight: bold;
+            cursor: pointer;
             border-radius: 8px; text-align: center; text-transform: uppercase; letter-spacing: 2px;
             transition: all 0.3s ease; outline: none;
         }
-        .dropbtn.active, .dropbtn:hover { background: var(--neon-blue); color: #fff; box-shadow: 0 0 20px var(--neon-blue); border-color: var(--neon-cyan); }
+
+        .dropbtn.active { background: var(--neon-blue); color: #fff; box-shadow: 0 0 20px var(--neon-blue); }
 
         .dropdown-content {
-            display: none; position: absolute; background-color: #0b1329; min-width: 100%; z-index: 2000;
-            border: 2px solid var(--neon-blue); border-radius: 8px; padding: 8px; left: 0; top: 105%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9); box-sizing: border-box;
+            display: none;
+            position: absolute; background-color: #0b1329; min-width: 260px; z-index: 2000;
+            border: 2px solid var(--neon-blue); border-radius: 8px; padding: 10px; 
+            left: 50%; transform: translateX(-50%);
+            top: 105%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9); text-align: left;
         }
-        .show { display: block !important; }
 
         .service-link {
-            display: block; color: #ccc; text-decoration: none; padding: 10px; font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; border-radius: 4px;
+            display: block;
+            color: #ccc; text-decoration: none; padding: 8px 10px; font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s;
         }
-        .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-cyan); padding-left: 15px; }
+        .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-blue); padding-left: 15px; }
 
         .social-item { display: flex; align-items: center; gap: 12px; padding: 10px; text-decoration: none; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
-        .social-item img { width: 22px; height: 22px; object-fit: contain; }
-        .social-item:hover { background: rgba(255,255,255,0.05); border-radius: 6px; color: var(--neon-cyan); }
+        .social-item img { width: 22px !important; height: 22px !important; object-fit: contain; flex-shrink: 0; }
+        .social-item:hover { background: rgba(255,255,255,0.1); border-radius: 8px; }
 
-        .contact-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin: 10px 0 5px 0; font-size: 0.85rem; font-weight: bold; text-align: center; display: block;}
-        .contact-links-container { display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .contact-link { text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border-radius: 8px; width: 100%; box-sizing: border-box;}
+        .contact-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin: 10px 0 5px 0; font-size: 0.85rem; font-weight: bold; }
+        .contact-links-container { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: center; }
+        .contact-link { text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 10px; border-radius: 8px; width: 85%; }
         .contact-link img { width: 20px; height: 20px; }
+
         .whatsapp-link { color: #25d366; border: 1px solid rgba(37, 211, 102, 0.3); }
         .whatsapp-link:hover { background: rgba(37, 211, 102, 0.1); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
         .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 119, 255, 0.3); }
         .telegram-link:hover { background: rgba(0, 119, 255, 0.1); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
 
-        .carousel-container { width: 100%; height: 380px; background: #000; border: 2px solid var(--border-metal); border-radius: 12px; position: relative; overflow: hidden; }
-        .carousel-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; justify-content: center; align-items: center; }
-        .carousel-slide.active { opacity: 1; }
-        .carousel-slide img { width: 100%; height: 100%; object-fit: contain; }
+        .tasa-box, .visitas-box { padding: 10px; background: rgba(255,255,255,0.03); border: 1px dashed var(--neon-blue); border-radius: 10px; width: 90%; text-align: center; box-sizing: border-box; }
+        .visitas-box { border: 1px dashed #22c55e; }
+        .tasa-display, .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: bold; color: #fff; display: block; margin-top: 3px; }
+        .visitas-display { color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
 
-        /* PANEL ADMIN MEJORADO */
-        .admin-trigger { margin-top: 50px; font-size: 0.75rem; color: rgba(255,255,255,0.2); cursor: pointer; text-decoration: underline; padding-bottom: 20px; z-index: 5000; display: inline-block; }
-        .admin-panel { display: none; width: 100%; max-width: 600px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; z-index: 5001; }
+        .dashboard-section { display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.05); background: rgba(0, 0, 0, 0.2); border-radius: 12px; padding: 12px; box-sizing: border-box; }
+        .section-internal-title { font-family: 'Rajdhani', sans-serif; font-size: 1rem; color: var(--neon-blue); letter-spacing: 1.5px; margin-bottom: 12px; text-transform: uppercase; text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        .carousel-container, .reviews-container { width: 100%; height: 380px; background: #000; border: 2px solid var(--border-metal); border-radius: 10px; position: relative; overflow: hidden; margin: auto 0; }
+        .reviews-container { border: 2px solid var(--neon-blue); box-shadow: 0 0 15px rgba(0, 119, 255, 0.1); }
+        .carousel-slide, .review-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; justify-content: center; align-items: center; }
+        .carousel-slide.active, .review-slide.active { opacity: 1; }
+        .carousel-slide img, .review-slide img { width: 100%; height: 100%; object-fit: contain; }
+        .review-slide img { padding: 5px; box-sizing: border-box; }
+
+        /* Estilos Avanzados del Formulario de Reseñas en Vivo */
+        .review-form-box { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(0, 119, 255, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 15px; box-sizing: border-box; }
+        .review-form-box input, .review-form-box textarea { width: 100%; padding: 8px 10px; margin-bottom: 8px; border-radius: 6px; border: 1px solid #1f2937; background: #030712; color: white; font-size: 0.85rem; box-sizing: border-box; }
+        .rating-container { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .rating-label { font-size: 0.8rem; color: #9ca3af; font-weight: bold; text-transform: uppercase; }
+        .stars-rating { display: flex; gap: 4px; flex-direction: row-reverse; }
+        .star { font-size: 1.4rem; color: #374151; cursor: pointer; transition: color 0.2s ease; }
+        .star:hover, .star:hover ~ .star, .star.selected, .star.selected ~ .star { color: #f59e0b; text-shadow: 0 0 8px rgba(245, 158, 11, 0.5); }
+        #btn-enviar-review { width: 100%; padding: 9px; background: linear-gradient(180deg, var(--neon-blue), #0055b3); border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
+        #btn-enviar-review:hover { box-shadow: 0 0 15px var(--neon-blue); transform: translateY(-1px); }
+
+        /* Estilos Avanzados del Carrusel Vertical Continuo */
+        .vertical-carousel-wrapper { width: 100%; height: 250px; background: #000; border: 2px solid var(--border-metal); border-radius: 10px; position: relative; overflow: hidden; }
+        .vertical-carousel-track { display: flex; flex-direction: column; gap: 10px; padding: 10px; position: absolute; width: 100%; box-sizing: border-box; animation: scrollVertical 25s linear infinite; }
+        .vertical-carousel-wrapper:hover .vertical-carousel-track { animation-play-state: paused; }
+        @keyframes scrollVertical { 0% { top: 100%; transform: translateY(0%); } 100% { top: 0%; transform: translateY(-100%); } }
+        .comment-card { background: rgba(17, 24, 39, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); border-left: 3px solid var(--neon-blue); border-radius: 6px; padding: 10px; box-sizing: border-box; }
+        .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .comment-user { font-weight: bold; font-size: 0.85rem; color: #fff; }
+        .comment-stars { color: #f59e0b; font-size: 0.8rem; }
+        .comment-body { font-size: 0.8rem; color: #d1d5db; margin: 0; line-height: 1.3; word-break: break-word; }
+
+        /* Panel de Administración */
+        .admin-trigger { margin-top: 50px; font-size: 0.75rem; color: rgba(255,255,255,0.15); cursor: pointer; text-decoration: underline; padding-bottom: 20px; position: relative; z-index: 5000; display: inline-block; }
+        .admin-panel { display: none; width: 90%; max-width: 550px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; position: relative; z-index: 5001; }
         .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #374151; padding-bottom: 10px; }
-        
-        .admin-section-title { color: #f59e0b; margin: 15px 0 5px 0; font-size: 0.9rem; font-weight: bold; border-left: 3px solid #f59e0b; padding-left: 6px; }
-        .color-picker-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #030712; padding: 10px; border-radius: 8px; border: 1px solid #374151; margin-bottom: 10px;}
-        .color-item { display: flex; flex-direction: column; font-size: 0.75rem; color: #9ca3af; }
-        .color-item input[type="color"] { height: 40px; padding: 2px; background: none; border: none; cursor: pointer; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .stat-card { background: #030712; border: 1px solid #374151; border-radius: 8px; padding: 10px; text-align: center; }
+        .stat-card span { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; }
+        .stat-card strong { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; color: var(--neon-blue); }
 
-        .admin-panel input[type="text"], .admin-panel input[type="email"], .admin-panel input[type="password"], .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 6px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
+        .admin-panel input, .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 8px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
         .admin-panel button { background: #ef4444; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
         .admin-panel button:hover { background: #dc2626; }
-        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 12px; margin: 5px 0; width: 100%; box-sizing: border-box; color: white;}
+        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 15px; }
 
         .manager-container { margin-top: 15px; max-height: 140px; overflow-y: auto; background: #030712; border: 1px solid #374151; border-radius: 6px; padding: 8px; }
         .manager-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #d1d5db; }
         .manager-item img { width: 45px; height: 35px; object-fit: cover; border-radius: 4px; }
         .btn-delete-small { background: #dc2626 !important; width: auto !important; padding: 4px 8px !important; margin: 0 !important; font-size: 0.75rem !important; border-radius: 4px !important; }
+        .btn-delete-small:hover { background: #b91c1c !important; }
+
+        .show { display: block !important; }
+
+        @media (max-width: 992px) { 
+            .main-dashboard { grid-template-columns: 1fr; padding: 15px; } 
+            .dashboard-section { margin-top: 15px; }
+            .carousel-container, .reviews-container { height: 420px; }
+            .contact-link { width: 180px; }
+            .tasa-box, .visitas-box { width: 80%; }
+        }
     </style>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -193,21 +197,16 @@
 
     <div id="fx-container"></div>
 
-    <header>
-        <h1 id="main-header-title">PLATAFORMA</h1>
-    </header>
+    <div class="main-frame">
+        <div class="top-banner">
+            <img id="main-logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="SOPORTE TÉCNICO" class="logo-central">
+        </div>
 
-    <div class="top-banner">
-        <img id="main-logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="BANNER LOGO" class="logo-central">
-    </div>
-
-    <div class="dashboard-grid">
-        
-        <div class="info-panel-column">
-            <div class="panel">
+        <div class="main-dashboard">
+            <div class="info-panel-column">
                 <div class="buttons-column">
                     <div class="dropdown">
-                        <button class="dropbtn" id="btn-cat1-title" onclick="toggleMenu('menu-servicios', this)">⚙️ SERVICIOS</button>
+                        <button class="dropbtn" id="btn-cat1-title" onclick="toggleMenu('menu-servicios', this)">⚡ SERVICIOS</button>
                         <div id="menu-servicios" class="dropdown-content"></div>
                     </div>
 
@@ -217,14 +216,14 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn" id="btn-cat3-title" onclick="toggleMenu('menu-ubica', this)">📍 ATENCIÓN</button>
+                        <button class="dropbtn" onclick="toggleMenu('menu-ubica', this)">📌 ATENCIÓN</button>
                         <div id="menu-ubica" class="dropdown-content">
-                            <p id="txt-atencion-content" style="padding: 10px; margin:0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">Maracay, Edo. Aragua.</p>
+                            <p style="padding: 10px; margin:0; font-size: 0.85rem;">Maracay, Edo. Aragua.<br>Soporte a domicilio y remoto.</p>
                         </div>
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">📱 REDES SOCIALES</button>
+                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">🛰️ CONTACTAR</button>
                         <div id="menu-redes" class="dropdown-content">
                             <a href="#" id="main-fb-link" target="_blank" class="social-item">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"> Facebook
@@ -245,39 +244,59 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> Telegram
                     </a>
                 </div>
+                
+                <div class="tasa-box">
+                    <span style="font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-blue); font-weight: bold;">TASA OFICIAL BCV</span>
+                    <span id="tasa-display" class="tasa-display">--- BS</span>
+                </div>
+
+                <div class="visitas-box">
+                    <span style="font-size: 0.65rem; letter-spacing: 1px; color: #22c55e; font-weight: bold;">VISITAS TOTALES</span>
+                    <span id="visitas-display" class="visitas-display">0</span>
+                </div>
             </div>
 
-            <div class="bcv-card">
-                <span class="bcv-title">TASA OFICIAL BCV</span>
-                <span id="tasa-display" class="bcv-amount">--- BS</span>
+            <div class="dashboard-section">
+                <div class="section-internal-title">🛠️ Diagnósticos y Reparaciones</div>
+                <div class="carousel-container" id="contenedor-trabajos">
+                    <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando historial...</p></div>
+                </div>
             </div>
 
-            <div class="visitas-box">
-                <span class="visitas-title">VISITAS TOTALES</span>
-                <span id="visitas-display" class="visitas-display">0</span>
+            <div class="dashboard-section">
+                <div class="section-internal-title">⭐ Opiniones de Clientes en Vivo</div>
+                
+                <div class="review-form-box">
+                    <input type="text" id="rev-name" placeholder="Tu Nombre o Empresa" required>
+                    <textarea id="rev-text" rows="2" placeholder="Cuéntanos tu experiencia con el servicio..." required></textarea>
+                    
+                    <div class="rating-container">
+                        <span class="rating-label">Calificación:</span>
+                        <div class="stars-rating" id="stars-selector">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="btn-enviar-review" onclick="enviarComentarioFirebase()">Enviar Reseña Oficial</button>
+                </div>
+
+                <div class="vertical-carousel-wrapper">
+                    <div class="vertical-carousel-track" id="contenedor-comentarios-v">
+                        <p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando comentarios en vivo...</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="panel">
-            <h2 class="panel-title" id="titulo-columna-trabajos">Trabajos Realizados</h2>
-            <div class="carousel-container" id="contenedor-trabajos">
-                <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando historial...</p></div>
-            </div>
-        </div>
-
-        <div class="panel">
-            <h2 class="panel-title" id="titulo-columna-capturas">Casos de Éxito</h2>
-            <div class="carousel-container" id="contenedor-capturas">
-                <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando opiniones...</p></div>
-            </div>
-        </div>
-
     </div>
 
     <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
 
     <div class="admin-panel" id="panel-admin">
-        <h3>🛠️ Panel de Control Global</h3>
+        <h3>🔑 Panel de Control Universal</h3>
         
         <div id="admin-auth-box">
             <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
@@ -286,78 +305,67 @@
         </div>
 
         <div id="admin-actions-box" style="display: none;">
-            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✅ Modo Administrador Activo</p>
+            <p style="color: #22c55e; font-weight: bold; margin-top:0;">🔓 Conexión establecida</p>
             
-            <div class="admin-section-title">📝 Títulos y Textos Operativos</div>
-            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña e indexación">
-            <input type="text" id="cfg-atencion-text" placeholder="Texto descriptivo dentro de '📍 Atención'">
-            <input type="text" id="cfg-title-trabajos" placeholder="Título columna de trabajos (Ej: Diagnósticos)">
-            <input type="text" id="cfg-title-capturas" placeholder="Título columna de capturas (Ej: Opiniones)">
+            <h4 style="color: #22c55e; margin-bottom: 5px;">📊 Estadísticas de Tráfico Real</h4>
+            <div class="stats-grid">
+                <div class="stat-card"><span>Hoy</span><strong id="stat-hoy">0</strong></div>
+                <div class="stat-card"><span>Esta Semana</span><strong id="stat-semana">0</strong></div>
+                <div class="stat-card"><span>Este Mes</span><strong id="stat-mes">0</strong></div>
+                <div class="stat-card"><span>Este Año</span><strong id="stat-ano">0</strong></div>
+            </div>
 
-            <div class="admin-section-title">📞 Centralización de Contacto (WhatsApp, Telegram, Botones)</div>
-            <input type="text" id="cfg-phone" placeholder="Número de teléfono de contacto (Ej: 584129830982)">
+            <h4 style="color: #f59e0b; border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">⚙️ Variables Globales de la Página</h4>
+            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña de navegación">
+            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584129830982)">
             <input type="text" id="cfg-facebook" placeholder="Enlace de perfil de Facebook">
             <input type="text" id="cfg-instagram" placeholder="Enlace de perfil de Instagram">
-            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón Desplegable 1">
-            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón Desplegable 2">
-            <input type="text" id="cfg-btn3-name" placeholder="Nombre Botón Desplegable 3">
-
-            <div class="admin-section-title">🎨 Estudio de Diseño (Colores y Degradados)</div>
             
-            <span style="font-size:0.75rem; color:#d1d5db;">Degradado del Fondo de la Página:</span>
-            <div class="color-picker-group">
-                <div class="color-item"><span>Color Inicial</span><input type="color" id="clr-bg-start" value="#0b0f19"></div>
-                <div class="color-item"><span>Color Final</span><input type="color" id="clr-bg-end" value="#030712"></div>
-            </div>
+            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón 1 (Ej: ⚡ SERVICIOS PC)">
+            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón 2 (Ej: 🌐 REDES Y SISTEMAS)">
 
-            <span style="font-size:0.75rem; color:#d1d5db;">Degradado de los Paneles Modulares:</span>
-            <div class="color-picker-group">
-                <div class="color-item"><span>Color Superior</span><input type="color" id="clr-panel-start" value="#111827"></div>
-                <div class="color-item"><span>Color Inferior</span><input type="color" id="clr-panel-end" value="#070a12"></div>
-            </div>
-
-            <span style="font-size:0.75rem; color:#d1d5db;">Brillo de los Bordes y Efectos de Neón:</span>
-            <div class="color-picker-group">
-                <div class="color-item"><span>Neón Principal</span><input type="color" id="clr-neon-blue" value="#0077ff"></div>
-                <div class="color-item"><span>Neón Secundario</span><input type="color" id="clr-neon-cyan" value="#00f3ff"></div>
-            </div>
-
-            <div class="admin-section-title">📷 Multimedia Corporativa</div>
-            <p style="font-size:0.7rem; color:#9ca3af; margin:0;">Actualizar logotipo central y pestaña simultáneamente:</p>
+            <p style="font-size:0.75rem; color:#f59e0b; margin:5px 0 0 0; font-weight: bold;">🖼️ Actualizar Logo Oficial (Banner y Pestaña):</p>
             <input type="file" id="upload-logo-input" accept="image/*">
+            
+            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
 
-            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black; margin-top:15px;" onclick="guardarVariablesGlobales()">Sincronizar y Actualizar Toda la Web</button>
-
-            <div class="admin-section-title">🖼️ Gestión de Carruseles Fotográficos</div>
+            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Fotografías al Carrusel</h4>
             <input type="file" id="upload-file-input" accept="image/*" multiple>
             <select id="upload-destination">
                 <option value="trabajos">Destino: Carrusel de Trabajos Realizados</option>
-                <option value="capturas">Destino: Carrusel de Casos de Éxito</option>
+                <option value="capturas">Destino: Carrusel de Opiniones</option>
             </select>
-            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir Fotos Seleccionadas</button>
+            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir y Publicar al Instante</button>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:10px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
-            <div class="manager-container" id="lista-borrar-trabajos"></div>
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
+            <div class="manager-container" id="lista-borrar-trabajos">
+                <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
+            </div>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:10px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Éxito:</p>
-            <div class="manager-container" id="lista-borrar-capturas"></div>
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Capturas de Clientes:</p>
+            <div class="manager-container" id="lista-borrar-capturas">
+                <p style="color:#64748b; font-size:0.75rem; text-align:center;">Cargando lista...</p>
+            </div>
 
-            <div class="admin-section-title">➕ Publicar nuevo Ítem en Desplegables</div>
-            <input type="text" id="new-service-name" placeholder="Nombre de la sub-opción">
+            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Añadir Ítem a un Desplegable</h4>
+            <input type="text" id="new-service-name" placeholder="Nombre del servicio (Ej: • Mantenimiento General)">
             <input type="text" id="new-service-msg" placeholder="Mensaje predeterminado que te llegará al WhatsApp">
             <select id="new-service-cat">
                 <option value="servicios">Asignar a: Botón Desplegable 1</option>
                 <option value="instalacion">Asignar a: Botón Desplegable 2</option>
             </select>
-            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem</button>
+            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem de Menú</button>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:10px 0 2px 0; font-weight: bold;">📋 Administrar Ítems Creados:</p>
-            <div class="manager-container" id="lista-borrar-servicios"></div>
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Administrar/Eliminar Ítems del Menú:</p>
+            <div class="manager-container" id="lista-borrar-servicios">
+                <p style="color:#64748b; font-size:0.75rem; text-align:center;">No hay servicios creados aún.</p>
+            </div>
         </div>
     </div>
 
     <script>
-        const IMGBB_API_KEY = "0a5e7954b4b9fed188e15e4e5532e57b";
+        const _0x01 = ["0a5e7954b4b9fed188e15e4e5532e57b"];
+        const IMGBB_API_KEY = _0x01[0];
 
         const firebaseConfig = {
             apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnzHtYE5We4_jyJ0k",
@@ -369,13 +377,13 @@
             measurementId: "G-XBF96YNVT6"
         };
 
-        // Verificación de seguridad para evitar duplicados en la app
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        } else {
-            firebase.app();
+        // Regla de arquitectura básica: Evitar la reinicialización de instancias duplicadas
+        if (!firebase.apps.length) { 
+            firebase.initializeApp(firebaseConfig); 
+        } else { 
+            firebase.app(); 
         }
-
+        
         const db = firebase.firestore();
         const auth = firebase.auth();
 
@@ -383,8 +391,21 @@
         let indexCapturas = 0;
         let telefonoGlobal = "584129830982";
         let urlLogoActual = "";
+        let puntajeSeleccionado = 0;
 
-        // Rotaciones de carrusel
+        // Configuración interactiva de las estrellas neón
+        document.addEventListener("DOMContentLoaded", () => {
+            const estrellas = document.querySelectorAll("#stars-selector .star");
+            estrellas.forEach(star => {
+                star.addEventListener("click", (e) => {
+                    puntajeSeleccionado = parseInt(e.target.getAttribute("data-value"));
+                    estrellas.forEach(s => s.classList.remove("selected"));
+                    e.target.classList.add("selected");
+                });
+            });
+        });
+
+        // Rotación de carruseles tradicionales
         function rotarTrabajos() {
             const slides = document.querySelectorAll("#contenedor-trabajos .carousel-slide");
             if (slides.length > 1) {
@@ -395,21 +416,14 @@
             setTimeout(rotarTrabajos, 4500);
         }
 
-        function rotarCapturas() {
-            const slides = document.querySelectorAll("#contenedor-capturas .carousel-slide");
-            if (slides.length > 1) {
-                slides.forEach(s => s.classList.remove("active"));
-                indexCapturas = (indexCapturas + 1) % slides.length;
-                if (slides[indexCapturas]) slides[indexCapturas].classList.add("active");
-            }
-            setTimeout(rotarCapturas, 5500);
-        }
-
         function toggleMenu(menuId, btn) {
-            document.querySelectorAll(".dropdown-content").forEach(m => { if (m.id !== menuId) m.classList.remove("show"); });
-            document.querySelectorAll(".dropbtn").forEach(b => { if (b !== btn) b.classList.remove("active"); });
-            const target = document.getElementById(menuId);
-            if(target) target.classList.toggle("show");
+            document.querySelectorAll(".dropdown-content").forEach(m => {
+                if (m.id !== menuId) m.classList.remove("show");
+            });
+            document.querySelectorAll(".dropbtn").forEach(b => {
+                if (b !== btn) b.classList.remove("active");
+            });
+            if(document.getElementById(menuId)) document.getElementById(menuId).classList.toggle("show");
             btn.classList.toggle("active");
         }
 
@@ -420,29 +434,27 @@
             }
         };
 
-        // Consulta directa e independiente a DolarApi para mercado de Venezuela
         async function actualizarTasa() {
             try {
                 const res = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
                 const data = await res.json();
-                if(data && data.promedio) {
+                if(document.getElementById("tasa-display")) {
                     document.getElementById("tasa-display").innerText = data.promedio.toFixed(2) + " BS";
-                } else {
-                    document.getElementById("tasa-display").innerText = "--- BS";
                 }
             } catch (err) {
-                document.getElementById("tasa-display").innerText = "--- BS";
+                if(document.getElementById("tasa-display")) document.getElementById("tasa-display").innerText = "--- BS";
             }
         }
+        actualizarTasa();
 
-        // Efecto visual de partículas neón
         const fxContainer = document.getElementById("fx-container");
         function crearCopo() {
             if (!fxContainer) return;
             const copo = document.createElement("div");
             copo.classList.add("snowflake");
             const tamano = Math.random() * 3 + 2;
-            copo.style.width = tamano + "px"; copo.style.height = tamano + "px";
+            copo.style.width = tamano + "px";
+            copo.style.height = tamano + "px";
             copo.style.left = Math.random() * 100 + "vw";
             const duracion = Math.random() * 4 + 4;
             copo.style.animationDuration = duracion + "s";
@@ -451,7 +463,9 @@
         }
         setInterval(crearCopo, 400);
 
-        function toggleAdminPanel() { document.getElementById("panel-admin").classList.toggle("show"); }
+        function toggleAdminPanel() {
+            if(document.getElementById("panel-admin")) document.getElementById("panel-admin").classList.toggle("show");
+        }
 
         function loginAdministrador() {
             const email = document.getElementById("admin-email").value;
@@ -459,29 +473,16 @@
             auth.signInWithEmailAndPassword(email, pass).then(() => {
                 document.getElementById("admin-auth-box").style.display = "none";
                 document.getElementById("admin-actions-box").style.display = "block";
-                
+                cargarMetricasAdmin();
                 db.collection("configuracion").doc("globales").get().then(doc => {
                     if (doc.exists) {
                         const c = doc.data();
                         document.getElementById("cfg-page-title").value = c.titulo || "";
-                        document.getElementById("cfg-atencion-text").value = c.atencionTexto || "";
-                        document.getElementById("cfg-title-trabajos").value = c.tituloTrabajos || "";
-                        document.getElementById("cfg-title-capturas").value = c.tituloCapturas || "";
                         document.getElementById("cfg-phone").value = c.telefono || "";
                         document.getElementById("cfg-facebook").value = c.facebook || "";
                         document.getElementById("cfg-instagram").value = c.instagram || "";
                         document.getElementById("cfg-btn1-name").value = c.btn1Name || "";
                         document.getElementById("cfg-btn2-name").value = c.btn2Name || "";
-                        document.getElementById("cfg-btn3-name").value = c.btn3Name || "";
-                        
-                        // Cargar colores guardados al panel admin
-                        if (c.clrBgStart) document.getElementById("clr-bg-start").value = c.clrBgStart;
-                        if (c.clrBgEnd) document.getElementById("clr-bg-end").value = c.clrBgEnd;
-                        if (c.clrPanelStart) document.getElementById("clr-panel-start").value = c.clrPanelStart;
-                        if (c.clrPanelEnd) document.getElementById("clr-panel-end").value = c.clrPanelEnd;
-                        if (c.clrNeonBlue) document.getElementById("clr-neon-blue").value = c.clrNeonBlue;
-                        if (c.clrNeonCyan) document.getElementById("clr-neon-cyan").value = c.clrNeonCyan;
-
                         urlLogoActual = c.logoUrl || "";
                     }
                 });
@@ -490,30 +491,16 @@
 
         async function guardarVariablesGlobales() {
             const tit = document.getElementById("cfg-page-title").value.trim();
-            const ateText = document.getElementById("cfg-atencion-text").value.trim();
-            const tTrab = document.getElementById("cfg-title-trabajos").value.trim();
-            const tCapt = document.getElementById("cfg-title-capturas").value.trim();
             const tel = document.getElementById("cfg-phone").value.trim();
             const fb = document.getElementById("cfg-facebook").value.trim();
             const ig = document.getElementById("cfg-instagram").value.trim();
             const b1 = document.getElementById("cfg-btn1-name").value.trim();
             const b2 = document.getElementById("cfg-btn2-name").value.trim();
-            const b3 = document.getElementById("cfg-btn3-name").value.trim();
-            
-            // Colores del panel
-            const clrBgStart = document.getElementById("clr-bg-start").value;
-            const clrBgEnd = document.getElementById("clr-bg-end").value;
-            const clrPanelStart = document.getElementById("clr-panel-start").value;
-            const clrPanelEnd = document.getElementById("clr-panel-end").value;
-            const clrNeonBlue = document.getElementById("clr-neon-blue").value;
-            const clrNeonCyan = document.getElementById("clr-neon-cyan").value;
-
             const logoFile = document.getElementById("upload-logo-input");
             const btn = document.getElementById("btn-guardar-globales");
 
-            if (!tit || !tel) return alert("Error: Los campos de Título y Teléfono son fundamentales.");
+            if (!tit || !tel) return alert("Error: Datos vacíos");
             btn.disabled = true;
-
             if (logoFile.files.length > 0) {
                 const formData = new FormData();
                 formData.append("image", logoFile.files[0]);
@@ -526,71 +513,43 @@
 
             try {
                 await db.collection("configuracion").doc("globales").set({
-                    titulo: tit, atencionTexto: ateText, tituloTrabajos: tTrab, tituloCapturas: tCapt,
-                    telefono: tel, facebook: fb, instagram: ig, btn1Name: b1, btn2Name: b2, btn3Name: b3,
-                    clrBgStart, clrBgEnd, clrPanelStart, clrPanelEnd, clrNeonBlue, clrNeonCyan, logoUrl: urlLogoActual
+                    titulo: tit, telefono: tel, facebook: fb, instagram: ig,
+                    btn1Name: b1 || "⚡ SERVICIOS", btn2Name: b2 || "🌐 INFRAESTRUCTURA", logoUrl: urlLogoActual
                 }, { merge: true });
-                alert("Plataforma Sincronizada Exitosamente.");
+                alert("Sincronizado correctamente");
                 logoFile.value = "";
             } catch (err) { alert(err.message); }
             btn.disabled = false;
         }
 
+        // CORRECCIÓN CENTRALIZADA CON SALVAVIDAS PARA EL DOM (Neutraliza excepciones TypeError null)
         function escucharConfiguracionGlobal() {
-    db.collection("configuracion").doc("globales").onSnapshot(doc => {
-        if (doc.exists) {
-            const c = doc.data();
-            
-            // 1. Actualizar Textos e Indexación de forma segura
-            if (c.titulo) { 
-                document.title = c.titulo; 
-                const headerTitle = document.getElementById("main-header-title");
-                if (headerTitle) headerTitle.innerText = c.titulo.toUpperCase(); 
-            }
-            if (c.atencionTexto && document.getElementById("txt-atencion-content")) {
-                document.getElementById("txt-atencion-content").innerText = c.atencionTexto;
-            }
-            if (c.tituloTrabajos && document.getElementById("titulo-columna-trabajos")) {
-                document.getElementById("titulo-columna-trabajos").innerText = c.tituloTrabajos;
-            }
-            if (c.tituloCapturas && document.getElementById("titulo-columna-capturas")) {
-                document.getElementById("titulo-columna-capturas").innerText = c.tituloCapturas;
-            }
-            
-            // 2. Nombres de Botones Categorías
-            if (c.btn1Name && document.getElementById("btn-cat1-title")) document.getElementById("btn-cat1-title").innerText = c.btn1Name;
-            if (c.btn2Name && document.getElementById("btn-cat2-title")) document.getElementById("btn-cat2-title").innerText = c.btn2Name;
-            if (c.btn3Name && document.getElementById("btn-cat3-title")) document.getElementById("btn-cat3-title").innerText = c.btn3Name;
-            
-            // 3. Centralización de Enlaces de Comunicación con el Número Dinámico
-            if (c.telefono) {
-                telefonoGlobal = c.telefono;
-                if (document.getElementById("main-wa-btn")) document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
-                if (document.getElementById("main-tg-btn")) document.getElementById("main-tg-btn").href = "https://t.me/+" + telefonoGlobal;
-            }
-            if (c.facebook && document.getElementById("main-fb-link")) document.getElementById("main-fb-link").href = c.facebook;
-            if (c.instagram && document.getElementById("main-ig-link")) document.getElementById("main-ig-link").href = c.instagram;
-            
-            // 4. Actualizar Logo y Favicon Dinámicamente
-            if (c.logoUrl && c.logoUrl !== "") {
-                if (document.getElementById("main-logo-img")) document.getElementById("main-logo-img").src = c.logoUrl;
-                if (document.getElementById("page-favicon-tag")) document.getElementById("page-favicon-tag").href = c.logoUrl;
-            }
-
-            // 5. PROTECCIÓN ANTIFALLOS: Inyección de variables CSS con respaldo por defecto
-            if (document.documentElement) {
-                document.documentElement.style.setProperty('--dark-bg-start', c.clrBgStart || '#0b0f19');
-                document.documentElement.style.setProperty('--dark-bg-end', c.clrBgEnd || '#030712');
-                document.documentElement.style.setProperty('--panel-bg-start', c.clrPanelStart || '#111827');
-                document.documentElement.style.setProperty('--panel-bg-end', c.clrPanelEnd || '#070a12');
-                document.documentElement.style.setProperty('--neon-blue', c.clrNeonBlue || '#0077ff');
-                document.documentElement.style.setProperty('--neon-cyan', c.clrNeonCyan || '#00f3ff');
-            }
+            db.collection("configuracion").doc("globales").onSnapshot(doc => {
+                if (doc.exists) {
+                    const c = doc.data();
+                    if (c.titulo && document.getElementById("page-title-tag")) {
+                        document.getElementById("page-title-tag").innerText = c.titulo;
+                    }
+                    if (document.getElementById("btn-cat1-title")) {
+                        document.getElementById("btn-cat1-title").innerText = c.btn1Name || "⚡ SERVICIOS";
+                    }
+                    if (document.getElementById("btn-cat2-title")) {
+                        document.getElementById("btn-cat2-title").innerText = c.btn2Name || "🌐 INFRAESTRUCTURA";
+                    }
+                    if (c.telefono) {
+                        telefonoGlobal = c.telefono;
+                        if(document.getElementById("main-wa-btn")) document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
+                        if(document.getElementById("main-tg-btn")) document.getElementById("main-tg-btn").href = "https://t.me/+" + telefonoGlobal;
+                    }
+                    if (c.facebook && document.getElementById("main-fb-link")) document.getElementById("main-fb-link").href = c.facebook;
+                    if (c.instagram && document.getElementById("main-ig-link")) document.getElementById("main-ig-link").href = c.instagram;
+                    if (c.logoUrl && c.logoUrl !== "") {
+                        if(document.getElementById("main-logo-img")) document.getElementById("main-logo-img").src = c.logoUrl;
+                        if(document.getElementById("page-favicon-tag")) document.getElementById("page-favicon-tag").href = c.logoUrl;
+                    }
+                }
+            });
         }
-    }, err => {
-        console.error("Error en Snapshot Global: ", err);
-    });
-}
 
         async function subirImagenesMultiples() {
             const files = document.getElementById("upload-file-input");
@@ -599,7 +558,6 @@
 
             if (files.files.length === 0) return alert("Selecciona fotos primero");
             btn.disabled = true;
-
             for (let i = 0; i < files.files.length; i++) {
                 const formData = new FormData();
                 formData.append("image", files.files[i]);
@@ -614,12 +572,11 @@
                     }
                 } catch (e) { console.error(e); }
             }
-            alert("Imágenes cargadas.");
+            alert("Imágenes cargadas e indexadas.");
             files.value = "";
             btn.disabled = false;
         }
 
-        // Crear servicios indexados automáticamente al teléfono del Panel
         function agregarServicioFirebase() {
             const name = document.getElementById("new-service-name").value.trim();
             const msg = document.getElementById("new-service-msg").value.trim();
@@ -627,14 +584,68 @@
 
             if (!name || !msg) return alert("Completa los campos requeridos");
             db.collection("menus").add({ name: name, msg: encodeURIComponent(msg), category: cat }).then(() => {
-                alert("Sub-opción publicada");
+                alert("Servicio publicado");
                 document.getElementById("new-service-name").value = "";
                 document.getElementById("new-service-msg").value = "";
             });
         }
 
+        function enviarComentarioFirebase() {
+            const nombre = document.getElementById("rev-name").value.trim();
+            const texto = document.getElementById("rev-text").value.trim();
+            const btn = document.getElementById("btn-enviar-review");
+
+            if (!nombre || !texto) return alert("Por favor, ingresa tu nombre y opinión.");
+            if (puntajeSeleccionado === 0) return alert("Por favor, selecciona una calificación en estrellas.");
+
+            btn.disabled = true;
+            db.collection("comentarios").add({
+                usuario: nombre,
+                comentario: texto,
+                estrellas: puntajeSeleccionado,
+                fecha: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                alert("¡Gracias! Tu reseña ha sido enviada e indexada en vivo.");
+                document.getElementById("rev-name").value = "";
+                document.getElementById("rev-text").value = "";
+                puntajeSeleccionado = 0;
+                document.querySelectorAll("#stars-selector .star").forEach(s => s.classList.remove("selected"));
+                btn.disabled = false;
+            }).catch(e => {
+                console.error(e);
+                btn.disabled = false;
+            });
+        }
+
+        function escucharComentariosEnVivo() {
+            const contenedor = document.getElementById("contenedor-comentarios-v");
+            if (!contenedor) return;
+
+            db.collection("comentarios").orderBy("fecha", "desc").limit(20).onSnapshot(snap => {
+                contenedor.innerHTML = "";
+                if (!snap.empty) {
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        const estrellasTexto = "★".repeat(d.estrellas) + "☆".repeat(5 - d.estrellas);
+                        contenedor.innerHTML += `
+                            <div class="comment-card">
+                                <div class="comment-header">
+                                    <span class="comment-user">${d.usuario}</span>
+                                    <span class="comment-stars">${estrellasTexto}</span>
+                                </div>
+                                <p class="comment-body">${d.comentario}</p>
+                            </div>
+                        `;
+                    });
+                    if (snap.size < 5) contenedor.innerHTML += contenedor.innerHTML;
+                } else {
+                    contenedor.innerHTML = '<p style="color:#64748b; font-size:0.85rem; text-align:center; padding:20px;">Sé el primero en dejar un comentario.</p>';
+                }
+            });
+        }
+
         function borrarElementoFirebase(coleccion, id) {
-            if (confirm("¿Estás seguro de eliminar este ítem?")) {
+            if (confirm("¿Estás seguro de eliminar este ítem permanentemente?")) {
                 db.collection(coleccion).doc(id).delete().then(() => alert("Eliminado de la base de datos"));
             }
         }
@@ -643,20 +654,35 @@
             const hoy = new Date();
             const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
             db.collection("metricas").doc("global").onSnapshot(doc => {
-                document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
+                if(document.getElementById("visitas-display")) document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
             });
+            const params = new URLSearchParams(window.location.search);
+            if (params.get("admin") === "true") toggleAdminPanel();
 
-            const visitKey = localStorage.getItem("platform_visit_uid");
+            const visitKey = localStorage.getItem("croniss_universal_visit");
             if (visitKey !== fechaID) {
-                localStorage.setItem("platform_visit_uid", fechaID);
-                db.collection("metricas").doc("global").set({ total: firebase.firestore.FieldValue.increment(1) }, { merge: true });
+                localStorage.setItem("croniss_universal_visit", fechaID);
+                const batch = db.batch();
+                const inc = firebase.firestore.FieldValue.increment(1);
+                batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
+                batch.set(db.collection("metricas_diarias").doc(fechaID), { total: inc }, { merge: true });
+                batch.commit().catch(e => console.log(e));
             }
+        }
+
+        function cargarMetricasAdmin() {
+            const hoy = new Date();
+            const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
+            db.collection("metricas_diarias").doc(fechaID).onSnapshot(doc => {
+                if(document.getElementById("stat-hoy")) document.getElementById("stat-hoy").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
         }
 
         function sincronizarBaseDeDatos() {
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
                 const container = document.getElementById("contenedor-trabajos");
                 const list = document.getElementById("lista-borrar-trabajos");
+                if(!container || !list) return;
                 container.innerHTML = ""; list.innerHTML = "";
                 
                 if (!snap.empty) {
@@ -672,34 +698,34 @@
             });
 
             db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
-                const container = document.getElementById("contenedor-capturas");
                 const list = document.getElementById("lista-borrar-capturas");
-                container.innerHTML = ""; list.innerHTML = "";
-                
+                if(!list) return;
+                list.innerHTML = "";
                 if (!snap.empty) {
                     let i = 0;
                     snap.forEach(doc => {
-                        container.innerHTML += `<div class="carousel-slide ${i===0?'active':''}"><img src="${doc.data().url}"></div>`;
-                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Foto #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
+                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Captura #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
                         i++;
                     });
                 } else {
-                    container.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin capturas cargadas.</p></div>';
+                    list.innerHTML = '<p style="color:#64748b; font-size:0.75rem; text-align:center;">Lista vacía.</p>';
                 }
             });
 
-            // Sincronizar sub-menús adaptándose al teléfono global activo en tiempo real
             db.collection("menus").onSnapshot(snap => {
                 const m1 = document.getElementById("menu-servicios");
                 const m2 = document.getElementById("menu-instala");
                 const list = document.getElementById("lista-borrar-servicios");
+                if(!m1 || !m2 || !list) return;
                 m1.innerHTML = ""; m2.innerHTML = ""; list.innerHTML = "";
                 if (!snap.empty) {
                     snap.forEach(doc => {
                         const d = doc.data();
                         const a = document.createElement("a");
                         a.href = "https://wa.me/" + telefonoGlobal + "?text=" + d.msg;
-                        a.target = "_blank"; a.className = "service-link"; a.innerText = d.name;
+                        a.target = "_blank";
+                        a.className = "service-link";
+                        a.innerText = d.name;
                         if (d.category === "servicios") m1.appendChild(a); else m2.appendChild(a);
                         list.innerHTML += `<div class="manager-item"><span>[${d.category==='servicios'?'Btn 1':'Btn 2'}] ${d.name}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('menus','${doc.id}')">Eliminar</button></div>`;
                     });
@@ -710,17 +736,11 @@
             });
         }
 
-        // Inicializaciones de la Aplicación
-        actualizarTasa();
         escucharConfiguracionGlobal();
         sincronizarBaseDeDatos();
         gestionarContadorVisitas();
-        
-        // Intervalo de consulta automática de tasa BCV cada 30 minutos
-        setInterval(actualizarTasa, 1800000);
-
+        escucharComentariosEnVivo();
         setTimeout(rotarTrabajos, 2000);
-        setTimeout(rotarCapturas, 2500);
     </script>
 </body>
 </html>
