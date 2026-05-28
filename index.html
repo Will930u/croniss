@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title-tag">CRONISS</title>
-    <link id="page-favicon-tag" rel="icon" type="tu-logo-croniss.png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
+    <title id="page-title-tag">Plataforma de Servicios</title>
+    <link id="page-favicon-tag" rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght=600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
+        /* Variables dinámicas controladas desde el Panel de Administración */
         :root {
             --neon-blue: #0077ff;
             --neon-cyan: #00f3ff;
-            --neon-green: #00ffcc;
-            --dark-bg: #0b0f19;
-            --panel-bg: linear-gradient(135deg, #111827 0%, #070a12 100%);
+            --dark-bg-start: #0b0f19;
+            --dark-bg-end: #030712;
+            --panel-bg-start: #111827;
+            --panel-bg-end: #070a12;
             --border-metal: rgba(0, 243, 255, 0.2);
             --text-frozen: #e2f0ff;
         }
@@ -22,12 +24,13 @@
         body {
             margin: 0; padding: 20px;
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at 50% 50%, #1e2638 0%, #0b0f19 100%);
+            background-color: var(--dark-bg-start);
+            background-image: linear-gradient(180deg, var(--dark-bg-start) 0%, var(--dark-bg-end) 100%);
             color: white;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; box-sizing: border-box;
             overflow-x: hidden;
+            transition: background 0.5s ease;
         }
 
         #fx-container {
@@ -54,11 +57,10 @@
 
         header h1 {
             font-family: 'Orbitron', sans-serif; font-size: 2rem; margin: 0;
-            color: var(--text-frozen); text-shadow: 0 0 15px rgba(0, 119, 255, 0.6);
+            color: var(--text-frozen); text-shadow: 0 0 15px var(--border-metal);
             letter-spacing: 2px;
         }
 
-        /* Contenedor Banner de la Imagen */
         .top-banner {
             width: 100%; max-width: 1200px; height: 220px;
             border: 2px solid var(--neon-blue); border-radius: 15px;
@@ -70,7 +72,6 @@
 
         .logo-central { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 
-        /* Distribución en Rejilla Modular Premium */
         .dashboard-grid {
             width: 100%; max-width: 1200px;
             display: grid; grid-template-columns: 280px 1fr 1fr; gap: 25px;
@@ -83,15 +84,15 @@
 
         .info-panel-column { display: flex; flex-direction: column; gap: 20px; align-items: center; }
 
-        /* Estilo Cristalonéón (Glassmorphism + Neon) */
         .panel {
-            background: var(--panel-bg);
+            background: linear-gradient(135deg, var(--panel-bg-start) 0%, var(--panel-bg-end) 100%);
             border: 1px solid var(--border-metal); border-radius: 16px; padding: 22px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
                         inset 0 1px 2px rgba(255, 255, 255, 0.05),
                         0 0 20px rgba(0, 243, 255, 0.02);
             position: relative; overflow: hidden; box-sizing: border-box;
             width: 100%;
+            transition: all 0.5s ease;
         }
 
         .panel-title {
@@ -100,9 +101,8 @@
             border-left: 4px solid var(--neon-blue); padding-left: 10px; font-weight: bold;
         }
 
-        /* Tasa Box Estilo Imagen */
         .bcv-card {
-            background: linear-gradient(135deg, #090d16 0%, #151f32 100%);
+            background: linear-gradient(135deg, var(--panel-bg-end) 0%, var(--panel-bg-start) 100%);
             border: 1px dashed var(--neon-blue); border-radius: 12px; padding: 15px;
             width: 100%; text-align: center; box-sizing: border-box;
             box-shadow: 0 0 15px rgba(0, 119, 255, 0.1);
@@ -110,18 +110,16 @@
         .bcv-title { font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-blue); font-weight: bold; display: block; margin-bottom: 5px;}
         .bcv-amount {
             font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: #fff;
-            font-weight: 700; text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            font-weight: 700; text-shadow: 0 0 10px var(--border-metal);
         }
 
-        /* Visitas Box */
         .visitas-box {
-            background: rgba(255,255,255,0.02); border: 1px dashed #22c55e; border-radius: 12px;
+            background: rgba(255,255,255,0.02); border: 1px dashed var(--neon-cyan); border-radius: 12px;
             padding: 15px; width: 100%; text-align: center; box-sizing: border-box;
         }
-        .visitas-title { font-size: 0.65rem; letter-spacing: 1px; color: #22c55e; font-weight: bold; display: block; margin-bottom: 5px; }
-        .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: bold; color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
+        .visitas-title { font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-cyan); font-weight: bold; display: block; margin-bottom: 5px; }
+        .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: bold; color: var(--neon-cyan); text-shadow: 0 0 10px var(--border-metal); }
 
-        /* Botones Desplegables de Navegación */
         .buttons-column { display: flex; flex-direction: column; gap: 12px; width: 100%; }
         .dropdown { position: relative; width: 100%; }
 
@@ -148,7 +146,6 @@
         }
         .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-cyan); padding-left: 15px; }
 
-        /* Redes Sociales e Inmediato */
         .social-item { display: flex; align-items: center; gap: 12px; padding: 10px; text-decoration: none; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .social-item img { width: 22px; height: 22px; object-fit: contain; }
         .social-item:hover { background: rgba(255,255,255,0.05); border-radius: 6px; color: var(--neon-cyan); }
@@ -162,26 +159,25 @@
         .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 119, 255, 0.3); }
         .telegram-link:hover { background: rgba(0, 119, 255, 0.1); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
 
-        /* Estructuras de Carruseles Dinámicos */
         .carousel-container { width: 100%; height: 380px; background: #000; border: 2px solid var(--border-metal); border-radius: 12px; position: relative; overflow: hidden; }
         .carousel-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; justify-content: center; align-items: center; }
         .carousel-slide.active { opacity: 1; }
         .carousel-slide img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Panel Admin Privado */
+        /* PANEL ADMIN MEJORADO */
         .admin-trigger { margin-top: 50px; font-size: 0.75rem; color: rgba(255,255,255,0.2); cursor: pointer; text-decoration: underline; padding-bottom: 20px; z-index: 5000; display: inline-block; }
-        .admin-panel { display: none; width: 100%; max-width: 550px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; z-index: 5001; }
+        .admin-panel { display: none; width: 100%; max-width: 600px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; z-index: 5001; }
         .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #374151; padding-bottom: 10px; }
         
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .stat-card { background: #030712; border: 1px solid #374151; border-radius: 8px; padding: 10px; text-align: center; }
-        .stat-card span { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; }
-        .stat-card strong { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; color: var(--neon-blue); }
+        .admin-section-title { color: #f59e0b; margin: 15px 0 5px 0; font-size: 0.9rem; font-weight: bold; border-left: 3px solid #f59e0b; padding-left: 6px; }
+        .color-picker-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; background: #030712; padding: 10px; border-radius: 8px; border: 1px solid #374151; margin-bottom: 10px;}
+        .color-item { display: flex; flex-direction: column; font-size: 0.75rem; color: #9ca3af; }
+        .color-item input[type="color"] { height: 40px; padding: 2px; background: none; border: none; cursor: pointer; }
 
-        .admin-panel input, .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 8px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
+        .admin-panel input[type="text"], .admin-panel input[type="email"], .admin-panel input[type="password"], .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 6px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
         .admin-panel button { background: #ef4444; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
         .admin-panel button:hover { background: #dc2626; }
-        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 12px; }
+        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 12px; margin: 5px 0; width: 100%; box-sizing: border-box; color: white;}
 
         .manager-container { margin-top: 15px; max-height: 140px; overflow-y: auto; background: #030712; border: 1px solid #374151; border-radius: 6px; padding: 8px; }
         .manager-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #d1d5db; }
@@ -198,11 +194,11 @@
     <div id="fx-container"></div>
 
     <header>
-        <h1 id="main-header-title">CRONISS</h1>
+        <h1 id="main-header-title">PLATAFORMA</h1>
     </header>
 
     <div class="top-banner">
-        <img id="tu-logo-croniss.png" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="BANNER LOGO" class="logo-central">
+        <img id="main-logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="BANNER LOGO" class="logo-central">
     </div>
 
     <div class="dashboard-grid">
@@ -221,9 +217,9 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn" onclick="toggleMenu('menu-ubica', this)">📍 ATENCIÓN</button>
+                        <button class="dropbtn" id="btn-cat3-title" onclick="toggleMenu('menu-ubica', this)">📍 ATENCIÓN</button>
                         <div id="menu-ubica" class="dropdown-content">
-                            <p style="padding: 10px; margin:0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">Maracay, Edo. Aragua.<br>Soporte a domicilio y remoto profesional.</p>
+                            <p id="txt-atencion-content" style="padding: 10px; margin:0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">Maracay, Edo. Aragua.</p>
                         </div>
                     </div>
 
@@ -263,15 +259,15 @@
         </div>
 
         <div class="panel">
-            <h2 class="panel-title">Diagnósticos y Reparaciones</h2>
+            <h2 class="panel-title" id="titulo-columna-trabajos">Trabajos Realizados</h2>
             <div class="carousel-container" id="contenedor-trabajos">
                 <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando historial...</p></div>
             </div>
         </div>
 
-        <div class="panel" style="border-color: var(--neon-blue);">
-            <h2 class="panel-title" style="color: var(--neon-cyan); border-color: var(--neon-blue);">Casos de Éxito / Clientes</h2>
-            <div class="carousel-container" id="contenedor-capturas" style="border-color: var(--neon-blue);">
+        <div class="panel">
+            <h2 class="panel-title" id="titulo-columna-capturas">Casos de Éxito</h2>
+            <div class="carousel-container" id="contenedor-capturas">
                 <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando opiniones...</p></div>
             </div>
         </div>
@@ -281,7 +277,7 @@
     <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
 
     <div class="admin-panel" id="panel-admin">
-        <h3>🛠️ Panel de Control Universal</h3>
+        <h3>🛠️ Panel de Control Global</h3>
         
         <div id="admin-auth-box">
             <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
@@ -290,49 +286,72 @@
         </div>
 
         <div id="admin-actions-box" style="display: none;">
-            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✅ Conexión establecida</p>
+            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✅ Modo Administrador Activo</p>
             
-            <h4 style="color: #22c55e; margin-bottom: 5px;">📊 Estadísticas de Tráfico Real</h4>
-            <div class="stats-grid">
-                <div class="stat-card"><span>Hoy</span><strong id="stat-hoy">0</strong></div>
-            </div>
+            <div class="admin-section-title">📝 Títulos y Textos Operativos</div>
+            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña e indexación">
+            <input type="text" id="cfg-atencion-text" placeholder="Texto descriptivo dentro de '📍 Atención'">
+            <input type="text" id="cfg-title-trabajos" placeholder="Título columna de trabajos (Ej: Diagnósticos)">
+            <input type="text" id="cfg-title-capturas" placeholder="Título columna de capturas (Ej: Opiniones)">
 
-            <h4 style="color: #f59e0b; border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">⚙️ Variables Globales de la Página</h4>
-            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña de navegación">
-            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584129830982)">
+            <div class="admin-section-title">📞 Centralización de Contacto (WhatsApp, Telegram, Botones)</div>
+            <input type="text" id="cfg-phone" placeholder="Número de teléfono de contacto (Ej: 584129830982)">
             <input type="text" id="cfg-facebook" placeholder="Enlace de perfil de Facebook">
             <input type="text" id="cfg-instagram" placeholder="Enlace de perfil de Instagram">
-            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón 1">
-            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón 2">
+            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón Desplegable 1">
+            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón Desplegable 2">
+            <input type="text" id="cfg-btn3-name" placeholder="Nombre Botón Desplegable 3">
 
-            <p style="font-size:0.75rem; color:#f59e0b; margin:5px 0 0 0; font-weight: bold;">📷 Actualizar Logo Oficial:</p>
+            <div class="admin-section-title">🎨 Estudio de Diseño (Colores y Degradados)</div>
+            
+            <span style="font-size:0.75rem; color:#d1d5db;">Degradado del Fondo de la Página:</span>
+            <div class="color-picker-group">
+                <div class="color-item"><span>Color Inicial</span><input type="color" id="clr-bg-start" value="#0b0f19"></div>
+                <div class="color-item"><span>Color Final</span><input type="color" id="clr-bg-end" value="#030712"></div>
+            </div>
+
+            <span style="font-size:0.75rem; color:#d1d5db;">Degradado de los Paneles Modulares:</span>
+            <div class="color-picker-group">
+                <div class="color-item"><span>Color Superior</span><input type="color" id="clr-panel-start" value="#111827"></div>
+                <div class="color-item"><span>Color Inferior</span><input type="color" id="clr-panel-end" value="#070a12"></div>
+            </div>
+
+            <span style="font-size:0.75rem; color:#d1d5db;">Brillo de los Bordes y Efectos de Neón:</span>
+            <div class="color-picker-group">
+                <div class="color-item"><span>Neón Principal</span><input type="color" id="clr-neon-blue" value="#0077ff"></div>
+                <div class="color-item"><span>Neón Secundario</span><input type="color" id="clr-neon-cyan" value="#00f3ff"></div>
+            </div>
+
+            <div class="admin-section-title">📷 Multimedia Corporativa</div>
+            <p style="font-size:0.7rem; color:#9ca3af; margin:0;">Actualizar logotipo central y pestaña simultáneamente:</p>
             <input type="file" id="upload-logo-input" accept="image/*">
-            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
 
-            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Fotografías al Carrusel</h4>
+            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black; margin-top:15px;" onclick="guardarVariablesGlobales()">Sincronizar y Actualizar Toda la Web</button>
+
+            <div class="admin-section-title">🖼️ Gestión de Carruseles Fotográficos</div>
             <input type="file" id="upload-file-input" accept="image/*" multiple>
             <select id="upload-destination">
                 <option value="trabajos">Destino: Carrusel de Trabajos Realizados</option>
-                <option value="capturas">Destino: Carrusel de Opiniones</option>
+                <option value="capturas">Destino: Carrusel de Casos de Éxito</option>
             </select>
-            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir y Publicar al Instante</button>
+            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir Fotos Seleccionadas</button>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
+            <p style="font-size:0.75rem; color:#f87171; margin:10px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
             <div class="manager-container" id="lista-borrar-trabajos"></div>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Capturas de Clientes:</p>
+            <p style="font-size:0.75rem; color:#f87171; margin:10px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Éxito:</p>
             <div class="manager-container" id="lista-borrar-capturas"></div>
 
-            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Añadir Ítem a un Desplegable</h4>
-            <input type="text" id="new-service-name" placeholder="Nombre del servicio">
-            <input type="text" id="new-service-msg" placeholder="Mensaje predeterminado de WhatsApp">
+            <div class="admin-section-title">➕ Publicar nuevo Ítem en Desplegables</div>
+            <input type="text" id="new-service-name" placeholder="Nombre de la sub-opción">
+            <input type="text" id="new-service-msg" placeholder="Mensaje predeterminado que te llegará al WhatsApp">
             <select id="new-service-cat">
                 <option value="servicios">Asignar a: Botón Desplegable 1</option>
                 <option value="instalacion">Asignar a: Botón Desplegable 2</option>
             </select>
-            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem de Menú</button>
+            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem</button>
 
-            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">📋 Administrar Ítems del Menú:</p>
+            <p style="font-size:0.75rem; color:#f87171; margin:10px 0 2px 0; font-weight: bold;">📋 Administrar Ítems Creados:</p>
             <div class="manager-container" id="lista-borrar-servicios"></div>
         </div>
     </div>
@@ -350,7 +369,7 @@
             measurementId: "G-XBF96YNVT6"
         };
 
-        // CORRECCIÓN PROTECTIVA: Validar inicialización duplicada antes de instanciar
+        // Verificación de seguridad para evitar duplicados en la app
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
         } else {
@@ -389,7 +408,8 @@
         function toggleMenu(menuId, btn) {
             document.querySelectorAll(".dropdown-content").forEach(m => { if (m.id !== menuId) m.classList.remove("show"); });
             document.querySelectorAll(".dropbtn").forEach(b => { if (b !== btn) b.classList.remove("active"); });
-            document.getElementById(menuId).classList.toggle("show");
+            const target = document.getElementById(menuId);
+            if(target) target.classList.toggle("show");
             btn.classList.toggle("active");
         }
 
@@ -400,7 +420,7 @@
             }
         };
 
-        // LÓGICA CORREGIDA: Integración directa de DolarApi
+        // Consulta directa e independiente a DolarApi para mercado de Venezuela
         async function actualizarTasa() {
             try {
                 const res = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
@@ -415,7 +435,7 @@
             }
         }
 
-        // Efecto visual Nieve Azul Estilo Crio-Gamer
+        // Efecto visual de partículas neón
         const fxContainer = document.getElementById("fx-container");
         function crearCopo() {
             if (!fxContainer) return;
@@ -439,16 +459,29 @@
             auth.signInWithEmailAndPassword(email, pass).then(() => {
                 document.getElementById("admin-auth-box").style.display = "none";
                 document.getElementById("admin-actions-box").style.display = "block";
-                cargarMetricasAdmin();
+                
                 db.collection("configuracion").doc("globales").get().then(doc => {
                     if (doc.exists) {
                         const c = doc.data();
                         document.getElementById("cfg-page-title").value = c.titulo || "";
+                        document.getElementById("cfg-atencion-text").value = c.atencionTexto || "";
+                        document.getElementById("cfg-title-trabajos").value = c.tituloTrabajos || "";
+                        document.getElementById("cfg-title-capturas").value = c.tituloCapturas || "";
                         document.getElementById("cfg-phone").value = c.telefono || "";
                         document.getElementById("cfg-facebook").value = c.facebook || "";
                         document.getElementById("cfg-instagram").value = c.instagram || "";
                         document.getElementById("cfg-btn1-name").value = c.btn1Name || "";
                         document.getElementById("cfg-btn2-name").value = c.btn2Name || "";
+                        document.getElementById("cfg-btn3-name").value = c.btn3Name || "";
+                        
+                        // Cargar colores guardados al panel admin
+                        if (c.clrBgStart) document.getElementById("clr-bg-start").value = c.clrBgStart;
+                        if (c.clrBgEnd) document.getElementById("clr-bg-end").value = c.clrBgEnd;
+                        if (c.clrPanelStart) document.getElementById("clr-panel-start").value = c.clrPanelStart;
+                        if (c.clrPanelEnd) document.getElementById("clr-panel-end").value = c.clrPanelEnd;
+                        if (c.clrNeonBlue) document.getElementById("clr-neon-blue").value = c.clrNeonBlue;
+                        if (c.clrNeonCyan) document.getElementById("clr-neon-cyan").value = c.clrNeonCyan;
+
                         urlLogoActual = c.logoUrl || "";
                     }
                 });
@@ -457,15 +490,28 @@
 
         async function guardarVariablesGlobales() {
             const tit = document.getElementById("cfg-page-title").value.trim();
+            const ateText = document.getElementById("cfg-atencion-text").value.trim();
+            const tTrab = document.getElementById("cfg-title-trabajos").value.trim();
+            const tCapt = document.getElementById("cfg-title-capturas").value.trim();
             const tel = document.getElementById("cfg-phone").value.trim();
             const fb = document.getElementById("cfg-facebook").value.trim();
             const ig = document.getElementById("cfg-instagram").value.trim();
             const b1 = document.getElementById("cfg-btn1-name").value.trim();
             const b2 = document.getElementById("cfg-btn2-name").value.trim();
+            const b3 = document.getElementById("cfg-btn3-name").value.trim();
+            
+            // Colores del panel
+            const clrBgStart = document.getElementById("clr-bg-start").value;
+            const clrBgEnd = document.getElementById("clr-bg-end").value;
+            const clrPanelStart = document.getElementById("clr-panel-start").value;
+            const clrPanelEnd = document.getElementById("clr-panel-end").value;
+            const clrNeonBlue = document.getElementById("clr-neon-blue").value;
+            const clrNeonCyan = document.getElementById("clr-neon-cyan").value;
+
             const logoFile = document.getElementById("upload-logo-input");
             const btn = document.getElementById("btn-guardar-globales");
 
-            if (!tit || !tel) return alert("Error: Datos vacíos");
+            if (!tit || !tel) return alert("Error: Los campos de Título y Teléfono son fundamentales.");
             btn.disabled = true;
 
             if (logoFile.files.length > 0) {
@@ -480,10 +526,11 @@
 
             try {
                 await db.collection("configuracion").doc("globales").set({
-                    titulo: tit, telefono: tel, facebook: fb, instagram: ig,
-                    btn1Name: b1 || "⚙️ SERVICIOS", btn2Name: b2 || "🌐 INFRAESTRUCTURA", logoUrl: urlLogoActual
+                    titulo: tit, atencionTexto: ateText, tituloTrabajos: tTrab, tituloCapturas: tCapt,
+                    telefono: tel, facebook: fb, instagram: ig, btn1Name: b1, btn2Name: b2, btn3Name: b3,
+                    clrBgStart, clrBgEnd, clrPanelStart, clrPanelEnd, clrNeonBlue, clrNeonCyan, logoUrl: urlLogoActual
                 }, { merge: true });
-                alert("Sincronizado correctamente");
+                alert("Plataforma Sincronizada Exitosamente.");
                 logoFile.value = "";
             } catch (err) { alert(err.message); }
             btn.disabled = false;
@@ -493,9 +540,19 @@
             db.collection("configuracion").doc("globales").onSnapshot(doc => {
                 if (doc.exists) {
                     const c = doc.data();
+                    
+                    // Actualizar Textos e Indexación
                     if (c.titulo) { document.title = c.titulo; document.getElementById("main-header-title").innerText = c.titulo.toUpperCase(); }
+                    if (c.atencionTexto) document.getElementById("txt-atencion-content").innerText = c.atencionTexto;
+                    if (c.tituloTrabajos) document.getElementById("titulo-columna-trabajos").innerText = c.tituloTrabajos;
+                    if (c.tituloCapturas) document.getElementById("titulo-columna-capturas").innerText = c.tituloCapturas;
+                    
+                    // Nombres de Botones Categorías
                     if (c.btn1Name) document.getElementById("btn-cat1-title").innerText = c.btn1Name;
                     if (c.btn2Name) document.getElementById("btn-cat2-title").innerText = c.btn2Name;
+                    if (c.btn3Name) document.getElementById("btn-cat3-title").innerText = c.btn3Name;
+                    
+                    // Centralización de Enlaces de Comunicación con el Número Dinámico
                     if (c.telefono) {
                         telefonoGlobal = c.telefono;
                         document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
@@ -503,10 +560,20 @@
                     }
                     if (c.facebook) document.getElementById("main-fb-link").href = c.facebook;
                     if (c.instagram) document.getElementById("main-ig-link").href = c.instagram;
+                    
+                    // Actualizar Logo y Favicon Dinámicamente
                     if (c.logoUrl && c.logoUrl !== "") {
                         document.getElementById("main-logo-img").src = c.logoUrl;
                         document.getElementById("page-favicon-tag").href = c.logoUrl;
                     }
+
+                    // Inyección Dinámica de Variables de Estilo CSS (Estudio de Diseño Activo)
+                    if (c.clrBgStart) document.documentElement.style.setProperty('--dark-bg-start', c.clrBgStart);
+                    if (c.clrBgEnd) document.documentElement.style.setProperty('--dark-bg-end', c.clrBgEnd);
+                    if (c.clrPanelStart) document.documentElement.style.setProperty('--panel-bg-start', c.clrPanelStart);
+                    if (c.clrPanelEnd) document.documentElement.style.setProperty('--panel-bg-end', c.clrPanelEnd);
+                    if (c.clrNeonBlue) document.documentElement.style.setProperty('--neon-blue', c.clrNeonBlue);
+                    if (c.clrNeonCyan) document.documentElement.style.setProperty('--neon-cyan', c.clrNeonCyan);
                 }
             });
         }
@@ -533,11 +600,12 @@
                     }
                 } catch (e) { console.error(e); }
             }
-            alert("Imágenes cargadas e indexadas.");
+            alert("Imágenes cargadas.");
             files.value = "";
             btn.disabled = false;
         }
 
+        // Crear servicios indexados automáticamente al teléfono del Panel
         function agregarServicioFirebase() {
             const name = document.getElementById("new-service-name").value.trim();
             const msg = document.getElementById("new-service-msg").value.trim();
@@ -545,14 +613,14 @@
 
             if (!name || !msg) return alert("Completa los campos requeridos");
             db.collection("menus").add({ name: name, msg: encodeURIComponent(msg), category: cat }).then(() => {
-                alert("Servicio publicado");
+                alert("Sub-opción publicada");
                 document.getElementById("new-service-name").value = "";
                 document.getElementById("new-service-msg").value = "";
             });
         }
 
         function borrarElementoFirebase(coleccion, id) {
-            if (confirm("¿Estás seguro de eliminar este ítem permanentemente?")) {
+            if (confirm("¿Estás seguro de eliminar este ítem?")) {
                 db.collection(coleccion).doc(id).delete().then(() => alert("Eliminado de la base de datos"));
             }
         }
@@ -564,23 +632,11 @@
                 document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
             });
 
-            const visitKey = localStorage.getItem("croniss_universal_visit");
+            const visitKey = localStorage.getItem("platform_visit_uid");
             if (visitKey !== fechaID) {
-                localStorage.setItem("croniss_universal_visit", fechaID);
-                const batch = db.batch();
-                const inc = firebase.firestore.FieldValue.increment(1);
-                batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
-                batch.set(db.collection("metricas_diarias").doc(fechaID), { total: inc }, { merge: true });
-                batch.commit().catch(e => console.log(e));
+                localStorage.setItem("platform_visit_uid", fechaID);
+                db.collection("metricas").doc("global").set({ total: firebase.firestore.FieldValue.increment(1) }, { merge: true });
             }
-        }
-
-        function cargarMetricasAdmin() {
-            const hoy = new Date();
-            const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
-            db.collection("metricas_diarias").doc(fechaID).onSnapshot(doc => {
-                document.getElementById("stat-hoy").innerText = doc.exists ? (doc.data().total || 0) : 0;
-            });
         }
 
         function sincronizarBaseDeDatos() {
@@ -610,14 +666,15 @@
                     let i = 0;
                     snap.forEach(doc => {
                         container.innerHTML += `<div class="carousel-slide ${i===0?'active':''}"><img src="${doc.data().url}"></div>`;
-                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Captura #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
+                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Foto #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
                         i++;
                     });
                 } else {
-                    container.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin opiniones cargadas.</p></div>';
+                    container.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin capturas cargadas.</p></div>';
                 }
             });
 
+            // Sincronizar sub-menús adaptándose al teléfono global activo en tiempo real
             db.collection("menus").onSnapshot(snap => {
                 const m1 = document.getElementById("menu-servicios");
                 const m2 = document.getElementById("menu-instala");
@@ -639,12 +696,15 @@
             });
         }
 
-        // Ejecuciones Iniciales
+        // Inicializaciones de la Aplicación
         actualizarTasa();
         escucharConfiguracionGlobal();
         sincronizarBaseDeDatos();
         gestionarContadorVisitas();
         
+        // Intervalo de consulta automática de tasa BCV cada 30 minutos
+        setInterval(actualizarTasa, 1800000);
+
         setTimeout(rotarTrabajos, 2000);
         setTimeout(rotarCapturas, 2500);
     </script>
