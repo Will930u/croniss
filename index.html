@@ -44,11 +44,23 @@
             display: flex; flex-direction: column; gap: 20px;
         }
 
+        /* DISEÑO TRIDIMENSIONAL AVANZADO CON EFECTO DE PROFUNDIDAD */
         .panel {
             background: var(--panel-gradient);
             border: 1px solid var(--border-metal);
-            border-radius: 12px; padding: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border-radius: 14px; padding: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+                        0 0 15px rgba(0, 119, 255, 0.1);
+            transform: perspective(800px) translateZ(0);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .panel:hover {
+            transform: perspective(800px) translateZ(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.15),
+                        0 0 25px rgba(0, 119, 255, 0.2);
         }
 
         .panel-title {
@@ -56,12 +68,35 @@
             font-size: 1.2rem; margin-top: 0; margin-bottom: 15px;
             color: var(--neon-blue); text-transform: uppercase;
             letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* TASA DE CAMBIO BCV TRIDIMENSIONAL */
+        .bcv-container {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid rgba(0, 119, 255, 0.4);
+            border-radius: 10px; padding: 12px 15px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .bcv-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700; font-size: 0.95rem; color: #94a3b8;
+            letter-spacing: 0.5px;
+        }
+
+        .bcv-value {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700; font-size: 1.2rem; color: #00ffcc;
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
         }
 
         .carousel {
             position: relative; width: 100%; height: 250px;
             border-radius: 8px; overflow: hidden;
             background-color: #000; border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
         }
 
         .carousel img {
@@ -80,18 +115,20 @@
         }
 
         .service-link {
-            display: block; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            display: block; background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 8px; padding: 14px;
             color: var(--frozen-white); text-decoration: none;
             font-weight: 600; text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
             transition: all 0.2s;
         }
 
         .service-link:hover {
-            background: rgba(0, 119, 255, 0.1);
+            background: rgba(0, 119, 255, 0.15);
             border-color: var(--neon-blue);
-            box-shadow: 0 0 12px rgba(0, 119, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 119, 255, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);
         }
 
         .form-group {
@@ -103,22 +140,29 @@
         }
 
         input[type="text"], input[type="email"], input[type="password"], textarea, select {
-            width: 100%; padding: 10px; background: rgba(0,0,0,0.3);
+            width: 100%; padding: 10px; background: rgba(0,0,0,0.4);
             border: 1px solid rgba(255,255,255,0.15); border-radius: 6px;
             color: white; font-family: inherit; box-sizing: border-box;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
         }
 
         input:focus, textarea:focus, select:focus {
             outline: none; border-color: var(--neon-blue);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 8px rgba(0, 77, 255, 0.5);
         }
 
         .btn-submit {
-            width: 100%; padding: 12px; background: var(--neon-blue);
+            width: 100%; padding: 12px; background: linear-gradient(180deg, #0088ff 0%, #0055cc 100%);
             border: none; border-radius: 6px; color: white; font-weight: 600;
-            cursor: pointer; transition: background 0.2s;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+            transition: all 0.2s;
         }
 
-        .btn-submit:hover { background: #0056b3; }
+        .btn-submit:hover { 
+            background: linear-gradient(180deg, #0099ff 0%, #0066ee 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0,119,255,0.4);
+        }
 
         .btn-logout {
             background: #ef4444; border: none; padding: 6px 12px;
@@ -127,13 +171,15 @@
 
         .manager-item {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 8px; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; margin-bottom: 8px;
+            padding: 10px; background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; margin-bottom: 8px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .btn-delete-small {
-            background: #b91c1c; border: none; color: white; padding: 4px 8px;
+            background: #b91c1c; border: none; color: white; padding: 5px 10px;
             border-radius: 4px; cursor: pointer; font-size: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .counter-badge {
@@ -153,6 +199,13 @@
     </header>
 
     <div class="container">
+        <div class="panel">
+            <div class="bcv-container">
+                <span class="bcv-label">TASA OFICIAL BCV</span>
+                <span class="bcv-value" id="bcv-rate">Cargando...</span>
+            </div>
+        </div>
+
         <div class="panel">
             <h2 class="panel-title">Nuestros Trabajos</h2>
             <div class="carousel">
@@ -273,86 +326,64 @@
         const auth = firebase.auth();
 
         // ---- PROTECCIÓN DE API KEY (ImgBB) ----
-        // Camuflaje de seguridad anti-bots de GitHub
         const _0x4f1b = ["0a5e7954b4b9fed188e15e4e5532e57b"];
         const IMGBB_API_KEY = _0x4f1b[0];
 
-        // Teléfono global por defecto
         let telefonoGlobal = "584243497259"; 
 
-        // Función para gestionar y acumular el contador de visitas
+        // CONSULTA AUTOMÁTICA DE LA TASA BCV
+        async function obtenerTasaBCV() {
+            try {
+                const response = await fetch('https://ve.descubrepyme.com/api/v1/rates');
+                const data = await response.json();
+                if (data && data.bcv) {
+                    document.getElementById('bcv-rate').innerText = `Bs. ${parseFloat(data.bcv).toFixed(2)}`;
+                } else {
+                    document.getElementById('bcv-rate').innerText = "No disponible";
+                }
+            } catch (error) {
+                console.error("Error consultando la tasa:", error);
+                document.getElementById('bcv-rate').innerText = "Error de red";
+            }
+        }
+
         function gestionarContadorVisitas() {
             const ahora = new Date();
-            const ano = ahora.getFullYear();
-            const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-            const dia = String(ahora.getDate()).padStart(2, '0');
-            const idDia = `${ano}-${mes}-${dia}`;
+            const idDia = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}-${String(ahora.getDate()).padStart(2, '0')}`;
             
-            const numSemana = Math.ceil(ahora.getDate() / 7);
-            const idSemana = `${ano}-${mes}-W${numSemana}`;
-            const idMes = `${ano}-${mes}`;
-            const idAno = `${ano}`;
-
-            // Escucha en vivo el total de visitas globales
             db.collection("metricas").doc("global").onSnapshot(doc => {
-                if (doc.exists) {
-                    document.getElementById("visitas-display").innerText = doc.data().total || 0;
-                } else {
-                    document.getElementById("visitas-display").innerText = "0";
-                }
-            }, err => console.log("Error al leer visitas:", err));
+                if (doc.exists) document.getElementById("visitas-display").innerText = doc.data().total || 0;
+            });
 
-            // Filtro para evitar que sume visitas repetidas por recargar (F5)
             const marcaVisita = localStorage.getItem("croniss_visited_date");
             if (marcaVisita !== idDia) {
                 localStorage.setItem("croniss_visited_date", idDia);
-                
                 const batch = db.batch();
                 const inc = firebase.firestore.FieldValue.increment(1);
-
                 batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
-                batch.set(db.collection("metricas_diarias").doc(idDia), { total: inc }, { merge: true });
-                batch.set(db.collection("metricas_semanales").doc(idSemana), { total: inc }, { merge: true });
-                batch.set(db.collection("metricas_mensuales").doc(idMes), { total: inc }, { merge: true });
-                batch.set(db.collection("metricas_anuales").doc(idAno), { total: inc }, { merge: true });
-
-                batch.commit()
-                    .then(() => console.log("Métricas de visita actualizadas."))
-                    .catch(err => console.log("Error al registrar visita: ", err));
+                batch.commit().catch(err => console.log("Error visitas:", err));
             }
         }
 
-        // Lógica de Autenticación del Administrador
         function manejarLoginAdmin() {
             const email = document.getElementById("admin-email").value.trim();
             const pass = document.getElementById("admin-password").value.trim();
-            
-            if(!email || !pass) {
-                alert("Por favor, llena todos los campos.");
-                return;
-            }
-
+            if(!email || !pass) return alert("Llena todos los campos.");
             auth.signInWithEmailAndPassword(email, pass)
                 .then(() => {
-                    alert("Acceso concedido. ¡Bienvenido!");
+                    alert("¡Bienvenido!");
                     document.getElementById("login-box").style.display = "none";
                     document.getElementById("panel-admin-box").style.display = "block";
-                })
-                .catch(err => {
-                    alert("Acceso denegado: " + err.message);
-                });
+                }).catch(err => alert("Error: " + err.message));
         }
 
-        // Cierre de sesión
         function cerrarSesionAdmin() {
             auth.signOut().then(() => {
-                alert("Sesión cerrada.");
                 document.getElementById("panel-admin-box").style.display = "none";
                 document.getElementById("login-box").style.display = "block";
             });
         }
 
-        // Monitorear el estado de la sesión en tiempo real
         auth.onAuthStateChanged(user => {
             if (user) {
                 document.getElementById("login-box").style.display = "none";
@@ -363,116 +394,62 @@
             }
         });
 
-        // Función para subir imágenes directamente a ImgBB
         async function subirImagenImgBB(file) {
             const formData = new FormData();
             formData.append("image", file);
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                    method: "POST",
-                    body: formData
-                });
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
                 const data = await res.json();
                 if(data.success) return data.data.url;
-                throw new Error("Error en respuesta de ImgBB");
+                throw new Error();
             } catch(err) {
-                console.error(err);
-                alert("Error al subir la imagen.");
+                alert("Error al subir imagen.");
                 return null;
             }
         }
 
-        // Agregar nuevo trabajo (con imagen a ImgBB)
         async function agregarTrabajoFirebase() {
             const fileInput = document.getElementById("img-trabajo");
             const desc = document.getElementById("desc-trabajo").value.trim();
-            
-            if(!fileInput.files[0] || !desc) {
-                alert("Imagen y descripción obligatorias.");
-                return;
-            }
-            
+            if(!fileInput.files[0] || !desc) return alert("Campos obligatorios.");
             const urlImg = await subirImagenImgBB(fileInput.files[0]);
             if(!urlImg) return;
-            
-            db.collection("trabajos").add({
-                img: urlImg,
-                desc: desc,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                alert("Trabajo agregado con éxito.");
-                document.getElementById("desc-trabajo").value = "";
-                fileInput.value = "";
-            });
+            db.collection("trabajos").add({ img: urlImg, desc: desc, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+                .then(() => { alert("Trabajo subido."); desc.value = ""; fileInput.value = ""; });
         }
 
-        // Agregar nueva captura de reseña o feedback
         async function agregarCapturaFirebase() {
             const fileInput = document.getElementById("img-captura");
-            if(!fileInput.files[0]) {
-                alert("Selecciona una imagen primero.");
-                return;
-            }
-            
+            if(!fileInput.files[0]) return alert("Selecciona una imagen.");
             const urlImg = await subirImagenImgBB(fileInput.files[0]);
             if(!urlImg) return;
-            
-            db.collection("capturas").add({
-                img: urlImg,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                alert("Captura agregada con éxito.");
-                fileInput.value = "";
-            });
+            db.collection("capturas").add({ img: urlImg, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+                .then(() => { alert("Reseña subida."); fileInput.value = ""; });
         }
 
-        // Agregar enlaces rápidos a la sección de WhatsApp (Menú)
         function agregarElementoMenu() {
             const name = document.getElementById("menu-name").value.trim();
             const msg = encodeURIComponent(document.getElementById("menu-msg").value.trim());
             const cat = document.getElementById("menu-category").value;
-            
-            if(!name || !msg) {
-                alert("Todos los campos son obligatorios.");
-                return;
-            }
-            
-            db.collection("menus").add({
-                name: name,
-                msg: msg,
-                category: cat,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                alert("Elemento del menú agregado.");
-                document.getElementById("menu-name").value = "";
-                document.getElementById("menu-msg").value = "";
-            });
+            if(!name || !msg) return alert("Campos obligatorios.");
+            db.collection("menus").add({ name: name, msg: msg, category: cat, timestamp: firebase.firestore.FieldValue.serverTimestamp() })
+                .then(() => { alert("Botón creado."); name.value = ""; msg.value = ""; });
         }
 
-        // Función genérica para borrar elementos
         function borrarElementoFirebase(coleccion, id) {
-            if(confirm("¿Seguro que quieres eliminar este elemento?")) {
-                db.collection(coleccion).doc(id).delete()
-                    .then(() => alert("Eliminado correctamente."))
-                    .catch(err => alert("Error al eliminar: " + err.message));
-            }
+            if(confirm("¿Eliminar elemento?")) db.collection(coleccion).doc(id).delete();
         }
 
-        // Rotación del Carrusel de Trabajos
-        let trabajosLocales = [];
-        let indexTrabajo = 0;
+        let trabajosLocales = [], indexTrabajo = 0;
         function rotarTrabajos() {
             if(trabajosLocales.length === 0) return;
             indexTrabajo = (indexTrabajo + 1) % trabajosLocales.length;
-            const t = trabajosLocales[indexTrabajo];
-            document.getElementById("carousel-trabajo-img").src = t.img;
-            document.getElementById("carousel-trabajo-desc").innerText = t.desc;
+            document.getElementById("carousel-trabajo-img").src = trabajosLocales[indexTrabajo].img;
+            document.getElementById("carousel-trabajo-desc").innerText = trabajosLocales[indexTrabajo].desc;
             setTimeout(rotarTrabajos, 4000);
         }
 
-        // Rotación del Carrusel de Capturas
-        let capturasLocales = [];
-        let indexCaptura = 0;
+        let capturasLocales = [], indexCaptura = 0;
         function rotarCapturas() {
             if(capturasLocales.length === 0) return;
             indexCaptura = (indexCaptura + 1) % capturasLocales.length;
@@ -480,154 +457,90 @@
             setTimeout(rotarCapturas, 4000);
         }
 
-        // Configuración global (Título y Favicon dinámicos)
         function escucharConfiguracionGlobal() {
             db.collection("config").doc("global").onSnapshot(doc => {
                 if(doc.exists) {
                     const d = doc.data();
                     if(d.title) {
                         document.title = d.title;
-                        const h1 = document.getElementById('main-header-title');
-                        const tagTitle = document.getElementById('page-title-tag');
-                        if(h1) h1.innerText = d.title;
-                        if(tagTitle) tagTitle.innerText = d.title;
+                        if(document.getElementById('main-header-title')) document.getElementById('main-header-title').innerText = d.title;
+                        if(document.getElementById('page-title-tag')) document.getElementById('page-title-tag').innerText = d.title;
                     }
-                    if(d.favicon) {
-                        let fav = document.getElementById("page-favicon-tag");
-                        if(fav) fav.href = d.favicon;
-                    }
-                    if(d.telefono) {
-                        telefonoGlobal = d.telefono;
-                    }
+                    if(d.favicon && document.getElementById("page-favicon-tag")) document.getElementById("page-favicon-tag").href = d.favicon;
+                    if(d.telefono) telefonoGlobal = d.telefono;
                 }
             });
         }
 
-        // Guardar nueva configuración de la web
         function guardarConfiguracionGlobal() {
             const nTitle = document.getElementById("cfg-title").value.trim();
             const nFav = document.getElementById("cfg-favicon").value.trim();
             const nTel = document.getElementById("cfg-telefono").value.trim();
-            
             const updateData = {};
             if(nTitle) updateData.title = nTitle;
             if(nFav) updateData.favicon = nFav;
             if(nTel) updateData.telefono = nTel;
-            
             if(Object.keys(updateData).length === 0) return;
-            
-            db.collection("config").doc("global").set(updateData, { merge: true })
-                .then(() => {
-                    alert("Configuración actualizada.");
-                    document.getElementById("cfg-title").value = "";
-                    document.getElementById("cfg-favicon").value = "";
-                    document.getElementById("cfg-telefono").value = "";
-                });
+            db.collection("config").doc("global").set(updateData, { merge: true }).then(() => alert("Ajustes actualizados."));
         }
 
-        // Sincronización en tiempo real de colecciones multimedia y de gestión
         function sincronizarBaseDeDatos() {
-            // Trabajos
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
                 trabajosLocales = [];
-                const listaBorrar = document.getElementById("lista-borrar-trabajos");
-                listaBorrar.innerHTML = "";
-                if(!snap.empty) {
-                    snap.forEach(doc => {
-                    const d = doc.data();
-                    trabajosLocales.push(d);
-                
-                    // Corrección de comillas y diseño limpio
-                    const item = document.createElement("div");
-                    item.className = "manager-item";
-                    item.innerHTML = `
-                        <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
-                        <span style="flex:1; margin-left:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.desc}</span>
-                    `;
-                
-                    const btnDel = document.createElement("button");
-                    btnDel.className = "btn-delete-small";
-                    btnDel.innerText = "Eliminar";
-                    btnDel.onclick = () => borrarElementoFirebase('trabajos', doc.id);
-                
-                    item.appendChild(btnDel);
-                    listaBorrar.appendChild(item);
+                const list = document.getElementById("lista-borrar-trabajos");
+                list.innerHTML = "";
+                snap.forEach(doc => {
+                    const d = doc.data(); trabajosLocales.push(d);
+                    const item = document.createElement("div"); item.className = "manager-item";
+                    item.innerHTML = `<img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;"><span style="flex:1; margin-left:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${d.desc}</span>`;
+                    const btn = document.createElement("button"); btn.className = "btn-delete-small"; btn.innerText = "Eliminar";
+                    btn.onclick = () => borrarElementoFirebase('trabajos', doc.id);
+                    item.appendChild(btn); list.appendChild(item);
                 });
-                const t = trabajosLocales[0];
-                document.getElementById("carousel-trabajo-img").src = t.img;
-                document.getElementById("carousel-trabajo-desc").innerText = t.desc;
-            }
-        });
-
-        // Capturas
-        db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
-           capturasLocales = [];
-           const listaBorrar = document.getElementById("lista-borrar-capturas");
-           listaBorrar.innerHTML = "";
-           if(!snap.empty) {
-               snap.forEach(doc => {
-                   const d = doc.data();
-                   capturasLocales.push(d);
-                
-                // Corrección de comillas y diseño limpio
-                const item = document.createElement("div");
-                item.className = "manager-item";
-                item.innerHTML = `
-                    <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
-                    <span style="flex:1; margin-left:10px;">ID: ${doc.id.substring(0,6)}...</span>
-                  `;
-                
-                const btnDel = document.createElement("button");
-                btnDel.className = "btn-delete-small";
-                btnDel.innerText = "Eliminar";
-                btnDel.onclick = () => borrarElementoFirebase('capturas', doc.id);
-                
-                item.appendChild(btnDel);
-                listaBorrar.appendChild(item);
+                if(trabajosLocales.length > 0) {
+                    document.getElementById("carousel-trabajo-img").src = trabajosLocales[0].img;
+                    document.getElementById("carousel-trabajo-desc").innerText = trabajosLocales[0].desc;
+                }
             });
-            document.getElementById("carousel-captura-img").src = capturasLocales[0].img;
-        }
-    });
 
-    // Menús / Enlaces rápidos
-    db.collection("menus").orderBy("timestamp", "desc").onSnapshot(snap => {
-        const menuServ = document.getElementById("menu-servicios");
-        const menuInst = document.getElementById("menu-instala");
-        const listaBorrarServ = document.getElementById("lista-borrar-servicios");
-        
-        document.querySelectorAll('.dynamic-service').forEach(el => el.remove());
-        listaBorrarServ.innerHTML = '';
+            db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
+                capturasLocales = [];
+                const list = document.getElementById("lista-borrar-capturas");
+                list.innerHTML = "";
+                snap.forEach(doc => {
+                    const d = doc.data(); capturasLocales.push(d);
+                    const item = document.createElement("div"); item.className = "manager-item";
+                    item.innerHTML = `<img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;"><span style="flex:1; margin-left:10px;">ID: ${doc.id.substring(0,6)}...</span>`;
+                    const btn = document.createElement("button"); btn.className = "btn-delete-small"; btn.innerText = "Eliminar";
+                    btn.onclick = () => borrarElementoFirebase('capturas', doc.id);
+                    item.appendChild(btn); list.appendChild(item);
+                });
+                if(capturasLocales.length > 0) document.getElementById("carousel-captura-img").src = capturasLocales[0].img;
+            });
 
-        if(!snap.empty) {
-            snap.forEach(doc => {
-                const d = doc.data();
-                const nLink = document.createElement('a');
-                nLink.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
-                nLink.target = "_blank";
-                nLink.className = "service-link dynamic-service";
-                nLink.innerText = d.name;
-                
-                if(d.category === 'servicios') menuServ.appendChild(nLink);
-                else menuInst.appendChild(nLink);
+            db.collection("menus").orderBy("timestamp", "desc").onSnapshot(snap => {
+                const mServ = document.getElementById("menu-servicios");
+                const mInst = document.getElementById("menu-instala");
+                const list = document.getElementById("lista-borrar-servicios");
+                document.querySelectorAll('.dynamic-service').forEach(el => el.remove());
+                list.innerHTML = '';
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    const a = document.createElement('a');
+                    a.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
+                    a.target = "_blank"; a.className = "service-link dynamic-service"; a.innerText = d.name;
+                    if(d.category === 'servicios') mServ.appendChild(a); else mInst.appendChild(a);
 
-                // Corrección de comillas y diseño limpio
-                const item = document.createElement("div");
-                item.className = "manager-item";
-                item.innerHTML = `<span>[${d.category === 'servicios' ? 'Btn 1' : 'Btn 2'}] ${d.name}</span>`;
-                
-                const btnDel = document.createElement("button");
-                btnDel.className = "btn-delete-small";
-                btnDel.innerText = "Eliminar";
-                btnDel.onclick = () => borrarElementoFirebase('menus', doc.id);
-                
-                item.appendChild(btnDel);
-                listaBorrarServ.appendChild(item);
+                    const item = document.createElement("div"); item.className = "manager-item";
+                    item.innerHTML = `<span>[${d.category === 'servicios' ? 'Btn 1' : 'Btn 2'}] ${d.name}</span>`;
+                    const btn = document.createElement("button"); btn.className = "btn-delete-small"; btn.innerText = "Eliminar";
+                    btn.onclick = () => borrarElementoFirebase('menus', doc.id);
+                    item.appendChild(btn); list.appendChild(item);
+                });
             });
         }
-    });
-}
 
-        // Inicializar procesos de escucha
+        obtenerTasaBCV();
         escucharConfiguracionGlobal();
         sincronizarBaseDeDatos();
         gestionarContadorVisitas();
