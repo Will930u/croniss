@@ -6,7 +6,7 @@
     <title id="page-title-tag">Plataforma CRONISS</title>
     <link id="page-favicon-tag" rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
     
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Rajdhani:wght@600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -27,12 +27,29 @@
             color: white;
             display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; box-sizing: border-box;
+            overflow-x: hidden;
         }
+
+        #fx-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; z-index: 1000;
+        }
+
+        .snowflake {
+            position: absolute;
+            background-color: var(--neon-blue); border-radius: 50%;
+            opacity: 0.6; box-shadow: 0 0 6px 1px var(--neon-blue);
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall { to { transform: translateY(105vh); } }
 
         header {
             width: 100%; max-width: 1200px; display: flex; justify-content: space-between;
             align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 15px;
+            padding-bottom: 15px; z-index: 10;
         }
 
         header h1 {
@@ -41,478 +58,595 @@
             letter-spacing: 2px;
         }
 
-        /* Distribución en Rejilla como la Imagen */
-        .dashboard-grid {
-            width: 100%; max-width: 1200px;
-            display: grid; grid-template-columns: 2fr 1fr; gap: 25px;
+        /* Contenedor Banner de la Imagen */
+        .top-banner {
+            width: 100%; max-width: 1200px; height: 220px;
+            border: 2px solid var(--neon-blue); border-radius: 15px;
+            position: relative; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 25px; background: #000;
+            box-shadow: 0 0 25px rgba(0, 119, 255, 0.15);
         }
 
-        @media (max-width: 900px) {
+        .logo-central { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+
+        /* Distribución en Rejilla Modular Premium */
+        .dashboard-grid {
+            width: 100%; max-width: 1200px;
+            display: grid; grid-template-columns: 280px 1fr 1fr; gap: 25px;
+            z-index: 10;
+        }
+
+        @media (max-width: 992px) {
             .dashboard-grid { grid-template-columns: 1fr; }
         }
 
-        .main-column, .side-column { display: flex; flex-direction: column; gap: 25px; }
+        .info-panel-column { display: flex; flex-direction: column; gap: 20px; align-items: center; }
 
-        /* Paneles Estilo Neomorfismo Oscuro Metalizado */
+        /* Estilo Cristalonéón (Glassmorphism + Neon) */
         .panel {
             background: var(--panel-bg);
-            border: 1px solid var(--border-metal); border-radius: 16px; padding: 25px;
+            border: 1px solid var(--border-metal); border-radius: 16px; padding: 22px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
                         inset 0 1px 2px rgba(255, 255, 255, 0.05),
-                        0 0 20px rgba(0, 243, 255, 0.05);
-            position: relative; overflow: hidden;
-        }
-
-        .panel::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent 45%, rgba(0, 243, 255, 0.03) 50%, transparent 55%);
-            pointer-events: none;
+                        0 0 20px rgba(0, 243, 255, 0.02);
+            position: relative; overflow: hidden; box-sizing: border-box;
+            width: 100%;
         }
 
         .panel-title {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; margin-top: 0; margin-bottom: 20px;
+            font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; margin-top: 0; margin-bottom: 20px;
             color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 1.5px;
-            border-left: 4px solid var(--neon-blue); padding-left: 10px;
+            border-left: 4px solid var(--neon-blue); padding-left: 10px; font-weight: bold;
         }
 
-        /* Contenedor Destacado Tasa BCV */
+        /* Tasa Box Estilo Imagen */
         .bcv-card {
             background: linear-gradient(135deg, #090d16 0%, #151f32 100%);
-            border: 2px solid var(--neon-blue); border-radius: 12px; padding: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 0 25px rgba(0, 119, 255, 0.2);
+            border: 1px dashed var(--neon-blue); border-radius: 12px; padding: 15px;
+            width: 100%; text-align: center; box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(0, 119, 255, 0.1);
         }
-
-        .bcv-info h3 { font-family: 'Rajdhani', sans-serif; margin: 0; font-size: 1.5rem; color: var(--text-frozen); }
-        .bcv-status { font-size: 0.8rem; color: var(--neon-green); display: flex; align-items: center; gap: 5px; margin-top: 5px; font-weight: bold; }
-        .bcv-status::before { content: '✓'; }
-
+        .bcv-title { font-size: 0.65rem; letter-spacing: 1px; color: var(--neon-blue); font-weight: bold; display: block; margin-bottom: 5px;}
         .bcv-amount {
-            font-family: 'Orbitron', sans-serif; font-size: 2.2rem; color: var(--neon-green);
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.4); font-weight: 700;
+            font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: #fff;
+            font-weight: 700; text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
         }
 
-        /* Carruseles de Imágenes Metálicos */
-        .carousel-wrapper {
-            position: relative; width: 100%; height: 280px; border-radius: 12px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #000;
+        /* Visitas Box */
+        .visitas-box {
+            background: rgba(255,255,255,0.02); border: 1px dashed #22c55e; border-radius: 12px;
+            padding: 15px; width: 100%; text-align: center; box-sizing: border-box;
         }
-        .carousel-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .carousel-meta {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(to top, rgba(3, 5, 10, 0.95) 0%, rgba(3, 5, 10, 0.7) 70%, transparent 100%);
-            padding: 20px; text-align: center;
+        .visitas-title { font-size: 0.65rem; letter-spacing: 1px; color: #22c55e; font-weight: bold; display: block; margin-bottom: 5px; }
+        .visitas-display { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: bold; color: #22c55e; text-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
+
+        /* Botones Desplegables de Navegación */
+        .buttons-column { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+        .dropdown { position: relative; width: 100%; }
+
+        .dropbtn {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(180deg, #1f2937, #111827);
+            border: 1px solid #374151; padding: 12px 15px; font-size: 0.85rem; 
+            width: 100%; color: #fff; font-weight: bold; cursor: pointer;
+            border-radius: 8px; text-align: center; text-transform: uppercase; letter-spacing: 2px;
+            transition: all 0.3s ease; outline: none;
         }
-        .carousel-meta p { margin: 0; font-size: 1rem; color: var(--text-frozen); font-weight: 500; }
+        .dropbtn.active, .dropbtn:hover { background: var(--neon-blue); color: #fff; box-shadow: 0 0 20px var(--neon-blue); border-color: var(--neon-cyan); }
 
-        /* Rejilla de Botones de Servicios */
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
-
-        .btn-neon-service {
-            display: flex; align-items: center; justify-content: center; padding: 16px;
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 10px; color: var(--text-frozen); text-decoration: none;
-            font-weight: 600; font-size: 1rem; transition: all 0.3s;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+        .dropdown-content {
+            display: none; position: absolute; background-color: #0b1329; min-width: 100%; z-index: 2000;
+            border: 2px solid var(--neon-blue); border-radius: 8px; padding: 8px; left: 0; top: 105%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9); box-sizing: border-box;
         }
+        .show { display: block !important; }
 
-        .btn-neon-service:hover {
-            background: rgba(0, 119, 255, 0.1); border-color: var(--neon-cyan);
-            transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 243, 255, 0.15);
-            color: white;
+        .service-link {
+            display: block; color: #ccc; text-decoration: none; padding: 10px; font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; border-radius: 4px;
         }
+        .service-link:hover { background: rgba(0, 119, 255, 0.1); color: var(--neon-cyan); padding-left: 15px; }
 
-        /* Apartado de Testimonios Escritos por Clientes */
-        .text-review-card {
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 12px; padding: 20px; min-height: 110px;
-            display: flex; flex-direction: column; justify-content: center; transition: all 0.3s;
-        }
-        .review-stars { color: #ffca28; font-size: 1.1rem; margin-bottom: 8px; letter-spacing: 2px; }
-        .review-quote { font-style: italic; color: #94a3b8; line-height: 1.5; margin: 0 0 8px 0; font-size: 0.95rem; }
-        .review-user { font-size: 0.8rem; color: var(--neon-cyan); font-weight: 600; text-transform: uppercase; }
+        /* Redes Sociales e Inmediato */
+        .social-item { display: flex; align-items: center; gap: 12px; padding: 10px; text-decoration: none; color: white; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .social-item img { width: 22px; height: 22px; object-fit: contain; }
+        .social-item:hover { background: rgba(255,255,255,0.05); border-radius: 6px; color: var(--neon-cyan); }
 
-        /* Formulario Público de Escritura */
-        .form-control { margin-bottom: 15px; }
-        .form-control label { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 6px; text-transform: uppercase; }
-        input, textarea, select {
-            width: 100%; padding: 12px; background: #070a12; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; color: white; font-family: inherit; box-sizing: border-box; transition: border 0.3s;
-        }
-        input:focus, textarea:focus { border-color: var(--neon-blue); outline: none; }
+        .contact-title { font-family: 'Rajdhani', sans-serif; letter-spacing: 1.5px; color: var(--neon-blue); margin: 10px 0 5px 0; font-size: 0.85rem; font-weight: bold; text-align: center; display: block;}
+        .contact-links-container { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .contact-link { text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border-radius: 8px; width: 100%; box-sizing: border-box;}
+        .contact-link img { width: 20px; height: 20px; }
+        .whatsapp-link { color: #25d366; border: 1px solid rgba(37, 211, 102, 0.3); }
+        .whatsapp-link:hover { background: rgba(37, 211, 102, 0.1); box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+        .telegram-link { color: var(--neon-blue); border: 1px solid rgba(0, 119, 255, 0.3); }
+        .telegram-link:hover { background: rgba(0, 119, 255, 0.1); box-shadow: 0 0 15px rgba(0, 119, 255, 0.4); }
 
-        .star-picker { display: flex; gap: 8px; font-size: 1.6rem; cursor: pointer; color: #334155; margin-bottom: 15px; }
-        .star-picker span.active { color: #ffca28; text-shadow: 0 0 10px rgba(255,202,40,0.3); }
+        /* Estructuras de Carruseles Dinámicos */
+        .carousel-container { width: 100%; height: 380px; background: #000; border: 2px solid var(--border-metal); border-radius: 12px; position: relative; overflow: hidden; }
+        .carousel-slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; justify-content: center; align-items: center; }
+        .carousel-slide.active { opacity: 1; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: contain; }
 
-        .btn-submit-action {
-            width: 100%; padding: 14px; background: linear-gradient(180deg, #0077ff 0%, #0044cc 100%);
-            border: none; border-radius: 8px; color: white; font-weight: 700; font-family: 'Orbitron', sans-serif;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;
-        }
-        .btn-submit-action:hover { box-shadow: 0 0 20px rgba(0, 119, 255, 0.4); transform: translateY(-1px); }
+        /* Panel Admin Privado */
+        .admin-trigger { margin-top: 50px; font-size: 0.75rem; color: rgba(255,255,255,0.2); cursor: pointer; text-decoration: underline; padding-bottom: 20px; z-index: 5000; display: inline-block; }
+        .admin-panel { display: none; width: 100%; max-width: 550px; background: #111827; border: 2px solid #ef4444; border-radius: 12px; padding: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(239,68,68,0.25); box-sizing: border-box; z-index: 5001; }
+        .admin-panel h3 { color: #ef4444; margin-top: 0; font-family: 'Rajdhani', sans-serif; letter-spacing: 1px; border-bottom: 1px solid #374151; padding-bottom: 10px; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .stat-card { background: #030712; border: 1px solid #374151; border-radius: 8px; padding: 10px; text-align: center; }
+        .stat-card span { display: block; font-size: 0.7rem; color: #9ca3af; text-transform: uppercase; }
+        .stat-card strong { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; color: var(--neon-blue); }
 
-        /* Consola de Administración Oculta/Desplegable */
-        .admin-row-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 8px; margin-bottom: 8px; font-size: 0.9rem;
-        }
-        .btn-delete-item { background: #dc2626; border: none; color: white; padding: 6px 12px; border-radius: 5px; cursor: pointer; }
+        .admin-panel input, .admin-panel select, .admin-panel button { width: 100%; padding: 11px; margin: 8px 0; border-radius: 6px; border: 1px solid #374151; background: #030712; color: white; box-sizing: border-box; font-size: 0.9rem; }
+        .admin-panel button { background: #ef4444; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
+        .admin-panel button:hover { background: #dc2626; }
+        .admin-panel input[type="file"] { background: #1f2937; border: 1px dashed var(--neon-blue); cursor: pointer; padding: 12px; }
 
-        .badge-counter { background: rgba(0, 243, 255, 0.1); color: var(--neon-cyan); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+        .manager-container { margin-top: 15px; max-height: 140px; overflow-y: auto; background: #030712; border: 1px solid #374151; border-radius: 6px; padding: 8px; }
+        .manager-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #d1d5db; }
+        .manager-item img { width: 45px; height: 35px; object-fit: cover; border-radius: 4px; }
+        .btn-delete-small { background: #dc2626 !important; width: auto !important; padding: 4px 8px !important; margin: 0 !important; font-size: 0.75rem !important; border-radius: 4px !important; }
     </style>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
+    <div id="fx-container"></div>
+
     <header>
         <h1 id="main-header-title">PLATAFORMA CRONISS</h1>
-        <div><span id="visitas-display" class="badge-counter">0 VISITAS</span></div>
     </header>
+
+    <div class="top-banner">
+        <img id="main-logo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg" alt="BANNER LOGO" class="logo-central">
+    </div>
 
     <div class="dashboard-grid">
         
-        <div class="main-column">
-            
+        <div class="info-panel-column">
+            <div class="panel">
+                <div class="buttons-column">
+                    <div class="dropdown">
+                        <button class="dropbtn" id="btn-cat1-title" onclick="toggleMenu('menu-servicios', this)">⚙️ SERVICIOS</button>
+                        <div id="menu-servicios" class="dropdown-content"></div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn" id="btn-cat2-title" onclick="toggleMenu('menu-instala', this)">🌐 INFRAESTRUCTURA</button>
+                        <div id="menu-instala" class="dropdown-content"></div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleMenu('menu-ubica', this)">📍 ATENCIÓN</button>
+                        <div id="menu-ubica" class="dropdown-content">
+                            <p style="padding: 10px; margin:0; font-size: 0.85rem; color: #94a3b8; line-height: 1.4;">Maracay, Edo. Aragua.<br>Soporte a domicilio y remoto profesional.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn" onclick="toggleMenu('menu-redes', this)">📱 REDES SOCIALES</button>
+                        <div id="menu-redes" class="dropdown-content">
+                            <a href="#" id="main-fb-link" target="_blank" class="social-item">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="FB"> Facebook
+                            </a>
+                            <a href="#" id="main-ig-link" target="_blank" class="social-item">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"> Instagram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="contact-title">SOPORTE INMEDIATO</span>
+                <div class="contact-links-container">
+                    <a href="#" id="main-wa-btn" target="_blank" class="contact-link whatsapp-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"> WhatsApp
+                    </a>
+                    <a href="#" id="main-tg-btn" target="_blank" class="contact-link telegram-link">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"> Telegram
+                    </a>
+                </div>
+            </div>
+
             <div class="bcv-card">
-                <div class="bcv-info">
-                    <h3>Plataforma de Gestión</h3>
-                    <div class="bcv-status">Tasa BCV - Accurato Real Time</div>
-                </div>
-                <div class="bcv-amount" id="bcv-rate">Bs. --.--</div>
+                <span class="bcv-title">TASA OFICIAL BCV</span>
+                <span id="tasa-display" class="bcv-amount">--- BS</span>
             </div>
 
-            <div class="panel">
-                <h2 class="panel-title">Trabajos Realizados</h2>
-                <div class="carousel-wrapper">
-                    <img id="carousel-t-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
-                    <div class="carousel-meta"><p id="carousel-t-desc">Cargando portafolio...</p></div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <h2 class="panel-title">Servicios Técnicos</h2>
-                <div class="services-grid" id="container-servicios"></div>
-            </div>
-
-            <div class="panel">
-                <h2 class="panel-title">Instalaciones Corrientes</h2>
-                <div class="services-grid" id="container-instalaciones"></div>
+            <div class="visitas-box">
+                <span class="visitas-title">VISITAS TOTALES</span>
+                <span id="visitas-display" class="visitas-display">0</span>
             </div>
         </div>
 
-        <div class="side-column">
+        <div class="panel">
+            <h2 class="panel-title">Diagnósticos y Reparaciones</h2>
+            <div class="carousel-container" id="contenedor-trabajos">
+                <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando historial...</p></div>
+            </div>
+        </div>
+
+        <div class="panel" style="border-color: var(--neon-blue);">
+            <h2 class="panel-title" style="color: var(--neon-cyan); border-color: var(--neon-blue);">Casos de Éxito / Clientes</h2>
+            <div class="carousel-container" id="contenedor-capturas" style="border-color: var(--neon-blue);">
+                <div class="carousel-slide active"><p style="color: #64748b; font-size:0.85rem; padding:20px; text-align:center;">Cargando opiniones...</p></div>
+            </div>
+        </div>
+
+    </div>
+
+    <span class="admin-trigger" onclick="toggleAdminPanel()">Acceso de Administración Privado</span>
+
+    <div class="admin-panel" id="panel-admin">
+        <h3>🛠️ Panel de Control Universal</h3>
+        
+        <div id="admin-auth-box">
+            <input type="email" id="admin-email" placeholder="Correo electrónico de Administrador">
+            <input type="password" id="admin-pass" placeholder="Contraseña secreta">
+            <button type="button" onclick="loginAdministrador()">Iniciar Sesión Seguro</button>
+        </div>
+
+        <div id="admin-actions-box" style="display: none;">
+            <p style="color: #22c55e; font-weight: bold; margin-top:0;">✅ Conexión establecida</p>
             
-            <div class="panel">
-                <h2 class="panel-title">Garantías y Opiniones</h2>
-                <div class="text-review-card">
-                    <div class="review-stars" id="view-r-stars">★★★★★</div>
-                    <p class="review-quote" id="view-r-text">"Cargando comentarios de la base de datos..."</p>
-                    <div class="review-user" id="view-r-author">- Cargando</div>
-                </div>
+            <h4 style="color: #22c55e; margin-bottom: 5px;">📊 Estadísticas de Tráfico Real</h4>
+            <div class="stats-grid">
+                <div class="stat-card"><span>Hoy</span><strong id="stat-hoy">0</strong></div>
             </div>
 
-            <div class="panel">
-                <h2 class="panel-title">Calificar Servicio</h2>
-                <div class="form-control">
-                    <label>Nombre / Empresa</label>
-                    <input type="text" id="client-name" placeholder="Tu nombre...">
-                </div>
-                <div class="form-control">
-                    <label>Puntuación</label>
-                    <div class="star-picker" id="star-picker-elements">
-                        <span data-score="1" class="active">★</span>
-                        <span data-score="2" class="active">★</span>
-                        <span data-score="3" class="active">★</span>
-                        <span data-score="4" class="active">★</span>
-                        <span data-score="5" class="active">★</span>
-                    </div>
-                </div>
-                <div class="form-control">
-                    <label>Tu Reseña</label>
-                    <textarea id="client-comment" rows="3" placeholder="Escribe aquí tu experiencia..."></textarea>
-                </div>
-                <button class="btn-submit-action" onclick="enviarOpinionPublica()">Publicar Experiencia</button>
-            </div>
+            <h4 style="color: #f59e0b; border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">⚙️ Variables Globales de la Página</h4>
+            <input type="text" id="cfg-page-title" placeholder="Título de la pestaña de navegación">
+            <input type="text" id="cfg-phone" placeholder="Número de teléfono (Ej: 584129830982)">
+            <input type="text" id="cfg-facebook" placeholder="Enlace de perfil de Facebook">
+            <input type="text" id="cfg-instagram" placeholder="Enlace de perfil de Instagram">
+            <input type="text" id="cfg-btn1-name" placeholder="Nombre Botón 1">
+            <input type="text" id="cfg-btn2-name" placeholder="Nombre Botón 2">
 
-            <div class="panel">
-                <h2 class="panel-title">Validaciones en Captura</h2>
-                <div class="carousel-wrapper" style="height: 200px;">
-                    <img id="carousel-c-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
-                </div>
-            </div>
+            <p style="font-size:0.75rem; color:#f59e0b; margin:5px 0 0 0; font-weight: bold;">📷 Actualizar Logo Oficial:</p>
+            <input type="file" id="upload-logo-input" accept="image/*">
+            <button type="button" id="btn-guardar-globales" style="background: #f59e0b; color: black;" onclick="guardarVariablesGlobales()">Actualizar Todo el Sistema</button>
 
-            <div class="panel" id="box-login-gate">
-                <h2 class="panel-title">Consola de Mantenimiento</h2>
-                <div class="form-control"><label>Operador ID</label><input type="email" id="auth-user"></div>
-                <div class="form-control"><label>Clave Acceso</label><input type="password" id="auth-pass"></div>
-                <button class="btn-submit-action" onclick="loginAdministrador()">Acceder al Sistema</button>
-            </div>
+            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Cargar Fotografías al Carrusel</h4>
+            <input type="file" id="upload-file-input" accept="image/*" multiple>
+            <select id="upload-destination">
+                <option value="trabajos">Destino: Carrusel de Trabajos Realizados</option>
+                <option value="capturas">Destino: Carrusel de Opiniones</option>
+            </select>
+            <button type="button" id="btn-publicar-auto" style="background: var(--neon-blue); color: white;" onclick="subirImagenesMultiples()">Subir y Publicar al Instante</button>
 
-            <div class="panel" id="box-admin-dashboard" style="display: none; border-color: var(--neon-green);">
-                <h2 class="panel-title" style="color: var(--neon-green); border-color: var(--neon-green);">Panel de Control Total</h2>
-                
-                <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
-                    <label style="font-size:0.75rem; color:#64748b;">CONFIGURACIÓN GLOBAL</label>
-                    <input type="text" id="adm-title" placeholder="Título de cabecera" style="margin-top:5px; margin-bottom:5px;">
-                    <input type="text" id="adm-phone" placeholder="WhatsApp (Ej: 584129830982)" style="margin-bottom:10px;">
-                    <button class="btn-submit-action" style="background: #10b981;" onclick="guardarAjustesGlobales()">Actualizar Ajustes</button>
-                </div>
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Fotos de Trabajos:</p>
+            <div class="manager-container" id="lista-borrar-trabajos"></div>
 
-                <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
-                    <label style="font-size:0.75rem; color:#64748b;">MODERAR OPINIONES ESCRITAS</label>
-                    <div id="adm-list-opiniones" style="margin-top:8px; max-height:150px; overflow-y:auto;"></div>
-                </div>
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">🗑️ Eliminar Capturas de Clientes:</p>
+            <div class="manager-container" id="lista-borrar-capturas"></div>
 
-                <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
-                    <label style="font-size:0.75rem; color:#64748b;">NUEVO TRABAJO MULTIMEDIA</label>
-                    <input type="file" id="file-trabajo" style="margin-top:5px; margin-bottom:5px;">
-                    <input type="text" id="text-trabajo" placeholder="Descripción corta del trabajo" style="margin-bottom:5px;">
-                    <button class="btn-submit-action" onclick="subirTrabajoAdmin()">Publicar Trabajo</button>
-                    <div id="adm-list-trabajos" style="margin-top:8px;"></div>
-                </div>
+            <h4 style="color: var(--neon-blue); border-top: 1px dashed #334155; padding-top:12px; margin-bottom:5px;">Añadir Ítem a un Desplegable</h4>
+            <input type="text" id="new-service-name" placeholder="Nombre del servicio">
+            <input type="text" id="new-service-msg" placeholder="Mensaje predeterminado de WhatsApp">
+            <select id="new-service-cat">
+                <option value="servicios">Asignar a: Botón Desplegable 1</option>
+                <option value="instalacion">Asignar a: Botón Desplegable 2</option>
+            </select>
+            <button type="button" style="background: #22c55e; color: white;" onclick="agregarServicioFirebase()">Publicar Ítem de Menú</button>
 
-                <div style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
-                    <label style="font-size:0.75rem; color:#64748b;">CREAR NUEVO BOTÓN NEÓN</label>
-                    <input type="text" id="btn-title" placeholder="Nombre del Servicio" style="margin-top:5px; margin-bottom:5px;">
-                    <input type="text" id="btn-message" placeholder="Mensaje predefinido de WhatsApp" style="margin-bottom:5px;">
-                    <select id="btn-target-grid" style="margin-bottom:10px;">
-                        <option value="servicios">Fila Servicios Técnicos</option>
-                        <option value="instalaciones">Fila Instalaciones</option>
-                    </select>
-                    <button class="btn-submit-action" onclick="crearBotonAdmin()">Añadir Botón</button>
-                    <div id="adm-list-botones" style="margin-top:8px;"></div>
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <label style="font-size:0.75rem; color:#64748b;">SUBIR CAPTURA DE OPINIÓN</label>
-                    <input type="file" id="file-captura" style="margin-top:5px; margin-bottom:5px;">
-                    <button class="btn-submit-action" onclick="subirCapturaAdmin()">Añadir Captura</button>
-                    <div id="adm-list-capturas" style="margin-top:8px;"></div>
-                </div>
-
-                <button class="btn-submit-action" style="background:#ef4444; margin-top:10px;" onclick="cerrarSesionAdmin()">Desconectarse</button>
-            </div>
-
+            <p style="font-size:0.75rem; color:#f87171; margin:14px 0 2px 0; font-weight: bold;">📋 Administrar Ítems del Menú:</p>
+            <div class="manager-container" id="lista-borrar-servicios"></div>
         </div>
     </div>
 
     <script>
-        // Configuración de Firebase suministrada
+        const IMGBB_API_KEY = "0a5e7954b4b9fed188e15e4e5532e57b";
+
         const firebaseConfig = {
-            apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnztYE5We4_jyJ0k",
+            apiKey: "AIzaSyDgDCPM8VW2fZ8SaKOnzHtYE5We4_jyJ0k",
             authDomain: "croniss-web.firebaseapp.com",
             projectId: "croniss-web",
             storageBucket: "croniss-web.firebasestorage.app",
             messagingSenderId: "491031905042",
-            appId: "1:491031905042:web:3b0c814dd66101b47b29cb"
+            appId: "1:491031905042:web:3b0c814dd66101b47b29cb",
+            measurementId: "G-XBF96YNVT6"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        // CORRECCIÓN PROTECTIVA: Validar inicialización duplicada antes de instanciar
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        } else {
+            firebase.app();
+        }
+
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        const IMGBB_KEY = "0a5e7954b4b9fed188e15e4e5532e57b";
-        let whatsappGlobal = "584129830982";
-        let ratingSeleccionado = 5;
+        let indexTrabajos = 0;
+        let indexCapturas = 0;
+        let telefonoGlobal = "584129830982";
+        let urlLogoActual = "";
 
-        // Manejador del selector de estrellas
-        document.querySelectorAll('#star-picker-elements span').forEach(star => {
-            star.addEventListener('click', (e) => {
-                const score = parseInt(e.target.getAttribute('data-score'));
-                ratingSeleccionado = score;
-                document.querySelectorAll('#star-picker-elements span').forEach(s => {
-                    if(parseInt(s.getAttribute('data-score')) <= score) s.classList.add('active');
-                    else s.classList.remove('active');
-                });
-            });
-        });
+        // Rotaciones de carrusel
+        function rotarTrabajos() {
+            const slides = document.querySelectorAll("#contenedor-trabajos .carousel-slide");
+            if (slides.length > 1) {
+                slides.forEach(s => s.classList.remove("active"));
+                indexTrabajos = (indexTrabajos + 1) % slides.length;
+                if (slides[indexTrabajos]) slides[indexTrabajos].classList.add("active");
+            }
+            setTimeout(rotarTrabajos, 4500);
+        }
 
-        // Consulta en tiempo real de Tasa BCV Oficial
-        async function actualizarTasaRealTime() {
+        function rotarCapturas() {
+            const slides = document.querySelectorAll("#contenedor-capturas .carousel-slide");
+            if (slides.length > 1) {
+                slides.forEach(s => s.classList.remove("active"));
+                indexCapturas = (indexCapturas + 1) % slides.length;
+                if (slides[indexCapturas]) slides[indexCapturas].classList.add("active");
+            }
+            setTimeout(rotarCapturas, 5500);
+        }
+
+        function toggleMenu(menuId, btn) {
+            document.querySelectorAll(".dropdown-content").forEach(m => { if (m.id !== menuId) m.classList.remove("show"); });
+            document.querySelectorAll(".dropbtn").forEach(b => { if (b !== btn) b.classList.remove("active"); });
+            document.getElementById(menuId).classList.toggle("show");
+            btn.classList.toggle("active");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches(".dropbtn")) {
+                document.querySelectorAll(".dropdown-content").forEach(m => m.classList.remove("show"));
+                document.querySelectorAll(".dropbtn").forEach(b => b.classList.remove("active"));
+            }
+        };
+
+        // LÓGICA CORREGIDA: Integración directa de DolarApi
+        async function actualizarTasa() {
             try {
-                const res = await fetch("https://v6.exchangerate-api.com/v6/23297a73fc02f7462fa49320/latest/USD");
+                const res = await fetch("https://ve.dolarapi.com/v1/dolares/oficial");
                 const data = await res.json();
-                if(data && data.conversion_rates && data.conversion_rates.VES) {
-                    document.getElementById("bcv-rate").innerText = `Bs. ${data.conversion_rates.VES.toFixed(2)}`;
-                } else { document.getElementById("bcv-rate").innerText = "Bs. 41.50"; }
-            } catch { document.getElementById("bcv-rate").innerText = "Bs. 41.50"; }
-        }
-
-        // Gestión de Métricas de Visitas
-        function controlDeVisitas() {
-            db.collection("metricas").doc("global").onSnapshot(doc => {
-                if(doc.exists) document.getElementById("visitas-display").innerText = `${doc.data().total || 0} VISITAS`;
-            });
-            const hoy = new Date().toDateString();
-            if(localStorage.getItem("croniss_v_track") !== hoy) {
-                localStorage.setItem("croniss_v_track", hoy);
-                db.collection("metricas").doc("global").set({total: firebase.firestore.FieldValue.increment(1)}, {merge:true});
+                if(data && data.promedio) {
+                    document.getElementById("tasa-display").innerText = data.promedio.toFixed(2) + " BS";
+                } else {
+                    document.getElementById("tasa-display").innerText = "--- BS";
+                }
+            } catch (err) {
+                document.getElementById("tasa-display").innerText = "--- BS";
             }
         }
 
-        // Control de Sesión
+        // Efecto visual Nieve Azul Estilo Crio-Gamer
+        const fxContainer = document.getElementById("fx-container");
+        function crearCopo() {
+            if (!fxContainer) return;
+            const copo = document.createElement("div");
+            copo.classList.add("snowflake");
+            const tamano = Math.random() * 3 + 2;
+            copo.style.width = tamano + "px"; copo.style.height = tamano + "px";
+            copo.style.left = Math.random() * 100 + "vw";
+            const duracion = Math.random() * 4 + 4;
+            copo.style.animationDuration = duracion + "s";
+            fxContainer.appendChild(copo);
+            setTimeout(() => copo.remove(), duracion * 1000);
+        }
+        setInterval(crearCopo, 400);
+
+        function toggleAdminPanel() { document.getElementById("panel-admin").classList.toggle("show"); }
+
         function loginAdministrador() {
-            const u = document.getElementById("auth-user").value.trim();
-            const p = document.getElementById("auth-pass").value.trim();
-            if(u && p) auth.signInWithEmailAndPassword(u, p).catch(err => alert("Acceso denegado: " + err.message));
+            const email = document.getElementById("admin-email").value;
+            const pass = document.getElementById("admin-pass").value;
+            auth.signInWithEmailAndPassword(email, pass).then(() => {
+                document.getElementById("admin-auth-box").style.display = "none";
+                document.getElementById("admin-actions-box").style.display = "block";
+                cargarMetricasAdmin();
+                db.collection("configuracion").doc("globales").get().then(doc => {
+                    if (doc.exists) {
+                        const c = doc.data();
+                        document.getElementById("cfg-page-title").value = c.titulo || "";
+                        document.getElementById("cfg-phone").value = c.telefono || "";
+                        document.getElementById("cfg-facebook").value = c.facebook || "";
+                        document.getElementById("cfg-instagram").value = c.instagram || "";
+                        document.getElementById("cfg-btn1-name").value = c.btn1Name || "";
+                        document.getElementById("cfg-btn2-name").value = c.btn2Name || "";
+                        urlLogoActual = c.logoUrl || "";
+                    }
+                });
+            }).catch(err => alert("Acceso denegado: " + err.message));
         }
-        function cerrarSesionAdmin() { auth.signOut(); }
 
-        auth.onAuthStateChanged(user => {
-            if(user) {
-                document.getElementById("box-login-gate").style.display = "none";
-                document.getElementById("box-admin-dashboard").style.display = "block";
-            } else {
-                document.getElementById("box-admin-dashboard").style.display = "none";
-                document.getElementById("box-login-gate").style.display = "block";
+        async function guardarVariablesGlobales() {
+            const tit = document.getElementById("cfg-page-title").value.trim();
+            const tel = document.getElementById("cfg-phone").value.trim();
+            const fb = document.getElementById("cfg-facebook").value.trim();
+            const ig = document.getElementById("cfg-instagram").value.trim();
+            const b1 = document.getElementById("cfg-btn1-name").value.trim();
+            const b2 = document.getElementById("cfg-btn2-name").value.trim();
+            const logoFile = document.getElementById("upload-logo-input");
+            const btn = document.getElementById("btn-guardar-globales");
+
+            if (!tit || !tel) return alert("Error: Datos vacíos");
+            btn.disabled = true;
+
+            if (logoFile.files.length > 0) {
+                const formData = new FormData();
+                formData.append("image", logoFile.files[0]);
+                try {
+                    const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, { method: "POST", body: formData });
+                    const resJson = await res.json();
+                    if (resJson.success) urlLogoActual = resJson.data.url;
+                } catch (e) { console.error(e); }
             }
-        });
 
-        // Guardar opinión libre desde la interfaz
-        function enviarOpinionPublica() {
-            const nom = document.getElementById("client-name").value.trim() || "Usuario Anónimo";
-            const txt = document.getElementById("client-comment").value.trim();
-            if(!txt) return alert("Por favor, escribe un comentario descriptivo.");
-
-            db.collection("opiniones_clientes").add({
-                autor: nom, texto: txt, estrellas: ratingSeleccionado, timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                alert("¡Opinión añadida de forma segura!");
-                document.getElementById("client-name").value = "";
-                document.getElementById("client-comment").value = "";
-            });
-        }
-
-        // Envío de imágenes hacia ImgBB
-        async function subirAImgBB(fileElement) {
-            const file = fileElement.files[0]; if(!file) return null;
-            const form = new FormData(); form.append("image", file);
             try {
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`, {method:"POST", body:form});
-                const data = await res.json(); return data.success ? data.data.url : null;
-            } catch { return null; }
+                await db.collection("configuracion").doc("globales").set({
+                    titulo: tit, telefono: tel, facebook: fb, instagram: ig,
+                    btn1Name: b1 || "⚙️ SERVICIOS", btn2Name: b2 || "🌐 INFRAESTRUCTURA", logoUrl: urlLogoActual
+                }, { merge: true });
+                alert("Sincronizado correctamente");
+                logoFile.value = "";
+            } catch (err) { alert(err.message); }
+            btn.disabled = false;
         }
 
-        // Acciones del Admin
-        async function subirTrabajoAdmin() {
-            const url = await subirAImgBB(document.getElementById("file-trabajo"));
-            const desc = document.getElementById("text-trabajo").value.trim();
-            if(url && desc) {
-                db.collection("trabajos").add({img: url, desc: desc, timestamp: firebase.firestore.FieldValue.serverTimestamp()})
-                .then(() => { document.getElementById("file-trabajo").value = ""; document.getElementById("text-trabajo").value = ""; });
-            }
-        }
-
-        async function subirCapturaAdmin() {
-            const url = await subirAImgBB(document.getElementById("file-captura"));
-            if(url) {
-                db.collection("capturas").add({img: url, timestamp: firebase.firestore.FieldValue.serverTimestamp()})
-                .then(() => { document.getElementById("file-captura").value = ""; });
-            }
-        }
-
-        function crearBotonAdmin() {
-            const name = document.getElementById("btn-title").value.trim();
-            const msg = encodeURIComponent(document.getElementById("btn-message").value.trim());
-            const cat = document.getElementById("btn-target-grid").value;
-            if(name && msg) {
-                db.collection("menus").add({name: name, msg: msg, category: cat, timestamp: firebase.firestore.FieldValue.serverTimestamp()})
-                .then(() => { document.getElementById("btn-title").value = ""; document.getElementById("btn-message").value = ""; });
-            }
-        }
-
-        function eliminarDocAdmin(coleccion, id) { if(confirm("¿Eliminar este registro permanentemente?")) db.collection(coleccion).doc(id).delete(); }
-
-        function guardarAjustesGlobales() {
-            const title = document.getElementById("adm-title").value.trim();
-            const phone = document.getElementById("adm-phone").value.trim();
-            const pack = {}; if(title) pack.title = title; if(phone) pack.telefono = phone;
-            if(Object.keys(pack).length > 0) db.collection("config").doc("global").set(pack, {merge:true}).then(() => alert("Estructura global actualizada"));
-        }
-
-        // Listas Locales para Carruseles Dinámicos
-        let arrayTrabajos = [], idxT = 0, arrayCapturas = [], idxC = 0, arrayOpiniones = [], idxO = 0;
-
-        // Escucha total y sincronización de datos con estilos premium
-        function sincronizacionDashboard() {
-            db.collection("config").doc("global").onSnapshot(doc => {
-                if(doc.exists) {
-                    const d = doc.data();
-                    if(d.title) { document.title = d.title; document.getElementById("main-header-title").innerText = d.title.toUpperCase(); }
-                    if(d.telefono) whatsappGlobal = d.telefono;
-                    document.getElementById("adm-title").value = d.title || "";
-                    document.getElementById("adm-phone").value = d.telefono || "";
+        function escucharConfiguracionGlobal() {
+            db.collection("configuracion").doc("globales").onSnapshot(doc => {
+                if (doc.exists) {
+                    const c = doc.data();
+                    if (c.titulo) { document.title = c.titulo; document.getElementById("main-header-title").innerText = c.titulo.toUpperCase(); }
+                    if (c.btn1Name) document.getElementById("btn-cat1-title").innerText = c.btn1Name;
+                    if (c.btn2Name) document.getElementById("btn-cat2-title").innerText = c.btn2Name;
+                    if (c.telefono) {
+                        telefonoGlobal = c.telefono;
+                        document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
+                        document.getElementById("main-tg-btn").href = "https://t.me/+" + telefonoGlobal;
+                    }
+                    if (c.facebook) document.getElementById("main-fb-link").href = c.facebook;
+                    if (c.instagram) document.getElementById("main-ig-link").href = c.instagram;
+                    if (c.logoUrl && c.logoUrl !== "") {
+                        document.getElementById("main-logo-img").src = c.logoUrl;
+                        document.getElementById("page-favicon-tag").href = c.logoUrl;
+                    }
                 }
             });
+        }
 
+        async function subirImagenesMultiples() {
+            const files = document.getElementById("upload-file-input");
+            const dest = document.getElementById("upload-destination");
+            const btn = document.getElementById("btn-publicar-auto");
+
+            if (files.files.length === 0) return alert("Selecciona fotos primero");
+            btn.disabled = true;
+
+            for (let i = 0; i < files.files.length; i++) {
+                const formData = new FormData();
+                formData.append("image", files.files[i]);
+                try {
+                    const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_API_KEY, { method: "POST", body: formData });
+                    const resJson = await res.json();
+                    if (resJson.success) {
+                        await db.collection(dest.value).add({
+                            url: resJson.data.url,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    }
+                } catch (e) { console.error(e); }
+            }
+            alert("Imágenes cargadas e indexadas.");
+            files.value = "";
+            btn.disabled = false;
+        }
+
+        function agregarServicioFirebase() {
+            const name = document.getElementById("new-service-name").value.trim();
+            const msg = document.getElementById("new-service-msg").value.trim();
+            const cat = document.getElementById("new-service-cat").value;
+
+            if (!name || !msg) return alert("Completa los campos requeridos");
+            db.collection("menus").add({ name: name, msg: encodeURIComponent(msg), category: cat }).then(() => {
+                alert("Servicio publicado");
+                document.getElementById("new-service-name").value = "";
+                document.getElementById("new-service-msg").value = "";
+            });
+        }
+
+        function borrarElementoFirebase(coleccion, id) {
+            if (confirm("¿Estás seguro de eliminar este ítem permanentemente?")) {
+                db.collection(coleccion).doc(id).delete().then(() => alert("Eliminado de la base de datos"));
+            }
+        }
+
+        function gestionarContadorVisitas() {
+            const hoy = new Date();
+            const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
+            db.collection("metricas").doc("global").onSnapshot(doc => {
+                document.getElementById("visitas-display").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
+
+            const visitKey = localStorage.getItem("croniss_universal_visit");
+            if (visitKey !== fechaID) {
+                localStorage.setItem("croniss_universal_visit", fechaID);
+                const batch = db.batch();
+                const inc = firebase.firestore.FieldValue.increment(1);
+                batch.set(db.collection("metricas").doc("global"), { total: inc }, { merge: true });
+                batch.set(db.collection("metricas_diarias").doc(fechaID), { total: inc }, { merge: true });
+                batch.commit().catch(e => console.log(e));
+            }
+        }
+
+        function cargarMetricasAdmin() {
+            const hoy = new Date();
+            const fechaID = hoy.getFullYear() + "-" + String(hoy.getMonth() + 1).padStart(2, '0') + "-" + String(hoy.getDate()).padStart(2, '0');
+            db.collection("metricas_diarias").doc(fechaID).onSnapshot(doc => {
+                document.getElementById("stat-hoy").innerText = doc.exists ? (doc.data().total || 0) : 0;
+            });
+        }
+
+        function sincronizarBaseDeDatos() {
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
-                arrayTrabajos = []; const list = document.getElementById("adm-list-trabajos"); list.innerHTML = "";
-                snap.forEach(doc => {
-                    const d = doc.data(); arrayTrabajos.push(d);
-                    list.innerHTML += `<div class="admin-row-item"><span>${d.desc.substring(0,15)}...</span><button class="btn-delete-item" onclick="eliminarDocAdmin('trabajos','${doc.id}')">X</button></div>`;
-                });
-                if(arrayTrabajos.length > 0) {
-                    document.getElementById("carousel-t-img").src = arrayTrabajos[0].img;
-                    document.getElementById("carousel-t-desc").innerText = arrayTrabajos[0].desc;
+                const container = document.getElementById("contenedor-trabajos");
+                const list = document.getElementById("lista-borrar-trabajos");
+                container.innerHTML = ""; list.innerHTML = "";
+                
+                if (!snap.empty) {
+                    let i = 0;
+                    snap.forEach(doc => {
+                        container.innerHTML += `<div class="carousel-slide ${i===0?'active':''}"><img src="${doc.data().url}"></div>`;
+                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Foto #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('trabajos','${doc.id}')">Eliminar</button></div>`;
+                        i++;
+                    });
+                } else {
+                    container.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin fotos cargadas.</p></div>';
                 }
             });
 
             db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
-                arrayCapturas = []; const list = document.getElementById("adm-list-capturas"); list.innerHTML = "";
-                snap.forEach(doc => {
-                    arrayCapturas.push(doc.data());
-                    list.innerHTML += `<div class="admin-row-item"><span>Imagen ID: ${doc.id.substring(0,5)}</span><button class="btn-delete-item" onclick="eliminarDocAdmin('capturas','${doc.id}')">X</button></div>`;
-                });
-                if(arrayCapturas.length > 0) document.getElementById("carousel-c-img").src = arrayCapturas[0].img;
+                const container = document.getElementById("contenedor-capturas");
+                const list = document.getElementById("lista-borrar-capturas");
+                container.innerHTML = ""; list.innerHTML = "";
+                
+                if (!snap.empty) {
+                    let i = 0;
+                    snap.forEach(doc => {
+                        container.innerHTML += `<div class="carousel-slide ${i===0?'active':''}"><img src="${doc.data().url}"></div>`;
+                        list.innerHTML += `<div class="manager-item"><img src="${doc.data().url}"><span>Captura #${snap.size - i}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
+                        i++;
+                    });
+                } else {
+                    container.innerHTML = '<div class="carousel-slide active"><p style="color:#64748b; font-size:0.85rem; text-align:center;">Sin opiniones cargadas.</p></div>';
+                }
             });
 
-            db.collection("opiniones_clientes").orderBy("timestamp", "desc").onSnapshot(snap => {
-                arrayOpiniones = []; const list = document.getElementById("adm-list-opiniones"); list.innerHTML = "";
-                snap.forEach(doc => {
-                    const d = doc.data(); arrayOpiniones.push(d);
-                    list.innerHTML += `<div class="admin-row-item"><span>${d.autor}: ${d.texto.substring(0,10)}...</span><button class="btn-delete-item" onclick="eliminarDocAdmin('opiniones_clientes','${doc.id}')">X</button></div>`;
-                });
-                if(arrayOpiniones.length > 0) {
-                    document.getElementById("view-r-stars").innerText = "★".repeat(arrayOpiniones[0].estrellas);
-                    document.getElementById("view-r-text").innerText = `"${arrayOpiniones[0].texto}"`;
-                    document.getElementById("view-r-author").innerText = `- ${arrayOpiniones[0].autor}`;
-                } else { document.getElementById("view-r-text").innerText = '"Sin opiniones recientes escritas por los clientes."'; }
-            });
-
-            db.collection("menus").orderBy("timestamp", "desc").onSnapshot(snap => {
-                const sGrid = document.getElementById("container-servicios");
-                const iGrid = document.getElementById("container-instalaciones");
-                const list = document.getElementById("adm-list-botones");
-                sGrid.innerHTML = ""; iGrid.innerHTML = ""; list.innerHTML = "";
-
-                snap.forEach(doc => {
-                    const d = doc.data();
-                    const lnk = document.createElement("a"); lnk.className = "btn-neon-service";
-                    lnk.href = `https://wa.me/${whatsappGlobal}?text=${d.msg}`; lnk.target = "_blank"; lnk.innerText = d.name;
-                    
-                    if(d.category === "servicios") sGrid.appendChild(lnk); else iGrid.appendChild(lnk);
-                    list.innerHTML += `<div class="admin-row-item"><span>[${d.category.substring(0,3)}] ${d.name}</span><button class="btn-delete-item" onclick="eliminarDocAdmin('menus','${doc.id}')">X</button></div>`;
-                });
+            db.collection("menus").onSnapshot(snap => {
+                const m1 = document.getElementById("menu-servicios");
+                const m2 = document.getElementById("menu-instala");
+                const list = document.getElementById("lista-borrar-servicios");
+                m1.innerHTML = ""; m2.innerHTML = ""; list.innerHTML = "";
+                if (!snap.empty) {
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        const a = document.createElement("a");
+                        a.href = "https://wa.me/" + telefonoGlobal + "?text=" + d.msg;
+                        a.target = "_blank"; a.className = "service-link"; a.innerText = d.name;
+                        if (d.category === "servicios") m1.appendChild(a); else m2.appendChild(a);
+                        list.innerHTML += `<div class="manager-item"><span>[${d.category==='servicios'?'Btn 1':'Btn 2'}] ${d.name}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('menus','${doc.id}')">Eliminar</button></div>`;
+                    });
+                } else {
+                    m1.innerHTML = '<p style="color:#64748b; font-size:0.8rem; padding:10px; margin:0;">Usa el panel admin</p>';
+                    m2.innerHTML = '<p style="color:#64748b; font-size:0.8rem; padding:10px; margin:0;">Usa el panel admin</p>';
+                }
             });
         }
 
-        // Lanzamiento Inicial y Temporizadores de Rotación
-        actualizarTasaRealTime(); controlDeVisitas(); sincronizacionDashboard();
+        // Ejecuciones Iniciales
+        actualizarTasa();
+        escucharConfiguracionGlobal();
+        sincronizarBaseDeDatos();
+        gestionarContadorVisitas();
         
-        setInterval(() => {
-            if(arrayTrabajos.length > 0) { idxT = (idxT + 1) % arrayTrabajos.length; document.getElementById("carousel-t-img").src = arrayTrabajos[idxT].img; document.getElementById("carousel-t-desc").innerText = arrayTrabajos[idxT].desc; }
-        }, 4000);
-        setInterval(() => {
-            if(arrayCapturas.length > 0) { idxC = (idxC + 1) % arrayCapturas.length; document.getElementById("carousel-c-img").src = arrayCapturas[idxC].img; }
-        }, 4500);
-        setInterval(() => {
-            if(arrayOpiniones.length > 0) { idxO = (idxO + 1) % arrayOpiniones.length; document.getElementById("view-r-stars").innerText = "★".repeat(arrayOpiniones[idxO].estrellas); document.getElementById("view-r-text").innerText = `"${arrayOpiniones[idxO].texto}"`; document.getElementById("view-r-author").innerText = `- ${arrayOpiniones[idxO].autor}`; }
-        }, 5000);
+        setTimeout(rotarTrabajos, 2000);
+        setTimeout(rotarCapturas, 2500);
     </script>
 </body>
 </html>
