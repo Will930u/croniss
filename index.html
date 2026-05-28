@@ -534,71 +534,98 @@
                 listaBorrar.innerHTML = "";
                 if(!snap.empty) {
                     snap.forEach(doc => {
-                        const d = doc.data();
-                        trabajosLocales.push(d);
-                        listaBorrar.innerHTML += `
-                            <div class="manager-item">
-                                <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
-                                <span style="flex:1; margin-left:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.desc}</span>
-                                <button class="btn-delete-small" onclick=\"borrarElementoFirebase('trabajos', '${doc.id}')\">Eliminar</button>
-                            </div>`;
-                    });
-                    const t = trabajosLocales[0];
-                    document.getElementById("carousel-trabajo-img").src = t.img;
-                    document.getElementById("carousel-trabajo-desc").innerText = t.desc;
-                }
-            });
-
-            // Capturas
-            db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
-                capturasLocales = [];
-                const listaBorrar = document.getElementById("lista-borrar-capturas");
-                listaBorrar.innerHTML = "";
-                if(!snap.empty) {
-                    snap.forEach(doc => {
-                        const d = doc.data();
-                        capturasLocales.push(d);
-                        listaBorrar.innerHTML += `
-                            <div class="manager-item">
-                                <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
-                                <span style="flex:1; margin-left:10px;">ID: ${doc.id.substring(0,6)}...</span>
-                                <button class="btn-delete-small" onclick=\"borrarElementoFirebase('capturas', '${doc.id}')\">Eliminar</button>
-                            </div>`;
-                    });
-                    document.getElementById("carousel-captura-img").src = capturasLocales[0].img;
-                }
-            });
-
-            // Menús / Enlaces rápidos
-            db.collection("menus").orderBy("timestamp", "desc").onSnapshot(snap => {
-                const menuServ = document.getElementById("menu-servicios");
-                const menuInst = document.getElementById("menu-instala");
-                const listaBorrarServ = document.getElementById("lista-borrar-servicios");
+                    const d = doc.data();
+                    trabajosLocales.push(d);
                 
-                document.querySelectorAll('.dynamic-service').forEach(el => el.remove());
-                listaBorrarServ.innerHTML = '';
+                    // Corrección de comillas y diseño limpio
+                    const item = document.createElement("div");
+                    item.className = "manager-item";
+                    item.innerHTML = `
+                        <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
+                        <span style="flex:1; margin-left:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.desc}</span>
+                    `;
+                
+                    const btnDel = document.createElement("button");
+                    btnDel.className = "btn-delete-small";
+                    btnDel.innerText = "Eliminar";
+                    btnDel.onclick = () => borrarElementoFirebase('trabajos', doc.id);
+                
+                    item.appendChild(btnDel);
+                    listaBorrar.appendChild(item);
+                });
+                const t = trabajosLocales[0];
+                document.getElementById("carousel-trabajo-img").src = t.img;
+                document.getElementById("carousel-trabajo-desc").innerText = t.desc;
+            }
+        });
 
-                if(!snap.empty) {
-                    snap.forEach(doc => {
-                        const d = doc.data();
-                        const nLink = document.createElement('a');
-                        nLink.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
-                        nLink.target = "_blank";
-                        nLink.className = "service-link dynamic-service";
-                        nLink.innerText = d.name;
-                        
-                        if(d.category === 'servicios') menuServ.appendChild(nLink);
-                        else menuInst.appendChild(nLink);
+        // Capturas
+        db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
+           capturasLocales = [];
+           const listaBorrar = document.getElementById("lista-borrar-capturas");
+           listaBorrar.innerHTML = "";
+           if(!snap.empty) {
+               snap.forEach(doc => {
+                   const d = doc.data();
+                   capturasLocales.push(d);
+                
+                // Corrección de comillas y diseño limpio
+                const item = document.createElement("div");
+                item.className = "manager-item";
+                item.innerHTML = `
+                    <img src="${d.img}" style="width:30px; height:30px; object-fit:cover; border-radius:4px;">
+                    <span style="flex:1; margin-left:10px;">ID: ${doc.id.substring(0,6)}...</span>
+                  `;
+                
+                const btnDel = document.createElement("button");
+                btnDel.className = "btn-delete-small";
+                btnDel.innerText = "Eliminar";
+                btnDel.onclick = () => borrarElementoFirebase('capturas', doc.id);
+                
+                item.appendChild(btnDel);
+                listaBorrar.appendChild(item);
+            });
+            document.getElementById("carousel-captura-img").src = capturasLocales[0].img;
+        }
+    });
 
-                        listaBorrarServ.innerHTML += `
-                            <div class="manager-item">
-                                <span>[${d.category === 'servicios' ? 'Btn 1' : 'Btn 2'}] ${d.name}</span>
-                                <button class="btn-delete-small" onclick="borrarElementoFirebase('menus', '${doc.id}')">Eliminar</button>
-                            </div>`;
-                    });
-                }
+    // Menús / Enlaces rápidos
+    db.collection("menus").orderBy("timestamp", "desc").onSnapshot(snap => {
+        const menuServ = document.getElementById("menu-servicios");
+        const menuInst = document.getElementById("menu-instala");
+        const listaBorrarServ = document.getElementById("lista-borrar-servicios");
+        
+        document.querySelectorAll('.dynamic-service').forEach(el => el.remove());
+        listaBorrarServ.innerHTML = '';
+
+        if(!snap.empty) {
+            snap.forEach(doc => {
+                const d = doc.data();
+                const nLink = document.createElement('a');
+                nLink.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`;
+                nLink.target = "_blank";
+                nLink.className = "service-link dynamic-service";
+                nLink.innerText = d.name;
+                
+                if(d.category === 'servicios') menuServ.appendChild(nLink);
+                else menuInst.appendChild(nLink);
+
+                // Corrección de comillas y diseño limpio
+                const item = document.createElement("div");
+                item.className = "manager-item";
+                item.innerHTML = `<span>[${d.category === 'servicios' ? 'Btn 1' : 'Btn 2'}] ${d.name}</span>`;
+                
+                const btnDel = document.createElement("button");
+                btnDel.className = "btn-delete-small";
+                btnDel.innerText = "Eliminar";
+                btnDel.onclick = () => borrarElementoFirebase('menus', doc.id);
+                
+                item.appendChild(btnDel);
+                listaBorrarServ.appendChild(item);
             });
         }
+    });
+}
 
         // Inicializar procesos de escucha
         escucharConfiguracionGlobal();
