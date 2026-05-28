@@ -537,46 +537,60 @@
         }
 
         function escucharConfiguracionGlobal() {
-            db.collection("configuracion").doc("globales").onSnapshot(doc => {
-                if (doc.exists) {
-                    const c = doc.data();
-                    
-                    // Actualizar Textos e Indexación
-                    if (c.titulo) { document.title = c.titulo; document.getElementById("main-header-title").innerText = c.titulo.toUpperCase(); }
-                    if (c.atencionTexto) document.getElementById("txt-atencion-content").innerText = c.atencionTexto;
-                    if (c.tituloTrabajos) document.getElementById("titulo-columna-trabajos").innerText = c.tituloTrabajos;
-                    if (c.tituloCapturas) document.getElementById("titulo-columna-capturas").innerText = c.tituloCapturas;
-                    
-                    // Nombres de Botones Categorías
-                    if (c.btn1Name) document.getElementById("btn-cat1-title").innerText = c.btn1Name;
-                    if (c.btn2Name) document.getElementById("btn-cat2-title").innerText = c.btn2Name;
-                    if (c.btn3Name) document.getElementById("btn-cat3-title").innerText = c.btn3Name;
-                    
-                    // Centralización de Enlaces de Comunicación con el Número Dinámico
-                    if (c.telefono) {
-                        telefonoGlobal = c.telefono;
-                        document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
-                        document.getElementById("main-tg-btn").href = "https://t.me/+" + telefonoGlobal;
-                    }
-                    if (c.facebook) document.getElementById("main-fb-link").href = c.facebook;
-                    if (c.instagram) document.getElementById("main-ig-link").href = c.instagram;
-                    
-                    // Actualizar Logo y Favicon Dinámicamente
-                    if (c.logoUrl && c.logoUrl !== "") {
-                        document.getElementById("main-logo-img").src = c.logoUrl;
-                        document.getElementById("page-favicon-tag").href = c.logoUrl;
-                    }
+    db.collection("configuracion").doc("globales").onSnapshot(doc => {
+        if (doc.exists) {
+            const c = doc.data();
+            
+            // 1. Actualizar Textos e Indexación de forma segura
+            if (c.titulo) { 
+                document.title = c.titulo; 
+                const headerTitle = document.getElementById("main-header-title");
+                if (headerTitle) headerTitle.innerText = c.titulo.toUpperCase(); 
+            }
+            if (c.atencionTexto && document.getElementById("txt-atencion-content")) {
+                document.getElementById("txt-atencion-content").innerText = c.atencionTexto;
+            }
+            if (c.tituloTrabajos && document.getElementById("titulo-columna-trabajos")) {
+                document.getElementById("titulo-columna-trabajos").innerText = c.tituloTrabajos;
+            }
+            if (c.tituloCapturas && document.getElementById("titulo-columna-capturas")) {
+                document.getElementById("titulo-columna-capturas").innerText = c.tituloCapturas;
+            }
+            
+            // 2. Nombres de Botones Categorías
+            if (c.btn1Name && document.getElementById("btn-cat1-title")) document.getElementById("btn-cat1-title").innerText = c.btn1Name;
+            if (c.btn2Name && document.getElementById("btn-cat2-title")) document.getElementById("btn-cat2-title").innerText = c.btn2Name;
+            if (c.btn3Name && document.getElementById("btn-cat3-title")) document.getElementById("btn-cat3-title").innerText = c.btn3Name;
+            
+            // 3. Centralización de Enlaces de Comunicación con el Número Dinámico
+            if (c.telefono) {
+                telefonoGlobal = c.telefono;
+                if (document.getElementById("main-wa-btn")) document.getElementById("main-wa-btn").href = "https://wa.me/" + telefonoGlobal;
+                if (document.getElementById("main-tg-btn")) document.getElementById("main-tg-btn").href = "https://t.me/+" + telefonoGlobal;
+            }
+            if (c.facebook && document.getElementById("main-fb-link")) document.getElementById("main-fb-link").href = c.facebook;
+            if (c.instagram && document.getElementById("main-ig-link")) document.getElementById("main-ig-link").href = c.instagram;
+            
+            // 4. Actualizar Logo y Favicon Dinámicamente
+            if (c.logoUrl && c.logoUrl !== "") {
+                if (document.getElementById("main-logo-img")) document.getElementById("main-logo-img").src = c.logoUrl;
+                if (document.getElementById("page-favicon-tag")) document.getElementById("page-favicon-tag").href = c.logoUrl;
+            }
 
-                    // Inyección Dinámica de Variables de Estilo CSS (Estudio de Diseño Activo)
-                    if (c.clrBgStart) document.documentElement.style.setProperty('--dark-bg-start', c.clrBgStart);
-                    if (c.clrBgEnd) document.documentElement.style.setProperty('--dark-bg-end', c.clrBgEnd);
-                    if (c.clrPanelStart) document.documentElement.style.setProperty('--panel-bg-start', c.clrPanelStart);
-                    if (c.clrPanelEnd) document.documentElement.style.setProperty('--panel-bg-end', c.clrPanelEnd);
-                    if (c.clrNeonBlue) document.documentElement.style.setProperty('--neon-blue', c.clrNeonBlue);
-                    if (c.clrNeonCyan) document.documentElement.style.setProperty('--neon-cyan', c.clrNeonCyan);
-                }
-            });
+            // 5. PROTECCIÓN ANTIFALLOS: Inyección de variables CSS con respaldo por defecto
+            if (document.documentElement) {
+                document.documentElement.style.setProperty('--dark-bg-start', c.clrBgStart || '#0b0f19');
+                document.documentElement.style.setProperty('--dark-bg-end', c.clrBgEnd || '#030712');
+                document.documentElement.style.setProperty('--panel-bg-start', c.clrPanelStart || '#111827');
+                document.documentElement.style.setProperty('--panel-bg-end', c.clrPanelEnd || '#070a12');
+                document.documentElement.style.setProperty('--neon-blue', c.clrNeonBlue || '#0077ff');
+                document.documentElement.style.setProperty('--neon-cyan', c.clrNeonCyan || '#00f3ff');
+            }
         }
+    }, err => {
+        console.error("Error en Snapshot Global: ", err);
+    });
+}
 
         async function subirImagenesMultiples() {
             const files = document.getElementById("upload-file-input");
