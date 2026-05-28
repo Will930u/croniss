@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title-tag">CRONISS</title>
+    <title id="page-title-tag">Cargando...</title>
     <link id="page-favicon-tag" rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght=600;700&family=Inter:wght=400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -14,6 +15,7 @@
             --dark-bg: #030712; 
             --panel-gradient: linear-gradient(180deg, #111827 0%, #030712 100%);
             --border-metal: rgba(99, 140, 255, 0.3);
+            --glass: rgba(17, 24, 39, 0.7);
         }
 
         body {
@@ -119,13 +121,13 @@
 </head>
 <body>
 
-    <header><h1 id="main-header-title">CRONISS</h1></header>
+    <header><h1 id="main-header-title">Cargando...</h1></header>
 
     <div class="container">
         <div class="panel">
             <div class="bcv-container">
                 <span class="bcv-label">TASA OFICIAL BCV</span>
-                <span class="bcv-value" id="bcv-rate">Bs. 0.00</span>
+                <span class="bcv-value" id="bcv-rate">Cargando...</span>
             </div>
         </div>
 
@@ -133,7 +135,7 @@
             <h2 class="panel-title">Nuestros Trabajos</h2>
             <div class="carousel">
                 <img id="carousel-trabajo-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_image.svg">
-                <div class="carousel-caption" id="carousel-trabajo-desc">Cargando...</div>
+                <div class="carousel-caption" id="carousel-trabajo-desc">No hay trabajos publicados</div>
             </div>
         </div>
 
@@ -165,8 +167,7 @@
             <div class="panel-title"><span>Consola Admin</span><button style="background:#ef4444; border:none; padding:4px 8px; color:white; border-radius:4px;" onclick="cerrarSesionAdmin()">Salir</button></div>
             
             <div style="margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
-                <h3 style="font-size:0.9rem; color:#94a3b8; margin-top:0;">Ajustes Globales y Tasa BCV</h3>
-                <input type="text" id="cfg-tasa" placeholder="Tasa del día (Ej: 41.65)" style="margin-bottom:5px;">
+                <h3 style="font-size:0.9rem; color:#94a3b8; margin-top:0;">Ajustes Globales</h3>
                 <input type="text" id="cfg-title" placeholder="Título de la Web" style="margin-bottom:5px;">
                 <input type="text" id="cfg-favicon" placeholder="URL Favicon" style="margin-bottom:5px;">
                 <input type="text" id="cfg-telefono" placeholder="WhatsApp (Ej: 584120000000)" style="margin-bottom:5px;">
@@ -224,6 +225,20 @@
         const IMGBB_API_KEY = _0x4f1b[0];
         let telefonoGlobal = "584243497259"; 
 
+        async function obtenerTasaBCV() {
+            try {
+                const res = await fetch("https://v6.exchangerate-api.com/v6/23297a73fc02f7462fa49320/latest/USD");
+                const data = await res.json();
+                if (data && data.conversion_rates && data.conversion_rates.VES) {
+                    document.getElementById("bcv-rate").innerText = `Bs. ${data.conversion_rates.VES.toFixed(2)}`;
+                } else {
+                    document.getElementById("bcv-rate").innerText = "Bs. 41.50";
+                }
+            } catch {
+                document.getElementById("bcv-rate").innerText = "Bs. 41.50";
+            }
+        }
+
         function gestionarContadorVisitas() {
             const ahora = new Date();
             const idDia = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, '0')}-${String(ahora.getDate()).padStart(2, '0')}`;
@@ -245,14 +260,12 @@
         function cerrarSesionAdmin() { auth.signOut(); }
 
         auth.onAuthStateChanged(user => {
-            const loginBox = document.getElementById("login-box");
-            const adminBox = document.getElementById("panel-admin-box");
             if (user) {
-                if(loginBox) loginBox.style.display = "none";
-                if(adminBox) adminBox.style.display = "block";
+                document.getElementById("login-box").style.display = "none";
+                document.getElementById("panel-admin-box").style.display = "block";
             } else {
-                if(adminBox) adminBox.style.display = "none";
-                if(loginBox) loginBox.style.display = "block";
+                document.getElementById("panel-admin-box").style.display = "none";
+                document.getElementById("login-box").style.display = "block";
             }
         });
 
@@ -299,18 +312,9 @@
                     if(d.favicon) document.getElementById("page-favicon-tag").href = d.favicon;
                     if(d.telefono) telefonoGlobal = d.telefono;
                     
-                    // Render de Tasa Manual desde Firebase
-                    if(d.tasa) {
-                        document.getElementById('bcv-rate').innerText = `Bs. ${parseFloat(d.tasa).toFixed(2)}`;
-                    } else {
-                        document.getElementById('bcv-rate').innerText = "Bs. 41.50";
-                    }
-
-                    // Rellenado seguro de inputs en consola admin si existen en el DOM
-                    if(document.getElementById("cfg-title")) document.getElementById("cfg-title").value = d.title || "";
-                    if(document.getElementById("cfg-favicon")) document.getElementById("cfg-favicon").value = d.favicon || "";
-                    if(document.getElementById("cfg-telefono")) document.getElementById("cfg-telefono").value = d.telefono || "";
-                    if(document.getElementById("cfg-tasa")) document.getElementById("cfg-tasa").value = d.tasa || "";
+                    document.getElementById("cfg-title").value = d.title || "";
+                    document.getElementById("cfg-favicon").value = d.favicon || "";
+                    document.getElementById("cfg-telefono").value = d.telefono || "";
                 }
             });
         }
@@ -319,22 +323,17 @@
             const t = document.getElementById("cfg-title").value.trim();
             const f = document.getElementById("cfg-favicon").value.trim();
             const p = document.getElementById("cfg-telefono").value.trim();
-            const ts = document.getElementById("cfg-tasa").value.trim();
-            const up = {}; 
-            if(t) up.title = t; 
-            if(f) up.favicon = f; 
-            if(p) up.telefono = p;
-            if(ts) up.tasa = ts;
+            const up = {}; if(t) up.title = t; if(f) up.favicon = f; if(p) up.telefono = p;
             if(Object.keys(up).length > 0) db.collection("config").doc("global").set(up, {merge:true}).then(() => alert("Ajustes guardados"));
         }
 
         function sincronizarBaseDeDatos() {
             db.collection("trabajos").orderBy("timestamp", "desc").onSnapshot(snap => {
                 trabajosLocales = [];
-                const list = document.getElementById("lista-borrar-trabajos"); if(list) list.innerHTML = "";
+                const list = document.getElementById("lista-borrar-trabajos"); list.innerHTML = "";
                 snap.forEach(doc => {
                     const d = doc.data(); trabajosLocales.push(d);
-                    if(list) list.innerHTML += `<div class="manager-item"><span>${d.desc}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('trabajos','${doc.id}')">Eliminar</button></div>`;
+                    list.innerHTML += `<div class="manager-item"><span>${d.desc}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('trabajos','${doc.id}')">Eliminar</button></div>`;
                 });
                 if(trabajosLocales.length > 0) {
                     document.getElementById("carousel-trabajo-img").src = trabajosLocales[0].img;
@@ -344,10 +343,10 @@
 
             db.collection("capturas").orderBy("timestamp", "desc").onSnapshot(snap => {
                 capturasLocales = [];
-                const list = document.getElementById("lista-borrar-capturas"); if(list) list.innerHTML = "";
+                const list = document.getElementById("lista-borrar-capturas"); list.innerHTML = "";
                 snap.forEach(doc => {
                     const d = doc.data(); capturasLocales.push(d);
-                    if(list) list.innerHTML += `<div class="manager-item"><span>ID: ${doc.id.substring(0,5)}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
+                    list.innerHTML += `<div class="manager-item"><span>ID: ${doc.id.substring(0,5)}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('capturas','${doc.id}')">Eliminar</button></div>`;
                 });
                 if(capturasLocales.length > 0) document.getElementById("carousel-captura-img").src = capturasLocales[0].img;
             });
@@ -356,18 +355,26 @@
                 const m1 = document.getElementById("menu-servicios");
                 const m2 = document.getElementById("menu-instala");
                 const list = document.getElementById("lista-borrar-servicios");
-                if(m1) m1.innerHTML = ""; if(m2) m2.innerHTML = ""; if(list) list.innerHTML = "";
-                snap.forEach(doc => {
-                    const d = doc.data();
-                    const a = document.createElement("a"); a.className = "service-link";
-                    a.href = `https://wa.me/${telefonoGlobal}?text=${d.msg}`; a.target = "_blank"; a.innerText = d.name;
-                    if(d.category === "servicios" && m1) m1.appendChild(a); else if(m2) m2.appendChild(a);
-                    if(list) list.innerHTML += `<div class="manager-item"><span>${d.name}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('menus','${doc.id}')">Eliminar</button></div>`;
-                });
+                m1.innerHTML = ""; m2.innerHTML = ""; list.innerHTML = "";
+                if (!snap.empty) {
+                    snap.forEach(doc => {
+                        const d = doc.data();
+                        const a = document.createElement("a");
+                        a.href = "https://wa.me/" + telefonoGlobal + "?text=" + d.msg;
+                        a.target = "_blank";
+                        a.className = "service-link";
+                        a.innerText = d.name;
+                        if (d.category === "servicios") m1.appendChild(a); else m2.appendChild(a);
+                        list.innerHTML += `<div class="manager-item"><span>[${d.category==='servicios'?'Btn 1':'Btn 2'}] ${d.name}</span><button class="btn-delete-small" onclick="borrarElementoFirebase('menus','${doc.id}')">Eliminar</button></div>`;
+                    });
+                } else {
+                    m1.innerHTML = '<p style=\"color:#64748b; font-size:0.8rem; padding:10px; margin:0;\">Usa el panel admin</p>';
+                    m2.innerHTML = '<p style=\"color:#64748b; font-size:0.8rem; padding:10px; margin:0;\">Usa el panel admin</p>';
+                }
             });
         }
 
-        escucharConfiguracionGlobal(); sincronizarBaseDeDatos(); gestionarContadorVisitas();
+        obtenerTasaBCV(); escucharConfiguracionGlobal(); sincronizarBaseDeDatos(); gestionarContadorVisitas();
         setInterval(() => {
             if(trabajosLocales.length > 0) { indexT = (indexT + 1) % trabajosLocales.length; document.getElementById("carousel-trabajo-img").src = trabajosLocales[indexT].img; document.getElementById("carousel-trabajo-desc").innerText = trabajosLocales[indexT].desc; }
         }, 4000);
